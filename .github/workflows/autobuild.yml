@@ -11,9 +11,9 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Install MSYS2
-      uses: msys2/setup-msys2@v2
+      uses: msys2/setup-msys2@v4
       with:
         msystem: MINGW64
         update: true
@@ -27,7 +27,7 @@ jobs:
       shell: msys2 {0}
       working-directory: ${{ github.workspace }}
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-windows
         path: noods.exe
@@ -39,13 +39,13 @@ jobs:
     - name: Install wxWidgets and PortAudio
       run: brew install wxmac portaudio
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: |
         make -j$(sysctl -n hw.logicalcpu)
         ./mac-bundle.sh --dmg
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-mac
         path: NooDS.dmg
@@ -61,13 +61,13 @@ jobs:
         sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         sudo flatpak install flathub org.freedesktop.Platform//21.08 org.freedesktop.Sdk//21.08 -y
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: |
         git config --global protocol.file.allow always
         make flatpak
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-linux
         path: noods.flatpak
@@ -77,7 +77,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: |
         ./gradlew assembleRelease
@@ -87,7 +87,7 @@ jobs:
       env:
         KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-android
         path: noods.apk
@@ -98,11 +98,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: make switch -j$(nproc)
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-switch
         path: noods.nro
@@ -113,14 +113,14 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: |
         make wiiu -j$(nproc)
         mv icon/icon-wiiu.png icon.png
         mv icon/meta.xml meta.xml
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-wiiu
         path: |
@@ -134,14 +134,14 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: |
         make wii -j$(nproc)
         mv icon/icon-wiiu.png icon.png
         mv icon/meta.xml meta.xml
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-wii
         path: |
@@ -155,11 +155,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     - name: Compile
       run: make vita -j$(nproc)
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: noods-vita
         path: noods.vpk
@@ -177,11 +177,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Get artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
     - name: Package artifacts
       run: for i in ./*; do zip -r -j ${i}.zip $i; done
     - name: Create new release
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@v4
       with:
         name: Rolling Release
         body: These are automatically updated builds of the latest commit.
