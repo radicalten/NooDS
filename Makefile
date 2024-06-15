@@ -97,6 +97,9 @@ switch:
 wiiu:
 	$(MAKE) -f Makefile.wiiu
 
+wii:
+	$(MAKE) -f Makefile.wii
+
 vita:
 	$(MAKE) -f Makefile.vita
 
