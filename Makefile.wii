@@ -54,11 +54,11 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-# CFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.c)))
+CFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.cpp)))
-# sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
-# SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
-# BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
+sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
+BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 BMPFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bmp)))
 # GSHFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gsh)))
 
