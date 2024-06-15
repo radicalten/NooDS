@@ -84,31 +84,17 @@ export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o)
 
 # export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
-#---------------------------------------------------------------------------------
-# build a list of include paths
-#---------------------------------------------------------------------------------
-export INCLUDE	:=	$(foreach dir,$(INCS), -iquote $(CURDIR)/$(dir)) \
-					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
-					-I$(CURDIR)/$(BUILD) \
-					-I$(LIBOGC_INC)
-
-#---------------------------------------------------------------------------------
-# build a list of library paths
-#---------------------------------------------------------------------------------
-export LIBPATHS	:= -L$(LIBOGC_LIB) $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
-
-export OUTPUT	:=	$(CURDIR)/$(NAME)
-.PHONY: $(BUILD) clean
+.PHONY: $(BUILD) 
+all: $(BUILD)
 
 #---------------------------------------------------------------------------------
 $(BUILD):
-	@[ -d $@ ] || mkdir -p $@
+	mkdir -p $@
 	@$(MAKE) -C $(BUILD) -f $(CURDIR)/Makefile.wii
 
 #---------------------------------------------------------------------------------
 clean:
-	@echo clean ...
-	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
+	rm -rf $(BUILD) $(NAME).elf $(NAME).dol
 
 #---------------------------------------------------------------------------------
 else
@@ -124,7 +110,7 @@ $(OUTPUT).elf: $(OFILES)
 	@echo $(notdir $<)
 	@$(bin2o)
 
-DEPENDS	:=	$(OFILES:.o=.d)
+DEPENDS	:= $(OFILES:.o=.d)
 -include $(DEPENDS)
 
 #---------------------------------------------------------------------------------
