@@ -54,13 +54,13 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-CFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.c)))
+# CFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.cpp)))
-sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
-SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
-BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
+# sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
+# SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
+# BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 BMPFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bmp)))
-GSHFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gsh)))
+# GSHFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gsh)))
 
 
 #---------------------------------------------------------------------------------
@@ -76,13 +76,13 @@ export DEPSDIR := $(CURDIR)/$(BUILD)
 export LIBPATHS := $(foreach dir,$(INCS),-L$(dir)/lib)
 export VPATH := $(foreach dir,$(SRCS),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export INCLUDE := $(foreach dir,$(SRCS),-I$(CURDIR)/$(dir)) $(foreach dir,$(INCS),-I$(dir)/include)
-export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o) $(addsuffix .o,$(GSHFILES))
+export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o)
 
-export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
-export OFILES_SRCS := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
-export OFILES := $(OFILES_BIN) $(OFILES_SRCS)
+# export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
+# export OFILES_SRCS := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
+# export OFILES := $(OFILES_BIN) $(OFILES_SRCS)
 
-export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
+# export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
