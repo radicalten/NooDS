@@ -59,6 +59,9 @@ CPPFILES	:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
+BMPFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bmp)))
+GSHFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gsh)))
+export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o) $(addsuffix .o,$(GSHFILES))
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
