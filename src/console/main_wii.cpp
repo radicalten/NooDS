@@ -10,9 +10,10 @@ static GXRModeObj *rmode = NULL;
 
 //test
 
-//---------------------------------------------------------------------------------
-int main(int argc, char **argv) {
-//---------------------------------------------------------------------------------
+
+int main() 
+{
+
 
 	// Initialise the video system
 	VIDEO_Init();
