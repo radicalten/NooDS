@@ -21,7 +21,7 @@ INCS	:= include
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS	= -g -Ofast -flto $(MACHDEP) $(INCLUDE) -D__WIIU__
+CFLAGS	= -g -Ofast -flto $(MACHDEP) $(INCLUDE) -D__WII__
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
