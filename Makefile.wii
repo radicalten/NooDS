@@ -15,7 +15,7 @@ NAME		:=	noods
 BUILD		:=	build-wii
 SRCS		:=	src src/common src/console
 DATA		:=	src/console/images
-INCS	:= $(PORTLIBS)
+INCS	:= include
 
 #---------------------------------------------------------------------------------
 # options for code generation
