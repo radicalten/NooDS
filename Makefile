@@ -107,6 +107,7 @@ clean:
 	if [ -d "build-android" ]; then ./gradlew clean; fi
 	if [ -d "build-switch" ]; then $(MAKE) -f Makefile.switch clean; fi
 	if [ -d "build-wiiu" ]; then $(MAKE) -f Makefile.wiiu clean; fi
+	if [ -d "build-wii" ]; then $(MAKE) -f Makefile.wii clean; fi
 	if [ -d "build-vita" ]; then $(MAKE) -f Makefile.vita clean; fi
 	rm -rf $(BUILD)
 	rm -f $(NAME)
