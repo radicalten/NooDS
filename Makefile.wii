@@ -73,7 +73,8 @@ else
 endif
 
 export DEPSDIR := $(CURDIR)/$(BUILD)
-export LIBPATHS := $(foreach dir,$(INCS),-L$(dir)/lib)
+export LIBPATHS	:= -L$(LIBOGC_LIB) $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
+# export LIBPATHS := $(foreach dir,$(INCS),-L$(dir)/lib)
 export VPATH := $(foreach dir,$(SRCS),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
 
 export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
