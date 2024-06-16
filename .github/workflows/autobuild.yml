@@ -117,7 +117,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Compile
       run: |
-        make wii -j$(nproc)
+        make -f Makefile.wii -j$(nproc)
         mv icon/icon-wiiu.png icon.png
         mv icon/meta.xml meta.xml
     - name: Upload
