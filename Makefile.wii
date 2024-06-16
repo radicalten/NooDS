@@ -8,12 +8,12 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 # NAME is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
-# SRCS is a list of directories containing source code
+# SOURCES is a list of directories containing source code
 # INCS is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
 NAME		:=	noods
 BUILD		:=	build-wii
-SRCS		:=	src src/common src/console
+SOURCES		:=	src src/common src/console
 DATA		:=	src/console/images
 INCS	:= $(PORTLIBS)
 
@@ -47,7 +47,7 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 
 export OUTPUT	:=	$(CURDIR)/$(NAME) 
 
-export VPATH	:=	$(foreach dir,$(SRCS),$(CURDIR)/$(dir)) \
+export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
@@ -55,10 +55,10 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-CFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.c)))
-CPPFILES	:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.cpp)))
-sFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.s)))
-SFILES		:=	$(foreach dir,$(SRCS),$(notdir $(wildcard $(dir)/*.S)))
+CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 BMPFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bmp)))
 # GSHFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gsh)))
@@ -76,19 +76,19 @@ endif
 export DEPSDIR := $(CURDIR)/$(BUILD)
 export LIBPATHS	:= -L$(LIBOGC_LIB) $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 # export LIBPATHS := $(foreach dir,$(INCS),-L$(dir)/lib)
-export VPATH := $(foreach dir,$(SRCS),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export VPATH := $(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
 
 export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
 					-I$(CURDIR)/$(BUILD) \
 					-I$(LIBOGC_INC)
 
-# export INCLUDE := $(foreach dir,$(SRCS),-I$(CURDIR)/$(dir)) $(foreach dir,$(INCS),-I$(dir)/include)
+# export INCLUDE := $(foreach dir,$(SOURCES),-I$(CURDIR)/$(dir)) $(foreach dir,$(INCS),-I$(dir)/include)
 export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o)
 
 # export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
-# export OFILES_SRCS := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
-# export OFILES := $(OFILES_BIN) $(OFILES_SRCS)
+# export OFILES_SOURCES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
+# export OFILES := $(OFILES_BIN) $(OFILES_SOURCES)
 
 # export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
