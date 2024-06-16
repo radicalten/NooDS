@@ -85,7 +85,9 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 					-I$(LIBOGC_INC)
 
 # export INCLUDE := $(foreach dir,$(SOURCES),-I$(CURDIR)/$(dir)) $(foreach dir,$(INCS),-I$(dir)/include)
-export OFILES := $(CPPFILES:.cpp=.o) $(BMPFILES:.bmp=.o)
+export OFILES := $(addsuffix .o,$(BINFILES)) \
+					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
+					$(sFILES:.s=.o) $(SFILES:.S=.o)
 
 # export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
 # export OFILES_SOURCES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
