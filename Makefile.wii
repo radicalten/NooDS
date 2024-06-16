@@ -6,12 +6,12 @@ endif
 include $(DEVKITPPC)/wii_rules
 
 #---------------------------------------------------------------------------------
-# NAME is the name of the output
+# TARGET is the TARGET of the output
 # BUILD is the directory where object files & intermediate files will be placed
 # SOURCES is a list of directories containing source code
 # INCS is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-NAME		:=	noods
+TARGET		:=	noods
 BUILD		:=	build-wii
 SOURCES		:=	src src/common src/console
 DATA		:=	src/console/images
@@ -45,7 +45,7 @@ LIBDIRS	:=
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
 
-export OUTPUT	:=	$(CURDIR)/$(NAME) 
+export OUTPUT	:=	$(CURDIR)/$(TARGET) 
 
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
@@ -102,7 +102,7 @@ $(BUILD):
 
 #---------------------------------------------------------------------------------
 clean:
-	rm -rf $(BUILD) $(NAME).elf $(NAME).dol
+	rm -rf $(BUILD) $(TARGET).elf $(TARGET).dol
 
 #---------------------------------------------------------------------------------
 else
