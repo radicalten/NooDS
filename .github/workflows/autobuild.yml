@@ -118,15 +118,11 @@ jobs:
     - name: Compile
       run: |
         make -f Makefile.wii -j$(nproc)
-        mv icon/icon-wiiu.png icon.png
-        mv icon/meta.xml meta.xml
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
         name: noods-wii
         path: |
-          icon.png
-          meta.xml
           bin/
 
   build-vita:
