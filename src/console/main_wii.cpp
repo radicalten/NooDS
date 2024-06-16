@@ -1,4 +1,4 @@
-#ifdef __WII__
+#ifdef __wii__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,4 +80,4 @@ int main()
 	return 0;
 }
 
-#endif // __WII__
+#endif // __wii__
