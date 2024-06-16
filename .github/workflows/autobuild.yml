@@ -123,7 +123,7 @@ jobs:
       with:
         name: noods-wii
         path: |
-          bin/
+          etc/
 
   build-vita:
     runs-on: ubuntu-latest
