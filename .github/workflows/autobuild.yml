@@ -127,7 +127,7 @@ jobs:
         path: |
           icon.png
           meta.xml
-          noods.dol
+          bin/
 
   build-vita:
     runs-on: ubuntu-latest
