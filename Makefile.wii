@@ -15,7 +15,7 @@ TARGET		:=	noods
 BUILD		:=	build-wii
 SOURCES		:=	src src/common src/console
 DATA		:=	src/console/images
-INCS	:= $(PORTLIBS)
+INCLUDES	:= $(PORTLIBS)
 
 #---------------------------------------------------------------------------------
 # options for code generation
