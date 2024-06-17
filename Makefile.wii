@@ -75,7 +75,7 @@ endif
 
 export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
 export OFILES_SOURCES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
-export OFILES := $(OFILES_BIN) $(OFILES_SOURCES) $(BMPFILES:.bmp=.o)
+export OFILES := $(OFILES_BIN) $(OFILES_SOURCES)
 
 export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
@@ -127,6 +127,10 @@ $(OFILES_SOURCES) : $(HFILES)
 # This rule links in binary data with the .jpg extension
 #---------------------------------------------------------------------------------
 %.jpg.o	%_jpg.h :	%.jpg
+
+%.o: %.bmp
+	@echo $(notdir $<)
+	@cd ..; $(PREFIX)ld -r -b binary -o $(BUILD)/$@ src/console/images/$*.bmp
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	$(bin2o)
