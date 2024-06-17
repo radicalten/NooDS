@@ -52,7 +52,11 @@ int main() {
 
 
 	printf("Hello World!\n");
-	
+
+
+//static void initialize(int width, int height, std::string root, std::string prefix);
+//static void mainLoop(MenuTouch (*specialTouch)() = nullptr, ScreenLayout *touchLayout = nullptr);
+
 	ConsoleUI::initialize(640, 480, base, base + "/wiiu/apps/noods/")
 	ConsoleUI::fileBrowser();
 
