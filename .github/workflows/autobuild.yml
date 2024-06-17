@@ -70,7 +70,6 @@ jobs:
       uses: actions/checkout@v4
     - name: Compile
       run: |
-        cd src
         make -f Makefile.wii -j$(nproc)
     - name: Upload
       uses: actions/upload-artifact@v4
