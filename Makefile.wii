@@ -27,7 +27,9 @@ INCLUDES	:=
 #---------------------------------------------------------------------------------
 
 CFLAGS	= -g -Ofast -flto $(MACHDEP) $(INCLUDE)
-CXXFLAGS	=	$(CFLAGS)
+CXXFLAGS = -g -Ofast -flto-I$DEVKITPRO/libogc/include" \
+        ./configure --host powerpc-eabi \
+            --datadir=/apps/
 
 LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
