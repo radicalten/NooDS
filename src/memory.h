@@ -166,7 +166,7 @@ template <typename T> FORCE_INLINE void Memory::write(bool arm7, uint32_t addres
     }
 
     // Handle special write cases that can't be mapped
-    return writeFallback<T>(arm7, address, value);
+ //   return writeFallback<T>(arm7, address, value);
 }
 
 #endif // MEMORY_H
