@@ -17,8 +17,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-IGNORE 		:=      console_ui.cpp console_ui.h main_switch.cpp main_vita.cpp main_wiiu.cpp
-SOURCES		:=	$(filter-out $(IGNORE), src src/common src/console)
+SOURCES		:=	main_wii.c
 DATA		:=	
 INCLUDES	:=
 
