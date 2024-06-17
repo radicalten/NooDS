@@ -63,6 +63,7 @@ CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
+BMPFILES := $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bmp)))
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
@@ -75,7 +76,7 @@ endif
 
 export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
 export OFILES_SOURCES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
-export OFILES := $(OFILES_BIN) $(OFILES_SOURCES) $(BMPFILES:.bmp=.o)
+export OFILES := $(OFILES_BIN) $(OFILES_SOURCES) 
 
 export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
@@ -128,9 +129,6 @@ $(OFILES_SOURCES) : $(HFILES)
 #---------------------------------------------------------------------------------
 %.jpg.o	%_jpg.h :	%.jpg
 
-%.o: %.bmp
-	@echo $(notdir $<)
-	@cd ..; $(PREFIX)ld -r -b binary -o $(BUILD)/$@ src/console/images/$*.bmp
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	$(bin2o)
