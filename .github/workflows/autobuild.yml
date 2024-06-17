@@ -6,7 +6,7 @@ on:
     - master
 
 jobs:
-list-files-and-directories:
+  list-files-and-directories:
     runs-on: ubuntu-latest
     steps:
       - name: List all files and directories
