@@ -13,6 +13,7 @@ static GXRModeObj *rmode = NULL;
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 void *texture = createTexture(data, width, height);
+drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
 
 void *ConsoleUI::bmpToTexture(uint8_t *bmp)
 {
