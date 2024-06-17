@@ -5,9 +5,6 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
-#include "console_ui.h"
-#include "../settings.h"
-
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
