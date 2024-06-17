@@ -25,8 +25,8 @@
 #include <vector>
 
 #include "screen_layout.h"
-#include "../core.h"
-#include "../defines.h"
+#include "core.h"
+#include "defines.h"
 
 enum MenuInputs
 {
