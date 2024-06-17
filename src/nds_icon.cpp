@@ -20,7 +20,7 @@
 #include <cstring>
 
 #include "nds_icon.h"
-#include "../defines.h"
+#include "defines.h"
 
 NdsIcon::NdsIcon(std::string path, int fd)
 {
