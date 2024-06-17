@@ -13,7 +13,7 @@ static GXRModeObj *rmode = NULL;
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 
-	void *ConsoleUI::bmpToTexture(uint8_t *bmp)
+	void *bmpToTexture(uint8_t *bmp)
 {
     // Allocate data based on bitmap measurements
     int width = U8TO32(bmp, 0x12);
