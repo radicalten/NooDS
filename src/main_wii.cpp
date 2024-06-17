@@ -5,6 +5,7 @@
 
 #include "console_ui.h"
 
+uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
 ScreenLayout ConsoleUI::layout;
 
 static void *xfb = NULL;
