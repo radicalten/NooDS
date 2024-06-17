@@ -5,6 +5,8 @@
 
 #include "console_ui.h"
 
+ScreenLayout ConsoleUI::layout;
+
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
