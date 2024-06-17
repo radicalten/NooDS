@@ -36,6 +36,14 @@ void *ConsoleUI::bmpToTexture(uint8_t *bmp)
     return texture;
 }
 
+void drawRectangle(float x, float y, float w, float h, uint32_t color)
+{
+    // Draw a rectangle using a blank texture
+    static uint32_t data = 0xFFFFFFFF;
+    static void *texture = createTexture(&data, 1, 1);
+    drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
+}
+
 
 //---------------------------------------------------------------------------------
 int main() {
