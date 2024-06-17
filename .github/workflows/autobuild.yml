@@ -6,12 +6,6 @@ on:
     - master
 
 jobs:
-  list-files-and-directories:
-    runs-on: ubuntu-latest
-    steps:
-      - name: List all files and directories
-        run: ls -l
-
   build-wii:
     runs-on: ubuntu-latest
     container: devkitpro/devkitppc:latest
@@ -27,4 +21,4 @@ jobs:
       with:
         name: noods-wii
         path: |
-          */
+          .
