@@ -20,6 +20,7 @@ int x = 0;
 int y = 0;
 int w = 0;
 int h = 0;
+bmp = wxBitmap(img);
 uint32_t *data = new uint32_t[width * height];
 void *texture = createTexture(data, width, height);
 drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
