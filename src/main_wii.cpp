@@ -4,6 +4,7 @@
 #include <wiiuse/wpad.h>
 
 #include "console_ui.h"
+#include "settings.h"
 
 uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
 ScreenLayout ConsoleUI::layout;
