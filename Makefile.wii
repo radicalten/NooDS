@@ -17,7 +17,7 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	src src/common src/console
+SOURCES		:=	src/console
 DATA		:=	src/console/images
 INCLUDES	:=
 
@@ -128,10 +128,6 @@ $(OFILES_SOURCES) : $(HFILES)
 # This rule links in binary data with the .jpg extension
 #---------------------------------------------------------------------------------
 %.jpg.o	%_jpg.h :	%.jpg
-
-%.o: %.bmp
-	@echo $(notdir $<)
-	@cd ..; $(PREFIX)ld -r -b binary -o $(BUILD)/$@ src/console/images/$*.bmp
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	$(bin2o)
