@@ -18,7 +18,7 @@
 */
 
 #include "screen_layout.h"
-#include "../settings.h"
+#include "settings.h"
 
 int ScreenLayout::screenPosition    = 0;
 int ScreenLayout::screenRotation    = 0;
