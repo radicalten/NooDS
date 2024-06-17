@@ -57,7 +57,7 @@ int main() {
 //static void initialize(int width, int height, std::string root, std::string prefix);
 //static void mainLoop(MenuTouch (*specialTouch)() = nullptr, ScreenLayout *touchLayout = nullptr);
 
-	ConsoleUI::initialize(640, 480, base, base + "/wiiu/apps/noods/")
+	ConsoleUI::initialize(640, 480, "sdmc:/", "sdmc:/wii/noods/");
 	ConsoleUI::fileBrowser();
 
 	while(1) {
