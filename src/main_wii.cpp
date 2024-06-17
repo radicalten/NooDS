@@ -13,7 +13,7 @@ static GXRModeObj *rmode = NULL;
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 
-	void *bmpToTexture(uint8_t *bmp)
+void *ConsoleUI::bmpToTexture(uint8_t *bmp)
 {
     // Allocate data based on bitmap measurements
     int width = U8TO32(bmp, 0x12);
@@ -28,11 +28,13 @@ ScreenLayout layout;
             uint8_t *color = &bmp[0x46 + (((height - y - 1) * width + x) << 2)];
             data[y * width + x] = (color[3] << 24) | (color[0] << 16) | (color[1] << 8) | color[2];
         }
+    }
 
     // Create a texture from the data
     void *texture = createTexture(data, width, height);
     delete[] data;
     return texture;
+}
 
 
 //---------------------------------------------------------------------------------
