@@ -23,8 +23,8 @@
 #include <sys/stat.h>
 
 #include "console_ui.h"
-#include "../common/nds_icon.h"
-#include "../settings.h"
+#include "nds_icon.h"
+#include "settings.h"
 
 #define SCALEH(x, h) (((x) * (h)) / 720)
 #define SCALE(x) SCALEH(x, uiHeight)
