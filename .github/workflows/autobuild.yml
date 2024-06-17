@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Compile
       run: |
-        make -j$(sysctl -n hw.logicalcpu)
+        make -f Makefile.mac -j$(sysctl -n hw.logicalcpu)
         ./mac-bundle.sh --dmg
     - name: Upload
       uses: actions/upload-artifact@v4
@@ -33,7 +33,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Compile
-      run: make switch -j$(nproc)
+      run: make -f Makefile.switch -j$(nproc)
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
@@ -49,7 +49,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Compile
       run: |
-        make wiiu -j$(nproc)
+        make -f Makefile.wiiu -j$(nproc)
         mv icon/icon-wiiu.png icon.png
         mv icon/meta.xml meta.xml
     - name: Upload
