@@ -74,6 +74,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: noods-wii
         path: |
           build-wii/
