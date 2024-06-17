@@ -20,6 +20,7 @@ int x = 0;
 int y = 0;
 int w = 0;
 int h = 0;
+wxImage img = bmp.ConvertToImage();
 bmp = wxBitmap(img);
 uint32_t *data = new uint32_t[width * height];
 void *texture = createTexture(data, width, height);
