@@ -57,7 +57,9 @@ jobs:
       with:
         name: noods-wiiu
         path: |
-          */
+          icon.png
+          meta.xml
+          noods.rpx
 
   build-wii:
     runs-on: ubuntu-latest
