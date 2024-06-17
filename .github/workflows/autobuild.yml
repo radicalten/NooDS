@@ -76,4 +76,4 @@ jobs:
       with:
         name: noods-wii
         path: |
-          */
+          build-wii/
