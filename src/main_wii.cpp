@@ -6,13 +6,19 @@
 #include "console_ui.h"
 #include "settings.h"
 
-uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
-ScreenLayout ConsoleUI::layout;
-
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
-void *ConsoleUI::bmpToTexture(uint8_t *bmp)
+
+
+//---------------------------------------------------------------------------------
+int main() {
+//---------------------------------------------------------------------------------
+
+uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
+ScreenLayout ConsoleUI::layout;
+
+	void *ConsoleUI::bmpToTexture(uint8_t *bmp)
 {
     // Allocate data based on bitmap measurements
     int width = U8TO32(bmp, 0x12);
@@ -34,11 +40,7 @@ void *ConsoleUI::bmpToTexture(uint8_t *bmp)
     delete[] data;
     return texture;
 }
-
-//---------------------------------------------------------------------------------
-int main() {
-//---------------------------------------------------------------------------------
-
+	
 	// Initialise the video system
 	VIDEO_Init();
 
