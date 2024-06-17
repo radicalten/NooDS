@@ -29,11 +29,11 @@
 #define SCALEH(x, h) (((x) * (h)) / 720)
 #define SCALE(x) SCALEH(x, uiHeight)
 
-extern uint8_t _binary_src_file_dark_bmp_start;
-extern uint8_t _binary_src_file_light_bmp_start;
-extern uint8_t _binary_src_folder_dark_bmp_start;
-extern uint8_t _binary_src_folder_light_bmp_start;
-extern uint8_t _binary_src_font_bmp_start;
+//extern uint8_t _binary_src_file_dark_bmp_start;
+//extern uint8_t _binary_src_file_light_bmp_start;
+//extern uint8_t _binary_src_folder_dark_bmp_start;
+//extern uint8_t _binary_src_folder_light_bmp_start;
+//extern uint8_t _binary_src_font_bmp_start;
 
 void *ConsoleUI::fileTextures[2];
 void *ConsoleUI::folderTextures[2];
@@ -172,11 +172,11 @@ int ConsoleUI::stringWidth(std::string &string)
 void ConsoleUI::initialize(int width, int height, std::string root, std::string prefix)
 {
     // Initialize bitmap textures
-    fileTextures[0] = bmpToTexture(&_binary_src_file_dark_bmp_start);
-    fileTextures[1] = bmpToTexture(&_binary_src_file_light_bmp_start);
-    folderTextures[0] = bmpToTexture(&_binary_src_folder_dark_bmp_start);
-    folderTextures[1] = bmpToTexture(&_binary_src_folder_light_bmp_start);
-    fontTexture = bmpToTexture(&_binary_src_font_bmp_start);
+   //fileTextures[0] = bmpToTexture(&_binary_src_file_dark_bmp_start);
+   //fileTextures[1] = bmpToTexture(&_binary_src_file_light_bmp_start);
+   //folderTextures[0] = bmpToTexture(&_binary_src_folder_dark_bmp_start);
+   //folderTextures[1] = bmpToTexture(&_binary_src_folder_light_bmp_start);
+   //fontTexture = bmpToTexture(&_binary_src_font_bmp_start);
 
     // Create the settings folder if it doesn't exist
     mkdir(prefix.c_str(), 0777);
