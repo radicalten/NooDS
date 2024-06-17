@@ -60,7 +60,8 @@ int main() {
 
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
-
+	bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
+	
 	// Draw the DS top screen
 	topTexture = createTexture(&framebuffer[0], 256 << shift, 192 << shift);
                 drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
