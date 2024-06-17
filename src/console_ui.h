@@ -24,7 +24,7 @@
 #include <string>
 #include <vector>
 
-#include "../common/screen_layout.h"
+#include "screen_layout.h"
 #include "../core.h"
 #include "../defines.h"
 
