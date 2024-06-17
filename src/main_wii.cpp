@@ -10,8 +10,8 @@ static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
 
-uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
-ScreenLayout ConsoleUI::layout;
+uint32_t framebuffer[256 * 192 * 8];
+ScreenLayout layout;
 
 	void *ConsoleUI::bmpToTexture(uint8_t *bmp)
 {
