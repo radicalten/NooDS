@@ -8,10 +8,8 @@
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
-//test
 
-
-int main() 
+int main(int argc, char **argv) {
 {
 
 
