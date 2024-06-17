@@ -21,4 +21,4 @@ jobs:
       with:
         name: noods-wii
         path: |
-          ../*.dol
+          ~/
