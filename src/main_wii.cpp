@@ -52,6 +52,9 @@ int main() {
 
 
 	printf("Hello World!\n");
+	
+	ConsoleUI::initialize(640, 480, base, base + "/wiiu/apps/noods/")
+	ConsoleUI::fileBrowser();
 
 	while(1) {
 
