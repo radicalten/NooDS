@@ -1,3 +1,5 @@
+#ifdef __wii__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <gccore.h>
@@ -72,3 +74,5 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+
+#endif // __wii__
