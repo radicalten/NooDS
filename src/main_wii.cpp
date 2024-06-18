@@ -15,7 +15,7 @@ static GXRModeObj *rmode = NULL;
 
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
-void *bmp = NULL;
+int *bmp = nullptr;
 int width = U8TO32(bmp, 0x12);
 int height = U8TO32(bmp, 0x16);
 int x = 0;
