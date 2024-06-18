@@ -11,17 +11,19 @@
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
+// potential bmp on wii https://github.com/bastiro03/WiiBrowser-Lite/blob/5484d0bfadfd280a1f105cbdc3ac9ce9e59a4c34/mplayer/ffmpeg/libavcodec/bmp.c
 
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
+int bmp = 0;
 int width = U8TO32(bmp, 0x12);
 int height = U8TO32(bmp, 0x16);
 int x = 0;
 int y = 0;
 int w = 0;
 int h = 0;
-wxImage img = bmp.ConvertToImage();
-bmp = wxBitmap(img);
+// wxImage img = bmp.ConvertToImage();
+// bmp = wxBitmap(img);
 uint32_t *data = new uint32_t[width * height];
 void *texture = createTexture(data, width, height);
 drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
