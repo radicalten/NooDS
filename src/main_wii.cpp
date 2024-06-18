@@ -23,8 +23,11 @@ int x = 0;
 int y = 0;
 int w = 0;
 int h = 0;
+class MyClass { 
+public:
 void createTexture();
 void drawTexture();
+}
 //int createTexture[3]; 
 //int drawTexture[12];
 // wxImage img = bmp.ConvertToImage();
