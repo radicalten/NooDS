@@ -6,7 +6,7 @@
 #include "console_ui.h"
 #include "settings.h"
 #include "defines.h"
-#include <wx/rawbmp.h>
+// #include <wx/rawbmp.h>
 
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
