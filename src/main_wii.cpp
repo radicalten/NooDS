@@ -12,6 +12,7 @@ static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
 
 // potential bmp on wii https://github.com/bastiro03/WiiBrowser-Lite/blob/5484d0bfadfd280a1f105cbdc3ac9ce9e59a4c34/mplayer/ffmpeg/libavcodec/bmp.c
+// delcaring bmp as a pointer initilizlized to nullptr seemed to allowed things to compile 
 
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
