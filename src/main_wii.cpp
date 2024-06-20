@@ -130,6 +130,7 @@ int main() {
 	topTexture = GRRLIB_CreateEmptyTexture(256, 192);
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
 // u32 RGBA8 (255,255,255,0) -> hex #FFFFFF00 -> decimal 4294967040
+// https://www.binaryhexconverter.com/hex-to-decimal-converter
                 GRRLIB_DrawImg(0,0, topTexture, 0, 0, 0, 4294967040);
 	botTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 GRRLIB_DrawImg(0,192, botTexture, 0, 0, 0, 4294967040);
