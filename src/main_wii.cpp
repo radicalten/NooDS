@@ -3,70 +3,15 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+#include <SDL2/SDL.h>
 #include "console_ui.h"
-#include "settings.h"
-#include "defines.h"
+
+// #include "settings.h"
+// #include "defines.h"
 // #include <wx/rawbmp.h>
 
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
-
-// potential bmp on wii https://github.com/bastiro03/WiiBrowser-Lite/blob/5484d0bfadfd280a1f105cbdc3ac9ce9e59a4c34/mplayer/ffmpeg/libavcodec/bmp.c
-// delcaring bmp as a pointer initilizlized to nullptr seemed to allowed things to compile 
-
-uint32_t framebuffer[256 * 192 * 8];
-ScreenLayout layout;
-int *bmp = nullptr;
-int width = U8TO32(bmp, 0x12);
-int height = U8TO32(bmp, 0x16);
-int x = 0;
-int y = 0;
-int w = 0;
-int h = 0;
-class MyClass { 
-public:
-void createTexture();
-void drawTexture();
-}
-//int createTexture[3]; 
-//int drawTexture[12];
-// wxImage img = bmp.ConvertToImage();
-// bmp = wxBitmap(img);
-uint32_t *data = new uint32_t[width * height];
-void *texture = createTexture(data, width, height);
-drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
-
-
-void *ConsoleUI::bmpToTexture(uint8_t *bmp)
-{
-    // Allocate data based on bitmap measurements
-    int width = U8TO32(bmp, 0x12);
-    int height = U8TO32(bmp, 0x16);
-    uint32_t *data = new uint32_t[width * height];
-
-    // Convert the bitmap to RGBA8 texture data
-    for (int y = 0; y < height; y++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            uint8_t *color = &bmp[0x46 + (((height - y - 1) * width + x) << 2)];
-            data[y * width + x] = (color[3] << 24) | (color[0] << 16) | (color[1] << 8) | color[2];
-        }
-    }
-
-    // Create a texture from the data
-    void *texture = createTexture(data, width, height);
-    delete[] data;
-    return texture;
-}
-
-void drawRectangle(float x, float y, float w, float h, uint32_t color)
-{
-    // Draw a rectangle using a blank texture
-    static uint32_t data = 0xFFFFFFFF;
-    static void *texture = createTexture(&data, 1, 1);
-    drawTexture(texture, 0, 0, 1, 1, x, y, w, h, false, 0, color);
-}
 
 
 //---------------------------------------------------------------------------------
