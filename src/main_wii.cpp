@@ -92,7 +92,10 @@ int main(int argc, char **argv) {
     	WPAD_Init();
 
 	while(1) {
-       
+
+	WPAD_ScanPads(); 
+        if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME)  break;
+		
 	// Draw the DS top screen and bot screen
 	GRRLIB_texImg *topTexture = GRRLIB_CreateEmptyTexture(256, 192);
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
@@ -101,10 +104,7 @@ int main(int argc, char **argv) {
                 GRRLIB_DrawImg(192,480, topTexture, 0, 0, 0, 4294967040);
 	GRRLIB_texImg *botTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 GRRLIB_DrawImg(192,288, botTexture, 0, 0, 0, 4278190080);
-
-	WPAD_ScanPads();  // Scan the Wiimotes
-	// If [HOME] was pressed on the first Wiimote, break out of the loop
-        if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME)  break;
+		
 
 	// Finish drawing and free textures Render the frame buffer to the TV
 	GRRLIB_Render();
