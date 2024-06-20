@@ -106,8 +106,7 @@ int main() {
 	//console_ui.cpp main loop
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
-        bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
-
+       
 	// Draw the DS top screen and bot screen
 	topTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
