@@ -17,6 +17,7 @@ bool touchMode;
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 
+//TODO write create destory and draw texture functions for wii
 
 //---------------------------------------------------------------------------------
 int main() {
