@@ -84,28 +84,6 @@ int main() {
 	u32 pressed = WPAD_ButtonsDown(0);
 	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
 
-	MenuTouch touch = getInputTouch();
-        if (!touch.pressed && specialTouch)
-            touch = (*specialTouch)();
-
-		if (touch.pressed)
-        {
-            // Determine the touch position relative to the emulated touch screen
-            ScreenLayout *sl = touchLayout ? touchLayout : &layout;
-            int touchX = sl->getTouchX(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
-            int touchY = sl->getTouchY(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
-
-            // Send the touch coordinates to the core
-            input.pressScreen();
-            spi.setTouch(touchX, touchY);
-        }
-        else // Released
-        {
-            // Release the touch screen press
-            input.releaseScreen();
-            spi.clearTouch();
-        }
-
 	// Finish drawing and free textures
         endFrame();
         if (topTexture) destroyTexture(topTexture);
