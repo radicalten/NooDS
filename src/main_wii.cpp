@@ -96,14 +96,14 @@ int main() {
             int touchY = sl->getTouchY(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
 
             // Send the touch coordinates to the core
-            Core->input.pressScreen();
-            Core->spi.setTouch(touchX, touchY);
+            input.pressScreen();
+            spi.setTouch(touchX, touchY);
         }
         else // Released
         {
             // Release the touch screen press
-            Core->input.releaseScreen();
-            Core->spi.clearTouch();
+            input.releaseScreen();
+            spi.clearTouch();
         }
 
 	// Finish drawing and free textures
