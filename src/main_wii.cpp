@@ -11,6 +11,19 @@ uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 
 //TODO write create destory and draw texture functions for wii
+/* Source: GRRLIB_texEdit.c
+
+ * Create an empty texture in GX_TF_RGBA8 format.
+ * @param width Width of the new texture to create.
+ * @param height Height of the new texture to create.
+ * @return A GRRLIB_texImg structure newly created.
+
+GRRLIB_texImg*  GRRLIB_CreateEmptyTexture (const u32 width, const u32 height)
+{
+    return GRRLIB_CreateEmptyTextureFmt(width, height, GX_TF_RGBA8);
+}
+
+*/
 
 //---------------------------------------------------------------------------------
 int main() {
