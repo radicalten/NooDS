@@ -10,10 +10,6 @@
 static void *xfb = NULL; 
 static GXRModeObj *rmode = NULL;
 
-#define SCALEH(x, h) (((x) * (h)) / 720)
-#define SCALE(x) SCALEH(x, uiHeight)
-uint32_t uiWidth, uiHeight;
-bool touchMode;
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
 
