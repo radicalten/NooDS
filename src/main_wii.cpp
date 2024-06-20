@@ -82,7 +82,7 @@ GRRLIB_main.c minimum code to use GRRLIB https://github.com/GRRLIB/GRRLIB/blob/d
 */
 
 //---------------------------------------------------------------------------------
-int main() {
+int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
 
  	// Initialise the Graphics & Video subsystem
