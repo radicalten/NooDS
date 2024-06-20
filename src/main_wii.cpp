@@ -53,8 +53,8 @@ int main() {
 
 	printf("Hello World!\n");
 
-void mainLoop(MenuTouch (*specialTouch)(), ScreenLayout *touchLayout)
-{	
+void mainLoop(MenuTouch (*specialTouch)(), ScreenLayout *touchLayout){	
+	
 	while(1) {
 
 	//console_ui.cpp main loop
