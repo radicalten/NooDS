@@ -79,7 +79,7 @@ int main() {
         bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
 
 	// Draw the DS top screen and bot screen
-	topTexture = createTexture(&framebuffer[0], 256 << shift, 192 << shift);
+	topTexture = GRRLIB_CreateEmptyTexture(&framebuffer[0], 256 << shift, 192 << shift);
                 drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
                     layout.topWidth, layout.topHeight, Settings::screenFilter, ScreenLayout::screenRotation);
 	botTexture = createTexture(&framebuffer[(256 * 192) << (shift * 2)], 256 << shift, 192 << shift);
