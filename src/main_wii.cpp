@@ -7,6 +7,9 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+static void *xfb = NULL; 
+static GXRModeObj *rmode = NULL;
+
 #define SCALEH(x, h) (((x) * (h)) / 720)
 #define SCALE(x) SCALEH(x, uiHeight)
 uint32_t ConsoleUI::uiWidth, ConsoleUI::uiHeight;
