@@ -82,7 +82,7 @@ int main() {
 	topTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
                     layout.topWidth, layout.topHeight, Settings::screenFilter, ScreenLayout::screenRotation);
-	botTexture = createTexture(&framebuffer[(256 * 192) << (shift * 2)], 256 << shift, 192 << shift);
+	botTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 drawTexture(botTexture, 0, 0, 256 << shift, 192 << shift, layout.botX, layout.botY,
                     layout.botWidth, layout.botHeight, Settings::screenFilter, ScreenLayout::screenRotation);
 
