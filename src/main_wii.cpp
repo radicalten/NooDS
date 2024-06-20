@@ -1,4 +1,6 @@
 #include <grrlib.h>
+#include <console_ui.h>
+#include <settings.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,6 +54,16 @@ int main() {
 
 	printf("Hello World!\n");
 
+	
+	while(1) {
+
+	//console_ui.cpp main loop
+	// Update the framebuffer and start rendering
+        void *topTexture = nullptr, *botTexture = nullptr;
+        bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
+        core->gpu.getFrame(framebuffer, gbaMode);
+        startFrame(0);
+
 	// Draw the DS top screen and bot screen
 	topTexture = createTexture(&framebuffer[0], 256 << shift, 192 << shift);
                 drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
@@ -59,27 +71,20 @@ int main() {
 	botTexture = createTexture(&framebuffer[(256 * 192) << (shift * 2)], 256 << shift, 192 << shift);
                 drawTexture(botTexture, 0, 0, 256 << shift, 192 << shift, layout.botX, layout.botY,
                     layout.botWidth, layout.botHeight, Settings::screenFilter, ScreenLayout::screenRotation);
-	
+
+		// Call WPAD_ScanPads each loop, this reads the latest controller states
+		WPAD_ScanPads();
+		u32 pressed = WPAD_ButtonsDown(0);
+		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+
 	// Finish drawing and free textures
         endFrame();
         if (topTexture) destroyTexture(topTexture);
         if (botTexture) destroyTexture(botTexture);
 
-	
-	while(1) {
-
-		// Call WPAD_ScanPads each loop, this reads the latest controller states
-		WPAD_ScanPads();
-
-		// WPAD_ButtonsDown tells us which buttons were pressed in this loop
-		// this is a "one shot" state which will not fire again until the button has been released
-		u32 pressed = WPAD_ButtonsDown(0);
-
-		// We return to the launcher application via exit
-		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
-
-		// Wait for the next frame
+	// Wait for the next frame
 		VIDEO_WaitVSync();
+		
 	}
 
 	return 0;
