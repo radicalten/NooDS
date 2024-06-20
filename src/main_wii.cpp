@@ -76,46 +76,22 @@ void  GRRLIB_Render (void) {
 TODO: optimization of grrlib -> Delete the interlaced screen if check -> that runs every frame and is just wasting resources. 
 we will run on progressive scan, and therefore can save lots of overhead by not including ANY if statements in a main loop
 
+TODO: Fix so it can work on dolphin search VIDEO in grrlib git source: GRRLIB_core.c
+GRRLIB_main.c minimum code to use GRRLIB https://github.com/GRRLIB/GRRLIB/blob/d93847e6a3e350bd1157d61cc1315d8bbff76968/examples/template/source/main.c#L13
+
 */
 
 //---------------------------------------------------------------------------------
 int main() {
 //---------------------------------------------------------------------------------
 
-	// Initialise the video system
-	VIDEO_Init();
-
-	// This function initialises the attached controllers
-	WPAD_Init();
-
-	// Obtain the preferred video mode from the system
-	// This will correspond to the settings in the Wii menu
-	rmode = VIDEO_GetPreferredMode(NULL);
-
-	// Allocate memory for the display in the uncached region
-	xfb[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-
-	// Initialise the console, required for printf
-	console_init(xfb[0],20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
-	//SYS_STDIO_Report(true);
-
-	// Set up the video registers with the chosen mode
-	VIDEO_Configure(rmode);
-
-	// Tell the video hardware where our display memory is
-	VIDEO_SetNextFramebuffer(xfb[0]);
-
-	// Make the display visible
-	VIDEO_SetBlack(false);
-
-	// Flush the video register changes to the hardware
-	VIDEO_Flush();
-
-	// Wait for Video setup to complete
-	VIDEO_WaitVSync();
-
+ 	// Initialise the Graphics & Video subsystem
+    	GRRLIB_Init();
 	
-	while(TRUE) {
+	// Initialise the Wiimotes
+    	WPAD_Init();
+
+	while(1) {
        
 	// Draw the DS top screen and bot screen
 	GRRLIB_texImg *topTexture = GRRLIB_CreateEmptyTexture(256, 192);
@@ -126,15 +102,15 @@ int main() {
 	GRRLIB_texImg *botTexture = GRRLIB_CreateEmptyTexture(256, 192);
                 GRRLIB_DrawImg(192,288, botTexture, 0, 0, 0, 4278190080);
 
-	// Call WPAD_ScanPads each loop, this reads the latest controller states
-	WPAD_ScanPads();
-	u32 pressed = WPAD_ButtonsDown(0);
-	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+	WPAD_ScanPads();  // Scan the Wiimotes
+	// If [HOME] was pressed on the first Wiimote, break out of the loop
+        if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME)  break;
 
-	// Finish drawing and free textures
+	// Finish drawing and free textures Render the frame buffer to the TV
 	GRRLIB_Render();
 		
 	}
-
-	return 0;
+	
+	GRRLIB_Exit(); // Be a good boy, clear the memory allocated by GRRLIB
+	exit(0);  // Use exit() to exit a program, do not use 'return' from main()
 }
