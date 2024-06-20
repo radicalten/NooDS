@@ -7,6 +7,10 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+Core *ConsoleUI::core;
+uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
+ScreenLayout ConsoleUI::layout;
+
 //---------------------------------------------------------------------------------
 int main() {
 //---------------------------------------------------------------------------------
@@ -59,7 +63,7 @@ int main() {
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
         bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
-       	Core->gpu.getFrame(framebuffer, gbaMode);
+       	core->gpu.getFrame(framebuffer, gbaMode);
         startFrame(0);
 
 	// Draw the DS top screen and bot screen
