@@ -61,7 +61,7 @@ int main() {
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
         bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
-        core->gpu.getFrame(framebuffer, gbaMode);
+       	core->gpu.getFrame(framebuffer, gbaMode);
         startFrame(0);
 
 	// Draw the DS top screen and bot screen
@@ -72,10 +72,10 @@ int main() {
                 drawTexture(botTexture, 0, 0, 256 << shift, 192 << shift, layout.botX, layout.botY,
                     layout.botWidth, layout.botHeight, Settings::screenFilter, ScreenLayout::screenRotation);
 
-		// Call WPAD_ScanPads each loop, this reads the latest controller states
-		WPAD_ScanPads();
-		u32 pressed = WPAD_ButtonsDown(0);
-		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+	// Call WPAD_ScanPads each loop, this reads the latest controller states
+	WPAD_ScanPads();
+	u32 pressed = WPAD_ButtonsDown(0);
+	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
 
 	// Finish drawing and free textures
         endFrame();
