@@ -129,9 +129,9 @@ int main() {
 	// Draw the DS top screen and bot screen
 	topTexture = GRRLIB_CreateEmptyTexture(256, 192);
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
-                GRRLIB_DrawImg(0,0, topTexture, 0, 0, 0, 255, 255, 255, 0);
+                GRRLIB_DrawImg(0,0, topTexture, 0, 0, 0, #FFFFFF00);
 	botTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                GRRLIB_DrawImg(0,192, botTexture, 0, 0, 0, 255, 255, 255, 0);
+                GRRLIB_DrawImg(0,192, botTexture, 0, 0, 0, #FFFFFF00);
 
 	// Call WPAD_ScanPads each loop, this reads the latest controller states
 	WPAD_ScanPads();
