@@ -53,6 +53,28 @@ void  GRRLIB_DrawImg (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, 
         GX_SetCopyFilter(rmode->aa, rmode->sample_pattern, GX_TRUE, rmode->vfilter);
     }
 
+Source: GRRLIB_render.c
+ * Call this function after drawing.
+
+void  GRRLIB_Render (void) {
+    GX_DrawDone();          // Tell the GX engine we are done drawing
+    GX_InvalidateTexAll();
+
+    fb ^= 1;  // Toggle framebuffer index
+
+    GX_SetZMode      (GX_TRUE, GX_LEQUAL, GX_TRUE);
+    GX_SetColorUpdate(GX_TRUE);
+    GX_CopyDisp      (xfb[fb], GX_TRUE);
+
+    VIDEO_SetNextFramebuffer(xfb[fb]);  // Select eXternal Frame Buffer
+    VIDEO_Flush();                      // Flush video buffer to screen
+    VIDEO_WaitVSync();                  // Wait for screen to update
+    // Interlaced screens require two frames to update
+    if (rmode->viTVMode & VI_NON_INTERLACE) {
+        VIDEO_WaitVSync();
+    }
+}
+
 */
 
 //---------------------------------------------------------------------------------
@@ -109,11 +131,10 @@ int main() {
        
 	// Draw the DS top screen and bot screen
 	topTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
-                    layout.topWidth, layout.topHeight, Settings::screenFilter, ScreenLayout::screenRotation);
+// (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
+                GRRLIB_DrawImg(0,0, topTexture, 0, 0, 0, 255, 255, 255, 0);
 	botTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                drawTexture(botTexture, 0, 0, 256 << shift, 192 << shift, layout.botX, layout.botY,
-                    layout.botWidth, layout.botHeight, Settings::screenFilter, ScreenLayout::screenRotation);
+                GRRLIB_DrawImg(0,192, botTexture, 0, 0, 0, 255, 255, 255, 0);
 
 	// Call WPAD_ScanPads each loop, this reads the latest controller states
 	WPAD_ScanPads();
@@ -121,11 +142,7 @@ int main() {
 	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
 
 	// Finish drawing and free textures
-        if (topTexture) destroyTexture(topTexture);
-        if (botTexture) destroyTexture(botTexture);
-
-	// Wait for the next frame
-		VIDEO_WaitVSync();
+	GRRLIB_Render();
 		
 	}
 
