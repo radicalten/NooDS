@@ -9,8 +9,8 @@
 
 #define SCALEH(x, h) (((x) * (h)) / 720)
 #define SCALE(x) SCALEH(x, uiHeight)
+uint32_t ConsoleUI::uiWidth, ConsoleUI::uiHeight;
 bool ConsoleUI::touchMode;
-
 uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
 ScreenLayout ConsoleUI::layout;
 bool ConsoleUI::gbaMode;
