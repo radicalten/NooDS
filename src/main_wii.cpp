@@ -1,4 +1,4 @@
-#include <grrlib.h>
+// #include <grrlib.h>
 #include "console_ui.h"
 #include "settings.h"
 
@@ -10,11 +10,6 @@
 #define SCALEH(x, h) (((x) * (h)) / 720)
 #define SCALE(x) SCALEH(x, uiHeight)
 bool ConsoleUI::touchMode;
-
-Core *ConsoleUI::core;
-bool ConsoleUI::running;
-std::string ConsoleUI::ndsPath, ConsoleUI::gbaPath;
-std::string ConsoleUI::basePath, ConsoleUI::curPath;
 
 uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
 ScreenLayout ConsoleUI::layout;
@@ -73,7 +68,7 @@ int main() {
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
         bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
-       	core->gpu.getFrame(framebuffer, gbaMode);
+       	Core->gpu.getFrame(framebuffer, gbaMode);
         startFrame(0);
 
 	// Draw the DS top screen and bot screen
@@ -101,14 +96,14 @@ int main() {
             int touchY = sl->getTouchY(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
 
             // Send the touch coordinates to the core
-            core->input.pressScreen();
-            core->spi.setTouch(touchX, touchY);
+            Core->input.pressScreen();
+            Core->spi.setTouch(touchX, touchY);
         }
         else // Released
         {
             // Release the touch screen press
-            core->input.releaseScreen();
-            core->spi.clearTouch();
+            Core->input.releaseScreen();
+            Core->spi.clearTouch();
         }
 
 	// Finish drawing and free textures
