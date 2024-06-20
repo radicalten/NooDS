@@ -7,9 +7,6 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
-Core *ConsoleUI::core;
-uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
-ScreenLayout ConsoleUI::layout;
 
 //---------------------------------------------------------------------------------
 int main() {
@@ -56,7 +53,8 @@ int main() {
 
 	printf("Hello World!\n");
 
-	
+void ConsoleUI::mainLoop(MenuTouch (*specialTouch)(), ScreenLayout *touchLayout)
+{	
 	while(1) {
 
 	//console_ui.cpp main loop
@@ -88,6 +86,7 @@ int main() {
 		VIDEO_WaitVSync();
 		
 	}
+}
 
 	return 0;
 }
