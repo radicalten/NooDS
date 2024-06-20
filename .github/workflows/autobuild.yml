@@ -13,6 +13,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Install Grrlib
+      run: |
+         git clone https://github.com/GRRLIB/GRRLIB.git
+         cd GRRLIB/GRRLIB/
+         make clean
+         make all
+         make install
     - name: Compile
       run: |
         make -f Makefile.wii -j$(nproc)
