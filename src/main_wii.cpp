@@ -5,6 +5,10 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+GRR_EXTERN  GXRModeObj  *rmode; /**< Video mode. */
+GRR_EXTERN  void        *xfb[2]  GRR_INITS(NULL, NULL);
+GRR_EXTERN  u32         fb       GRR_INIT(0);
+
 //---------------------------------------------------------------------------------
 int main() {
 //---------------------------------------------------------------------------------
