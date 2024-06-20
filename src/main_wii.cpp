@@ -7,9 +7,6 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
-uint32_t framebuffer[256 * 192 * 8];
-ScreenLayout layout;
-
 //TODO write create destory and draw texture functions for wii
 /* Source: GRRLIB_texEdit.c
 
