@@ -1,6 +1,6 @@
 #include <grrlib.h>
-#include <console_ui.h>
-#include <settings.h>
+#include "console_ui.h"
+#include "settings.h"
 
 #include <stdio.h>
 #include <stdlib.h>
