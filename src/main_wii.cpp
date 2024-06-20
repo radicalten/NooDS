@@ -7,6 +7,20 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+#define SCALEH(x, h) (((x) * (h)) / 720)
+#define SCALE(x) SCALEH(x, uiHeight)
+bool ConsoleUI::touchMode;
+
+Core *ConsoleUI::core;
+bool ConsoleUI::running;
+std::string ConsoleUI::ndsPath, ConsoleUI::gbaPath;
+std::string ConsoleUI::basePath, ConsoleUI::curPath;
+
+uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
+ScreenLayout ConsoleUI::layout;
+bool ConsoleUI::gbaMode;
+bool ConsoleUI::changed;
+
 
 //---------------------------------------------------------------------------------
 int main() {
@@ -76,6 +90,28 @@ void mainLoop(MenuTouch (*specialTouch)(), ScreenLayout *touchLayout){
 	WPAD_ScanPads();
 	u32 pressed = WPAD_ButtonsDown(0);
 	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+
+	MenuTouch touch = getInputTouch();
+        if (!touch.pressed && specialTouch)
+            touch = (*specialTouch)();
+
+		if (touch.pressed)
+        {
+            // Determine the touch position relative to the emulated touch screen
+            ScreenLayout *sl = touchLayout ? touchLayout : &layout;
+            int touchX = sl->getTouchX(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
+            int touchY = sl->getTouchY(SCALEH(touch.x, sl->winHeight), SCALEH(touch.y, sl->winHeight));
+
+            // Send the touch coordinates to the core
+            core->input.pressScreen();
+            core->spi.setTouch(touchX, touchY);
+        }
+        else // Released
+        {
+            // Release the touch screen press
+            core->input.releaseScreen();
+            core->spi.clearTouch();
+        }
 
 	// Finish drawing and free textures
         endFrame();
