@@ -59,7 +59,7 @@ int main() {
 	// Update the framebuffer and start rendering
         void *topTexture = nullptr, *botTexture = nullptr;
         bool shift = (Settings::highRes3D || Settings::screenFilter == 1);
-       	core->gpu.getFrame(framebuffer, gbaMode);
+       	Core->gpu.getFrame(framebuffer, gbaMode);
         startFrame(0);
 
 	// Draw the DS top screen and bot screen
