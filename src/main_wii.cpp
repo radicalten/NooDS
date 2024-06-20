@@ -109,6 +109,7 @@ int main(int argc, char **argv) {
 
 	// Finish drawing and free textures Render the frame buffer to the TV
 	GRRLIB_Render();
+        //GRRLIB_FreeTexture(tex_test_bmp);
 		
 	}
 	
