@@ -19,7 +19,6 @@ std::string ConsoleUI::basePath, ConsoleUI::curPath;
 uint32_t ConsoleUI::framebuffer[256 * 192 * 8];
 ScreenLayout ConsoleUI::layout;
 bool ConsoleUI::gbaMode;
-bool ConsoleUI::changed;
 
 
 //---------------------------------------------------------------------------------
@@ -67,7 +66,6 @@ int main() {
 
 	printf("Hello World!\n");
 
-void mainLoop(MenuTouch (*specialTouch)(), ScreenLayout *touchLayout){	
 	
 	while(1) {
 
