@@ -52,6 +52,20 @@ int main() {
 
 	printf("Hello World!\n");
 
+	// Draw the DS top screen and bot screen
+	topTexture = createTexture(&framebuffer[0], 256 << shift, 192 << shift);
+                drawTexture(topTexture, 0, 0, 256 << shift, 192 << shift, layout.topX, layout.topY,
+                    layout.topWidth, layout.topHeight, Settings::screenFilter, ScreenLayout::screenRotation);
+	botTexture = createTexture(&framebuffer[(256 * 192) << (shift * 2)], 256 << shift, 192 << shift);
+                drawTexture(botTexture, 0, 0, 256 << shift, 192 << shift, layout.botX, layout.botY,
+                    layout.botWidth, layout.botHeight, Settings::screenFilter, ScreenLayout::screenRotation);
+	
+	// Finish drawing and free textures
+        endFrame();
+        if (topTexture) destroyTexture(topTexture);
+        if (botTexture) destroyTexture(botTexture);
+
+	
 	while(1) {
 
 		// Call WPAD_ScanPads each loop, this reads the latest controller states
