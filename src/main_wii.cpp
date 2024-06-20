@@ -85,7 +85,6 @@ int main() {
 	if ( pressed & WPAD_BUTTON_HOME ) exit(0);
 
 	// Finish drawing and free textures
-        endFrame();
         if (topTexture) destroyTexture(topTexture);
         if (botTexture) destroyTexture(botTexture);
 
