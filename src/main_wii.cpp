@@ -23,6 +23,36 @@ GRRLIB_texImg*  GRRLIB_CreateEmptyTexture (const u32 width, const u32 height)
     return GRRLIB_CreateEmptyTextureFmt(width, height, GX_TF_RGBA8);
 }
 
+Source: GRRLIB_render.c
+
+ * Draw a texture.
+ * @param xpos Specifies the x-coordinate of the upper-left corner.
+ * @param ypos Specifies the y-coordinate of the upper-left corner.
+ * @param tex The texture to draw.
+ * @param degrees Angle of rotation.
+ * @param scaleX Specifies the x-coordinate scale. -1 could be used for flipping the texture horizontally.
+ * @param scaleY Specifies the y-coordinate scale. -1 could be used for flipping the texture vertically.
+ * @param color Color in RGBA format.
+
+void  GRRLIB_DrawImg (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) {
+    GXTexObj  texObj;
+    Mtx       m, m1, m2, mv;
+
+    if (tex == NULL || tex->data == NULL)
+        return;
+
+    GX_InitTexObj(&texObj, tex->data, tex->w, tex->h,
+                  tex->format, GX_CLAMP, GX_CLAMP, GX_FALSE);
+
+    if (GRRLIB_Settings.antialias == false) {
+        GX_InitTexObjLOD(&texObj, GX_NEAR, GX_NEAR,
+                         0.0f, 0.0f, 0.0f, 0, 0, GX_ANISO_1);
+        GX_SetCopyFilter(GX_FALSE, rmode->sample_pattern, GX_FALSE, rmode->vfilter);
+    }
+    else {
+        GX_SetCopyFilter(rmode->aa, rmode->sample_pattern, GX_TRUE, rmode->vfilter);
+    }
+
 */
 
 //---------------------------------------------------------------------------------
