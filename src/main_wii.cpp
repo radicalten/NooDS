@@ -1,4 +1,4 @@
-// #include <grrlib.h>
+#include <grrlib.h>
 #include "console_ui.h"
 #include "settings.h"
 
@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <gccore.h>
 #include <wiiuse/wpad.h>
-
-static void *xfb = NULL; 
-static GXRModeObj *rmode = NULL;
 
 uint32_t framebuffer[256 * 192 * 8];
 ScreenLayout layout;
@@ -30,17 +27,17 @@ int main() {
 	rmode = VIDEO_GetPreferredMode(NULL);
 
 	// Allocate memory for the display in the uncached region
-	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	xfb[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
 
 	// Initialise the console, required for printf
-	console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+	console_init(xfb[0],20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
 	//SYS_STDIO_Report(true);
 
 	// Set up the video registers with the chosen mode
 	VIDEO_Configure(rmode);
 
 	// Tell the video hardware where our display memory is
-	VIDEO_SetNextFramebuffer(xfb);
+	VIDEO_SetNextFramebuffer(xfb[0]);
 
 	// Make the display visible
 	VIDEO_SetBlack(false);
