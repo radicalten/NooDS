@@ -72,6 +72,10 @@ void  GRRLIB_Render (void) {
     }
 }
 
+
+TODO: optimization of grrlib -> Delete the interlaced screen if check -> that runs every frame and is just wasting resources. 
+we will run on progressive scan, and therefore can save lots of overhead by not including ANY if statements in a main loop
+
 */
 
 //---------------------------------------------------------------------------------
