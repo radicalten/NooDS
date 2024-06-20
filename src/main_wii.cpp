@@ -118,7 +118,6 @@ int main() {
 		VIDEO_WaitVSync();
 		
 	}
-}
 
 	return 0;
 }
