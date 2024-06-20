@@ -113,15 +113,6 @@ int main() {
 
 	// Wait for Video setup to complete
 	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
-
-	// The console understands VT terminal escape codes
-	// This positions the cursor on row 2, column 0
-	// we can use variables for this with format codes too
-	// e.g. printf ("\x1b[%d;%dH", row, column );
-	printf("\x1b[2;0H");
-
-	printf("Hello World!\n");
 
 	
 	while(1) {
@@ -135,9 +126,9 @@ int main() {
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
 // u32 RGBA8 (255,255,255,0) -> hex #FFFFFF00 -> decimal 4294967040
 // https://www.binaryhexconverter.com/hex-to-decimal-converter
-                GRRLIB_DrawImg(0,0, topTexture, 0, 0, 0, 4294967040);
+                GRRLIB_DrawImg(192,480, topTexture, 0, 0, 0, 4294967040);
 	GRRLIB_texImg *botTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                GRRLIB_DrawImg(0,192, botTexture, 0, 0, 0, 4294967040);
+                GRRLIB_DrawImg(192,288, botTexture, 0, 0, 0, 4278190080);
 
 	// Call WPAD_ScanPads each loop, this reads the latest controller states
 	WPAD_ScanPads();
