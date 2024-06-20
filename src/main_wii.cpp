@@ -101,9 +101,9 @@ int main(int argc, char **argv) {
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
 // u32 RGBA8 (255,255,255,0) -> hex #FFFFFF00 -> decimal 4294967040
 // https://www.binaryhexconverter.com/hex-to-decimal-converter
-                GRRLIB_DrawImg(192,480, topTexture, 0, 0, 0, 4294967040);
+                GRRLIB_DrawImg(160,480, topTexture, 0, 1.25, 1.25, 4294967040);
 	GRRLIB_texImg *botTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                GRRLIB_DrawImg(192,288, botTexture, 0, 0, 0, 4278190080);
+                GRRLIB_DrawImg(160,240, botTexture, 0, 1.25, 1.25, 4278190080);
 		
 
 	// Finish drawing and free textures Render the frame buffer to the TV
