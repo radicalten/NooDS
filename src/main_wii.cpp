@@ -115,11 +115,7 @@ int main() {
 	VIDEO_WaitVSync();
 
 	
-	while(1) {
-
-	//console_ui.cpp main loop
-	// Update the framebuffer and start rendering
-
+	while(TRUE) {
        
 	// Draw the DS top screen and bot screen
 	GRRLIB_texImg *topTexture = GRRLIB_CreateEmptyTexture(256, 192);
