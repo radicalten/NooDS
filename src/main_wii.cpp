@@ -99,11 +99,12 @@ int main(int argc, char **argv) {
 	// Draw the DS top screen and bot screen
 	GRRLIB_texImg *topTexture = GRRLIB_CreateEmptyTexture(256, 192);
 // (const f32 xpos, const f32 ypos, const GRRLIB_texImg *tex, const f32 degrees, const f32 scaleX, const f32 scaleY, const u32 color) 
-// u32 RGBA8 (255,255,255,0) -> hex #FFFFFF00 -> decimal 4294967040
+// u32 RGBA8 (255,255,255,0) -> hex #FFFFFF00 -> decimal 4294967040 -> alternative can write OxFFFFFFFF = white opaque
+// made a mistake 00 in alpha is transparent, FF is opaque, see GRRLIB example https://github.com/GRRLIB/GRRLIB/blob/d93847e6a3e350bd1157d61cc1315d8bbff76968/examples/basic_drawing/source/main.c		
 // https://www.binaryhexconverter.com/hex-to-decimal-converter
-                GRRLIB_DrawImg(160,480, topTexture, 0, 1.25, 1.25, 4294967040);
+                GRRLIB_DrawImg(160,480, topTexture, 0, 1.25, 1.25, 0xFFFFFFFF);
 	GRRLIB_texImg *botTexture = GRRLIB_CreateEmptyTexture(256, 192);
-                GRRLIB_DrawImg(160,240, botTexture, 0, 1.25, 1.25, 4278190080);
+                GRRLIB_DrawImg(160,240, botTexture, 0, 1.25, 1.25, 0xFF0000FF);
 		
 
 	// Finish drawing and free textures Render the frame buffer to the TV
