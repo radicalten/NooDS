@@ -137,7 +137,13 @@ void ConsoleUI::destroyTexture(void *texture)
 GX_DrawDone();
 }
 
-	
+/*
+
+
+
+
+*/
+
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
