@@ -44,6 +44,7 @@ void ConsoleUI::startFrame(uint32_t color)
    GX_SetCopyClear(background, 0x00ffffff);
 }
 
+u32	fb = 0; 	// initial framebuffer index
 void ConsoleUI::endFrame()
 {
     // Finish and display a frame
