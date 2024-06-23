@@ -139,11 +139,62 @@ GX_DrawDone();
 
 /*
 
+void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
+    float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
+{
+    // Convert texture coordinates to floats
+    float s1 = tx / ((Texture*)texture)->width;
+    float t1 = ty / ((Texture*)texture)->height;
+    float s2 = (tx + tw) / ((Texture*)texture)->width;
+    float t2 = (ty + th) / ((Texture*)texture)->height;
 
+    // Convert the surface color to floats
+    float r = (color >> 0) & 0xFF;
+    float g = (color >> 8) & 0xFF;
+    float b = (color >> 16) & 0xFF;
+
+    // Arrange texture coordinates so they can be rotated
+    float texCoords[] = { s2, t2, s1, t2, s1, t1, s2, t1 };
+    int offsets[] = { 0, 6, 2 };
+    int o = offsets[rotation];
+
+    // Define vertex data to upload
+    VertexData vertices[] =
+    {
+        VertexData(x + w, y + h, texCoords[(o + 0) & 0x7], texCoords[(o + 1) & 0x7], r, g, b),
+        VertexData(x + 0, y + h, texCoords[(o + 2) & 0x7], texCoords[(o + 3) & 0x7], r, g, b),
+        VertexData(x + 0, y + 0, texCoords[(o + 4) & 0x7], texCoords[(o + 5) & 0x7], r, g, b),
+        VertexData(x + w, y + 0, texCoords[(o + 6) & 0x7], texCoords[(o + 7) & 0x7], r, g, b)
+    };
+
+    // Draw a texture
+    glBindTexture(GL_TEXTURE_2D, ((Texture*)texture)->tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter ? GL_LINEAR : GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter ? GL_LINEAR : GL_NEAREST);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+}
 
 
 */
+void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
+    float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
+{
+GX_SetTevOp(GX_TEVSTAGE0,GX_REPLACE);
+		GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLOR0A0);
 
+		GX_LoadTexObj(&texture, GX_TEXMAP0);
+
+		guMtxIdentity(model);
+		guMtxRotAxisDeg(model, &cubeAxis, rquad);
+		guMtxTransApply(model, model, 1.5f,0.0f,-7.0f);
+		guMtxConcat(view,model,modelview);
+		// load the modelview matrix into matrix memory
+		GX_LoadPosMtxImm(modelview, GX_PNMTX0);
+
+		GX_Begin(GX_QUADS, GX_VTXFMT0, 24);			// Draw a Cube
+
+}
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
