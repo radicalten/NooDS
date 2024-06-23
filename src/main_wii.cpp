@@ -83,7 +83,7 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 
 // Potential Texture Code: https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson19/source/lesson19.c
 
-GXTexObj texture;
+GXTexObj *texture; // changed GXTexObj texture; to *texture, not sure if that's ok
 TPLFile neheTPL;
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
