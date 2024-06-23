@@ -78,8 +78,10 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 }
 */
 
-/* Potential Texture Code: https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson19/source/lesson19.c
+// Potential Texture Code: https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson19/source/lesson19.c
 
+void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
+{
  // setup the vertex attribute table
 	// describes the data
 	// args: vat location 0-7, type of data, data format, size, scale
@@ -114,8 +116,7 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 	TPL_GetTexture(&neheTPL,nehe,&texture);
 
  return texture; // my addition based on wii above, should work? if everything is named well
- 
-*/
+}
 
 /*
 
