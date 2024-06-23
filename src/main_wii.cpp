@@ -118,18 +118,28 @@ f32 yscale;
 error:
 	while(1) {
 
-		// Call WPAD_ScanPads each loop, this reads the latest controller states
 		WPAD_ScanPads();
 
-		// WPAD_ButtonsDown tells us which buttons were pressed in this loop
-		// this is a "one shot" state which will not fire again until the button has been released
-		u32 pressed = WPAD_ButtonsDown(0);
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) exit(0);
 
-		// We return to the launcher application via exit
-		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+		// do this before drawing
+		GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);
 
-		// Wait for the next frame
+
+		// do this stuff after drawing
+		GX_DrawDone();
+
+		fb ^= 1;		// flip framebuffer
+		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
+		GX_SetColorUpdate(GX_TRUE);
+		GX_CopyDisp(frameBuffer[fb],GX_TRUE);
+
+		VIDEO_SetNextFramebuffer(frameBuffer[fb]);
+
+		VIDEO_Flush();
+
 		VIDEO_WaitVSync();
+
 	}
 
 	return 0;
