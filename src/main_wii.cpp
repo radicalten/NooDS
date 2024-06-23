@@ -14,6 +14,9 @@
 #include "console_ui.h"
 #include "settings.h"
 
+#include "NeHe_tpl.h"
+#include "NeHe.h"
+
 #define DEFAULT_FIFO_SIZE	(64*1024) // wiiSX uses min FIFO size which is 64x1024 bytes = 65536 bytes = 64kb, also not coincidentally the max vertex draws is 65536 https://libogc.devkitpro.org/gx_8h.html#a8bd2dc908dea327389c951dd87b9db58
 // The Graphics FIFO is the mechanism used to communicate graphics commands from the CPU to the Graphics Processor (GP). The FIFO base pointer should be 32-byte aligned. memalign() can return 32-byte aligned pointers. The size should also be a multiple of 32B.
 // The CPU's write-gather pipe is used to write data to the FIFO. Therefore, the FIFO memory area must be forced out of the CPU cache prior to being used. DCInvalidateRange() may be used for this purpose. Due to the mechanics of flushing the write-gather pipe, the FIFO memory area should be at least 32 bytes larger than the maximum expected amount of data stored. Up to 32 NOPs may be written at the end during flushing.
