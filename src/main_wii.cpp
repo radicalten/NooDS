@@ -63,6 +63,8 @@ GX_DrawDone();
 }
 
 /* from WiiU try nehe lesson 6 for create texture wii-example https://github.com/devkitPro/wii-examples/blob/master/graphics/gx/neheGX/lesson06/source/lesson6.c
+also look at gx-sprites https://github.com/devkitPro/wii-examples/blob/master/graphics/gx/gxSprites/source/gxsprites.c
+
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
     // Create a new texture and copy data to it
@@ -85,6 +87,21 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 	TPL_GetTexture(&neheTPL,nehe,&texture);
 
  return texture; // my addition based on wii above, should work? if everything is named well
+*/
+
+/*
+
+void ConsoleUI::destroyTexture(void *texture)
+{
+    // Clean up a texture when it's safe to do so
+    vita2d_wait_rendering_done();
+    vita2d_free_texture((vita2d_texture*)texture);
+}
+
+potential code:
+
+GX_DrawDone();
+	
 */
 
 //---------------------------------------------------------------------------------
