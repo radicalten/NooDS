@@ -62,7 +62,7 @@ GX_DrawDone();
 		VIDEO_WaitVSync();
 }
 
-/*
+/* from WiiU try nehe lesson 6 for create texture wii-example https://github.com/devkitPro/wii-examples/blob/master/graphics/gx/neheGX/lesson06/source/lesson6.c
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
     // Create a new texture and copy data to it
