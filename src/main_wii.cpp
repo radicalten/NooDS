@@ -22,6 +22,17 @@ GXRModeObj *rmode;
 // info for PAD and WPAD https://github.com/devkitPro/libogc/blob/master/gc/ogc/pad.h 
 // WPAD: https://github.com/devkitPro/libogc/blob/master/gc/wiiuse/wpad.h
 
+
+uint32_t ConsoleUI::defaultKeys[]
+{
+    WPAD_BUTTON_2, WPAD_BUTTON_1, WPAD_BUTTON_B, WPAD_BUTTON_A, WPAD_BUTTON_MINUS, WPAD_BUTTON_HOME, WPAD_BUTTON_LEFT, WPAD_BUTTON_RIGHT, WPAD_BUTTON_DOWN, WPAD_BUTTON_UP, WPAD_BUTTON_PLUS					 
+};
+
+const char *ConsoleUI::keyNames[]
+{
+    "2", "1", "B", "A", "minus", "home", "left", "right", "down", "up", "plus" 
+};
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
