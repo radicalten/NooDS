@@ -130,11 +130,14 @@ void ConsoleUI::destroyTexture(void *texture)
     vita2d_free_texture((vita2d_texture*)texture);
 }
 
-potential code:
-
-GX_DrawDone();
-	
 */
+
+void ConsoleUI::destroyTexture(void *texture)
+{
+GX_DrawDone();
+}
+
+	
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
