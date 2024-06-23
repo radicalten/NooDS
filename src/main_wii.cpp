@@ -62,6 +62,20 @@ GX_DrawDone();
 		VIDEO_WaitVSync();
 }
 
+/*
+void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
+{
+    // Create a new texture and copy data to it
+    Texture *texture = new Texture(width, height);
+    glGenTextures(1, &texture->tex);
+    glBindTexture(GL_TEXTURE_2D, texture->tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    return texture;
+}
+*/
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
