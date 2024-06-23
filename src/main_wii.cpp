@@ -11,6 +11,8 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+#include "console_ui.h"
+
 #define DEFAULT_FIFO_SIZE	(256*1024)
 
 static void *frameBuffer[2] = { NULL, NULL};
