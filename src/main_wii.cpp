@@ -1,8 +1,4 @@
-#include <gccore.h>
-#include <wiiuse/wpad.h>
-
 #include <fat.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,9 +6,15 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <malloc.h>
+#include <math.h>
+#include <gccore.h>
+#include <wiiuse/wpad.h>
 
-static void *xfb = NULL;
-static GXRModeObj *rmode = NULL;
+#define DEFAULT_FIFO_SIZE	(256*1024)
+
+static void *frameBuffer[2] = { NULL, NULL};
+GXRModeObj *rmode;
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
