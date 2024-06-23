@@ -85,7 +85,7 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 
 GXTexObj *texture; // changed GXTexObj texture; to *texture, not sure if that's ok, it seemed to work
 TPLFile neheTPL; 
-NeHe_tpl;
+int NeHe_tpl;
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
  // setup the vertex attribute table
