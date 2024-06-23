@@ -1,112 +1,105 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <malloc.h>
-#include <math.h>
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
-#define DEFAULT_FIFO_SIZE	(256*1024)
+#include <fat.h>
 
-static void *frameBuffer[2] = { NULL, NULL};
-GXRModeObj *rmode;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+static void *xfb = NULL;
+static GXRModeObj *rmode = NULL;
 
 //---------------------------------------------------------------------------------
-int main( int argc, char **argv ){
+int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
-	f32 yscale;
 
-	u32 xfbHeight;
-
-	Mtx	view;
-	Mtx44 perspective;
-
-	u32	fb = 0; 	// initial framebuffer index
-	GXColor background = {0, 0, 0, 0xff};
-
-
-	// init the vi.
+	// Initialise the video system
 	VIDEO_Init();
+
+	// This function initialises the attached controllers
 	WPAD_Init();
 
+	// Obtain the preferred video mode from the system
+	// This will correspond to the settings in the Wii menu
 	rmode = VIDEO_GetPreferredMode(NULL);
 
-	// allocate 2 framebuffers for double buffering
-	frameBuffer[0] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	frameBuffer[1] = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	// Allocate memory for the display in the uncached region
+	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
 
+	// Initialise the console, required for printf
+	console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+
+	// Set up the video registers with the chosen mode
 	VIDEO_Configure(rmode);
-	VIDEO_SetNextFramebuffer(frameBuffer[fb]);
-	VIDEO_SetBlack(false);
+
+	// Tell the video hardware where our display memory is
+	VIDEO_SetNextFramebuffer(xfb);
+
+	// Make the display visible
+	VIDEO_SetBlack(true);
+
+	// Flush the video register changes to the hardware
 	VIDEO_Flush();
+
+	// Wait for Video setup to complete
 	VIDEO_WaitVSync();
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
 
-	// setup the fifo and then init the flipper
-	void *gp_fifo = NULL;
-	gp_fifo = memalign(32,DEFAULT_FIFO_SIZE);
-	memset(gp_fifo,0,DEFAULT_FIFO_SIZE);
 
-	GX_Init(gp_fifo,DEFAULT_FIFO_SIZE);
+	// The console understands VT terminal escape codes
+	// This positions the cursor on row 2, column 0
+	// we can use variables for this with format codes too
+	// e.g. printf ("\x1b[%d;%dH", row, column );
+	printf("\x1b[2;0H");
 
-	// clears the bg to color and clears the z buffer
-	GX_SetCopyClear(background, 0x00ffffff);
+	if (!fatInitDefault()) {
+		printf("fatInitDefault failure: terminating\n");
+		goto error;
+	}
 
-	// other gx setup
-	GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);
-	yscale = GX_GetYScaleFactor(rmode->efbHeight,rmode->xfbHeight);
-	xfbHeight = GX_SetDispCopyYScale(yscale);
-	GX_SetScissor(0,0,rmode->fbWidth,rmode->efbHeight);
-	GX_SetDispCopySrc(0,0,rmode->fbWidth,rmode->efbHeight);
-	GX_SetDispCopyDst(rmode->fbWidth,xfbHeight);
-	GX_SetCopyFilter(rmode->aa,rmode->sample_pattern,GX_TRUE,rmode->vfilter);
-	GX_SetFieldMode(rmode->field_rendering,((rmode->viHeight==2*rmode->xfbHeight)?GX_ENABLE:GX_DISABLE));
+	DIR *pdir;
+	struct dirent *pent;
+	struct stat statbuf;
 
-	GX_SetCullMode(GX_CULL_NONE);
-	GX_CopyDisp(frameBuffer[fb],GX_TRUE);
-	GX_SetDispCopyGamma(GX_GM_1_0);
+	pdir=opendir(".");
 
-	// setup our camera at the origin
-	// looking down the -z axis with y up
-	guVector cam = {0.0F, 0.0F, 0.0F},
-			up = {0.0F, 1.0F, 0.0F},
-		  look = {0.0F, 0.0F, -1.0F};
-	guLookAt(view, &cam, &up, &look);
+	if (!pdir){
+		printf ("opendir() failure; terminating\n");
+		goto error;
+	}
 
+	while ((pent=readdir(pdir))!=NULL) {
+		stat(pent->d_name,&statbuf);
+		if(strcmp(".", pent->d_name) == 0 || strcmp("..", pent->d_name) == 0)
+			continue;
+		if(S_ISDIR(statbuf.st_mode))
+			printf("%s <dir>\n", pent->d_name);
+		if(!(S_ISDIR(statbuf.st_mode)))
+			printf("%s %lld\n", pent->d_name, statbuf.st_size);
+	}
+	closedir(pdir);
 
-	// setup our projection matrix
-	// this creates a perspective matrix with a view angle of 90,
-	// and aspect ratio based on the display resolution
-	f32 w = rmode->viWidth;
-	f32 h = rmode->viHeight;
-	guPerspective(perspective, 45, (f32)w/h, 0.1F, 300.0F);
-	GX_LoadProjectionMtx(perspective, GX_PERSPECTIVE);
-
+error:
 	while(1) {
 
+		// Call WPAD_ScanPads each loop, this reads the latest controller states
 		WPAD_ScanPads();
 
-		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) exit(0);
+		// WPAD_ButtonsDown tells us which buttons were pressed in this loop
+		// this is a "one shot" state which will not fire again until the button has been released
+		u32 pressed = WPAD_ButtonsDown(0);
 
-		// do this before drawing
-		GX_SetViewport(0,0,rmode->fbWidth,rmode->efbHeight,0,1);
+		// We return to the launcher application via exit
+		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
 
-
-		// do this stuff after drawing
-		GX_DrawDone();
-
-		fb ^= 1;		// flip framebuffer
-		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
-		GX_SetColorUpdate(GX_TRUE);
-		GX_CopyDisp(frameBuffer[fb],GX_TRUE);
-
-		VIDEO_SetNextFramebuffer(frameBuffer[fb]);
-
-		VIDEO_Flush();
-
+		// Wait for the next frame
 		VIDEO_WaitVSync();
-
-
 	}
+
 	return 0;
 }
