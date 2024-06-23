@@ -44,6 +44,23 @@ void ConsoleUI::startFrame(uint32_t color)
    GX_SetCopyClear(background, 0x00ffffff);
 }
 
+void ConsoleUI::endFrame()
+{
+    // Finish and display a frame
+GX_DrawDone();
+
+		fb ^= 1;		// flip framebuffer
+		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
+		GX_SetColorUpdate(GX_TRUE);
+		GX_CopyDisp(frameBuffer[fb],GX_TRUE);
+
+		VIDEO_SetNextFramebuffer(frameBuffer[fb]);
+
+		VIDEO_Flush();
+
+		VIDEO_WaitVSync();
+}
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
