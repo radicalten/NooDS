@@ -37,6 +37,13 @@ const char *ConsoleUI::keyNames[]
     "2", "1", "B", "A", "minus", "home", "left", "right", "down", "up", "plus" 
 };
 
+void ConsoleUI::startFrame(uint32_t color)
+{
+    // Clear the TV and gamepad screens
+   GXColor background = {0, 0, 0, 0xff};
+   GX_SetCopyClear(background, 0x00ffffff);
+}
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
