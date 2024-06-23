@@ -83,6 +83,8 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
  
  TPL_OpenTPLFromMemory(&neheTPL, (void *)NeHe_tpl,NeHe_tpl_size);
 	TPL_GetTexture(&neheTPL,nehe,&texture);
+
+ return texture; // my addition based on wii above, should work? if everything is named well
 */
 
 //---------------------------------------------------------------------------------
