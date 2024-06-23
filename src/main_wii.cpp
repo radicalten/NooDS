@@ -19,7 +19,7 @@
 static void *frameBuffer[2] = { NULL, NULL};
 GXRModeObj *rmode;
 
-// info for PAD and WPAD https://github.com/devkitPro/libogc/blob/master/gc/ogc/pad.h 
+// info for PAD: https://github.com/devkitPro/libogc/blob/master/gc/ogc/pad.h 
 // WPAD: https://github.com/devkitPro/libogc/blob/master/gc/wiiuse/wpad.h
 
 
