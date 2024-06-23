@@ -83,11 +83,8 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
  // setup the vertex attribute table
-	// describes the data
-	// args: vat location 0-7, type of data, data format, size, scale
-	// so for ex. in the first call we are sending position data with
-	// 3 values X,Y,Z of size F32. scale sets the number of fractional
-	// bits for non float data.
+	// describes the data args: vat location 0-7, type of data, data format, size, scale so for ex. in the first call we are sending position data with
+	// 3 values X,Y,Z of size F32. scale sets the number of fractional bits for non float data.
 	GX_InvVtxCache();
 	GX_ClearVtxDesc();
 	GX_SetVtxDesc(GX_VA_POS,  GX_DIRECT);
