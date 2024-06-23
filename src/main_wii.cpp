@@ -76,6 +76,15 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 }
 */
 
+/* Potential Texture Code:
+
+//set number of textures to generate
+	GX_SetNumTexGens(1);
+ 
+ TPL_OpenTPLFromMemory(&neheTPL, (void *)NeHe_tpl,NeHe_tpl_size);
+	TPL_GetTexture(&neheTPL,nehe,&texture);
+*/
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
