@@ -81,6 +81,7 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 // Potential Texture Code: https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson19/source/lesson19.c
 
 GXTexObj texture;
+TPLFile neheTPL;
 void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 {
  // setup the vertex attribute table
@@ -113,7 +114,7 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
  	TPL_OpenTPLFromMemory(&neheTPL, (void *)NeHe_tpl,NeHe_tpl_size);
 	TPL_GetTexture(&neheTPL,nehe,&texture);
 
- // return texture;
+  return texture;
 }
 
 /*
