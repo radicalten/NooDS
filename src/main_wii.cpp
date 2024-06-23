@@ -78,15 +78,43 @@ void *ConsoleUI::createTexture(uint32_t *data, int width, int height)
 }
 */
 
-/* Potential Texture Code:
+/* Potential Texture Code: https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson19/source/lesson19.c
 
-//set number of textures to generate
-	GX_SetNumTexGens(1);
- 
- TPL_OpenTPLFromMemory(&neheTPL, (void *)NeHe_tpl,NeHe_tpl_size);
+ // setup the vertex attribute table
+	// describes the data
+	// args: vat location 0-7, type of data, data format, size, scale
+	// so for ex. in the first call we are sending position data with
+	// 3 values X,Y,Z of size F32. scale sets the number of fractional
+	// bits for non float data.
+	GX_InvVtxCache();
+	GX_ClearVtxDesc();
+	GX_SetVtxDesc(GX_VA_POS,  GX_DIRECT);
+	GX_SetVtxDesc(GX_VA_CLR0, GX_DIRECT);
+	GX_SetVtxDesc(GX_VA_TEX0, GX_DIRECT);
+
+	GX_SetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS,  GX_POS_XYZ,  GX_F32,   0);
+	GX_SetVtxAttrFmt(GX_VTXFMT0, GX_VA_CLR0, GX_CLR_RGBA, GX_RGBA8, 0);
+	GX_SetVtxAttrFmt(GX_VTXFMT0, GX_VA_TEX0, GX_TEX_ST,   GX_F32,   0);
+
+	GX_SetNumChans(1); // You need this for colorized textures to work.
+	GX_SetNumTexGens(1); //set number of textures to generate
+ 	
+  	// setup texture coordinate generation
+	// args: texcoord slot 0-7, matrix type, source to generate texture coordinates from, matrix to use
+	GX_SetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_IDENTITY);
+
+ 	// Set up TEV to paint the textures properly.
+	GX_SetTevOp(GX_TEVSTAGE0,GX_MODULATE);
+	GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLOR0A0);
+
+	GX_InvVtxCache();
+	GX_InvalidateTexAll();
+
+ 	TPL_OpenTPLFromMemory(&neheTPL, (void *)NeHe_tpl,NeHe_tpl_size);
 	TPL_GetTexture(&neheTPL,nehe,&texture);
 
  return texture; // my addition based on wii above, should work? if everything is named well
+ 
 */
 
 /*
