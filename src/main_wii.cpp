@@ -181,14 +181,14 @@ void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float t
 Mtx view; // view and perspective matrices
 Mtx model, modelview;
 Mtx44 perspective;
-void DrawFlag(Mtx view, GXTexObj *texture);
+void DrawFlag(Mtx view, GXTexObj texture);
 // try https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/gxSprites/source/gxsprites.c
 // try lesson 11 instead with a single flag texture, just leave out the animation data. https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson11/source/lesson11.c
 
 void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
     float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
 {
-	DrawFlag(view,texture);
+	DrawFlag(view, &texture);
 
 		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
 		GX_SetColorUpdate(GX_TRUE);
