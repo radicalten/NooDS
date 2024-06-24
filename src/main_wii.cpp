@@ -182,21 +182,16 @@ Mtx view; // view and perspective matrices
 Mtx model, modelview;
 Mtx44 perspective;
 // try https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/gxSprites/source/gxsprites.c
+// try lesson 11 instead with a single flag texture, just leave out the animation data. https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/neheGX/lesson11/source/lesson11.c
+
 void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
     float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
 {
-GX_SetTevOp(GX_TEVSTAGE0,GX_REPLACE);
-		GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLOR0A0);
+	DrawFlag(view,texture);
 
-		GX_LoadTexObj(*texture, GX_TEXMAP0);
-
-		guMtxIdentity(model);
-		guMtxTransApply(model, model, 1.5f,0.0f,-7.0f);
-		guMtxConcat(view,model,modelview);
-		// load the modelview matrix into matrix memory
-		GX_LoadPosMtxImm(modelview, GX_PNMTX0);
-
-		GX_Begin(GX_QUADS, GX_VTXFMT0, 24);			// Draw a Cube
+		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
+		GX_SetColorUpdate(GX_TRUE);
+		GX_CopyDisp(frameBuffer[fb],GX_TRUE);
 
 }
 
