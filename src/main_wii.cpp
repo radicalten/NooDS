@@ -188,10 +188,9 @@ void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float t
 GX_SetTevOp(GX_TEVSTAGE0,GX_REPLACE);
 		GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLOR0A0);
 
-		GX_LoadTexObj(&texture, GX_TEXMAP0);
+		GX_LoadTexObj(texture, GX_TEXMAP0);
 
 		guMtxIdentity(model);
-		guMtxRotAxisDeg(model, &cubeAxis, rquad);
 		guMtxTransApply(model, model, 1.5f,0.0f,-7.0f);
 		guMtxConcat(view,model,modelview);
 		// load the modelview matrix into matrix memory
