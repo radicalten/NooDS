@@ -178,6 +178,9 @@ void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float t
 
 */
 
+Mtx view; // view and perspective matrices
+Mtx model, modelview;
+Mtx44 perspective;
 // try https://github.com/devkitPro/wii-examples/blob/38a1592e3cf3c2595d052b042058bf3179ff40de/graphics/gx/gxSprites/source/gxsprites.c
 void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
     float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
