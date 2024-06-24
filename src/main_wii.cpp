@@ -188,7 +188,7 @@ void DrawFlag(Mtx view, GXTexObj texture);
 void ConsoleUI::drawTexture(void *texture, float tx, float ty, float tw, float th,
     float x, float y, float w, float h, bool filter, int rotation, uint32_t color)
 {
-	DrawFlag(view, &texture);
+	DrawFlag(view, *texture);
 
 		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
 		GX_SetColorUpdate(GX_TRUE);
