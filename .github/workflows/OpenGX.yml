@@ -10,6 +10,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Install SDL2 (ogc-sdl-2.28)
+      run: |
+        git clone -b ogc-sdl-2.28 --single-branch https://github.com/devkitPro/SDL.git
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DCMAKE_BUILD_TYPE=Release
+        cmake --build build
+        cmake --install build
     - name: Install OpenGX
       run: |
         git clone https://github.com/devkitPro/opengx.git
