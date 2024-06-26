@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Install OpenGX
       run: |
+        git clone https://github.com/devkitPro/opengx.git
         cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
         sudo -E PATH=$PATH make install
     - name: Compile
