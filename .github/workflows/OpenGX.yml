@@ -1,0 +1,28 @@
+name: Automatic Builds
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build-wii:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkitppc:latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Grrlib
+      run: |
+         git clone https://github.com/GRRLIB/GRRLIB.git
+         cd GRRLIB/GRRLIB/
+         make clean
+         make all
+         make install
+    - name: Compile
+      run: |
+        make -f Makefile.wii -j$(nproc)
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: noods-wii
+        path: |
+          ./*.dol
