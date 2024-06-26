@@ -13,6 +13,7 @@ jobs:
     - name: Install OpenGX
       run: |
         cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
+        sudo -E PATH=$PATH make install
     - name: Compile
       run: |
         make -f Makefile.wii -j$(nproc)
