@@ -10,13 +10,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Install Grrlib
+    - name: Install OpenGX
       run: |
-         git clone https://github.com/GRRLIB/GRRLIB.git
-         cd GRRLIB/GRRLIB/
-         make clean
-         make all
-         make install
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
     - name: Compile
       run: |
         make -f Makefile.wii -j$(nproc)
