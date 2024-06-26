@@ -1,4 +1,4 @@
-name: Automatic Builds
+name: OpenGX Build
 on:
   push:
     branches:
