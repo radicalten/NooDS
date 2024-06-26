@@ -1,4 +1,4 @@
-name: OpenGX Build
+name: OpenGX SDL2
 on:
   push:
     branches:
