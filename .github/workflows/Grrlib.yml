@@ -19,7 +19,7 @@ jobs:
          make install
     - name: Compile
       run: |
-        make -f Makefile.wii -j$(nproc)
+        make -f Makefile.wiigrrlib -j$(nproc)
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
