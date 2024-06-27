@@ -1,535 +1,199 @@
-/*
- * This code was created by Jeff Molofee '99 
- * (ported to Linux/SDL by Ti Leggett '01)
- *
- * If you've found this code useful, please let me know.
- *
- * Visit Jeff at http://nehe.gamedev.net/
- * 
- * or for port-specific comments, questions, bugreports etc. 
- * email to leggett@eecs.tulane.edu
- *
- * Modified by davidgf for Wii/GC
- * Embedded the texture to avoid using SD media
- * Added manual GL initialization but still portable
- * (runs on my Linux too)
- */
- 
 #include <stdio.h>
 #include <stdlib.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <SDL/SDL.h>
+#include <gccore.h>
+#include <malloc.h>
+#include <string.h>
+#include <wiiuse/wpad.h>
 
-// #include "crate.h"
+#include "texture.h"
 
-/* screen width, height, and bit depth */
-#define SCREEN_WIDTH  640
-#define SCREEN_HEIGHT 480
-#define SCREEN_BPP     32
+#define FIFO_SIZE (256*1024)
 
-/* Set up some booleans */
-#define TRUE  1
-#define FALSE 0
-	
-/* This is our SDL surface */
-SDL_Surface *surface;
+static void *xfb = NULL;
+static GXRModeObj *rmode = NULL;
+static GXTexObj texture;
+static Mtx44 proj;
 
-/* Whether or not lighting is on */
-int light = FALSE;
-
-GLfloat xrot = 0;  /* X Rotation */
-GLfloat yrot = 0;  /* Y Rotation */
-GLfloat xspeed = 0; /* X Rotation Speed */
-GLfloat yspeed = 2; /* Y Rotation Speed */
-GLfloat z = -5.0f; /* Depth Into The Screen */
-
-/* Ambient Light Values ( NEW ) */
-GLfloat LightAmbient[]  = { 0.5f, 0.5f, 0.5f, 1.0f };
-/* Diffuse Light Values ( NEW ) */
-GLfloat LightDiffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-/* Light Position ( NEW ) */
-GLfloat LightPosition[] = { 0.0f, 5.0f, 0.0f, 1.0f };
-
-GLuint filter;     /* Which Filter To Use */
-GLuint texture[3]; /* Storage for 3 textures */
-
-
-/* function to release/destroy our resources and restoring the old desktop */
-void Quit( int returnCode )
+static void load_texture()
 {
-    /* clean up the window */
-    SDL_Quit( );
-
-    /* and exit appropriately */
-    exit( returnCode );
-}
-
-/* function to load in bitmap as a GL texture */
-int LoadGLTextures( )
-{
-    /* Status indicator */
-    int Status = FALSE;
-
-    /* Create storage space for the texture */
-    SDL_Surface *TextureImage[1]; 
-
-	    /* Set the status to true */
-	    Status = TRUE;
-
-	    /* Create The Texture */
-	    glGenTextures( 3, &texture[0] );
-
-	    /* Load in texture 1 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[0] );
-
-	    /* Generate The Texture */
-	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
-			  TextureImage[0]->h, 0, GL_BGR,
-			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-	    
-	    /* Nearest Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_NEAREST );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_NEAREST );
-
-	    /* Load in texture 2 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[1] );
-
-	    /* Linear Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_LINEAR );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_LINEAR );
-
-	    /* Generate The Texture */
-	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
-			  TextureImage[0]->h, 0, GL_BGR,
-			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-
-	    /* Load in texture 3 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[2] );
-
-	    /* Mipmapped Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_LINEAR_MIPMAP_NEAREST );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_LINEAR );
-
-	    /* Generate The MipMapped Texture ( NEW ) */
-	    gluBuild2DMipmaps( GL_TEXTURE_2D, 3, TextureImage[0]->w,
-			       TextureImage[0]->h, GL_BGR,
-			       GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
+    u32 size = GX_GetTexBufferSize(width, height, GX_TF_RGBA8, GX_FALSE, 0);
+    uint8_t *texels = memalign(32, size);
+    char *data = header_data;
+    int tex_pitch = width;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            char pixel[3];
+            HEADER_PIXEL(data, pixel);
+            u32 offset = (((y >> 2) << 4) * tex_pitch) +
+                ((x >> 2) << 6) + (((y % 4 << 2) + x % 4) << 1);
+            texels[offset] = 0xff;
+            texels[offset + 1] = pixel[0];
+            texels[offset + 32] = pixel[1];
+            texels[offset + 33] = pixel[2];
         }
-
-    /* Free up any memory we may have used */
-    if ( TextureImage[0] )
-	    SDL_FreeSurface( TextureImage[0] );
-
-    return Status;
-}
-
-/* function to reset our viewport after a window resize */
-int resizeWindow( int width, int height )
-{
-    /* Height / width ration */
-    GLfloat ratio;
- 
-    /* Protect against a divide by zero */
-    if ( height == 0 )
-	height = 1;
-
-    ratio = ( GLfloat )width / ( GLfloat )height;
-
-    /* Setup our viewport. */
-    glViewport( 0, 0, ( GLint )width, ( GLint )height );
-
-    /* change to the projection matrix and set our viewing volume. */
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity( );
-
-    /* Set our perspective */
-    gluPerspective( 45.0f, ratio, 0.1f, 100.0f );
-
-    /* Make sure we're chaning the model view and not the projection */
-    glMatrixMode( GL_MODELVIEW );
-
-    /* Reset The View */
-    glLoadIdentity( );
-
-    return( TRUE );
-}
-
-/* function to handle key press events */
-void handleKeyPress( SDL_keysym *keysym )
-{
-    switch ( keysym->sym )
-	{
-	case SDLK_ESCAPE:
-	    /* ESC key was pressed */
-	    Quit( 0 );
-	    break;
-	case SDLK_f:
-	    /* 'f' key was pressed
-	     * this pages through the different filters
-	     */
-	    filter = ( ++filter ) % 3;
-	    break;
-	case SDLK_l:
-	    /* 'l' key was pressed
-	     * this toggles the light
-	     */
-	    light = !light;
-	    if ( !light )
-		glDisable( GL_LIGHTING );
-	    else
-		glEnable( GL_LIGHTING );
-	    break;
-	case SDLK_PAGEUP:
-	    /* PageUp key was pressed
-	     * this zooms into the scene
-	     */
-	    z -= 0.02f;
-	    break;
-	case SDLK_PAGEDOWN:
-	    /* PageDown key was pressed
-	     * this zooms out of the scene
-	     */
-	    z += 0.02f;
-	    break;
-	case SDLK_UP:
-	    /* Up arrow key was pressed
-	     * this affects the x rotation
-	     */
-	    xspeed -= 0.01f;
-	    break;
-	case SDLK_DOWN:
-	    /* Down arrow key was pressed
-	     * this affects the x rotation
-	     */
-	    xspeed += 0.01f;
-	    break;
-	case SDLK_RIGHT:
-	    /* Right arrow key was pressed
-	     * this affects the y rotation
-	     */
-	    yspeed += 0.01f;
-	    break;
-	case SDLK_LEFT:
-	    /* Left arrow key was pressed
-	     * this affects the y rotation
-	     */
-	    yspeed -= 0.01f;
-	    break;
-	case SDLK_F1:
-	    /* 'f' key was pressed
-	     * this toggles fullscreen mode
-	     */
-	    SDL_WM_ToggleFullScreen( surface );
-	    break;
-	default:
-	    break;
-	}
-
-    return;
-}
-
-/* general OpenGL initialization function */
-int initGL( GLvoid )
-{
-
-    /* Load in the texture */
-    if ( !LoadGLTextures( ) )
-	return FALSE;
-
-    /* Enable Texture Mapping ( NEW ) */
-    glEnable( GL_TEXTURE_2D );
-
-    /* Enable smooth shading */
-    glShadeModel( GL_SMOOTH );
-
-    /* Set the background black */
-    glClearColor( 0.6f, 0.6f, 0.6f, 0.0f );
-
-    /* Depth buffer setup */
-    glClearDepth( 1.0f );
-
-    /* Enables Depth Testing */
-    glEnable( GL_DEPTH_TEST );
-
-    /* The Type Of Depth Test To Do */
-    glDepthFunc( GL_LEQUAL );
-
-    /* Really Nice Perspective Calculations */
-    glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
-
-    /* Setup The Ambient Light */
-    glLightfv( GL_LIGHT1, GL_AMBIENT, LightAmbient );
-
-    /* Setup The Diffuse Light */
-    glLightfv( GL_LIGHT1, GL_DIFFUSE, LightDiffuse );
-
-    /* Position The Light */
-	glLightfv( GL_LIGHT1, GL_POSITION, LightPosition );
-
-    /* Enable Light One */
-    glEnable( GL_LIGHT1 );
-
-	glEnable( GL_LIGHTING );
-
-    return( TRUE );
-}
-
-/* Here goes our drawing code */
-int drawGLScene( GLvoid )
-{
-    /* These are to calculate our fps */
-    static GLint T0     = 0;
-    static GLint Frames = 0;
-
-    /* Clear The Screen And The Depth Buffer */
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-    /* Reset the view */
-    glLoadIdentity( );
-	gluLookAt (5,5,5, 0,0,0, 0,1,0);
-
-	glLightfv( GL_LIGHT1, GL_POSITION, LightPosition );
-
-    /* Translate Into/Out Of The Screen By z */
-//    glTranslatef( 0.0f, 0.0f, z );
-
-//    glRotatef( xrot, 1.0f, 0.0f, 0.0f); /* Rotate On The X Axis By xrot */
-//    glRotatef( yrot, 0.0f, 1.0f, 0.0f); /* Rotate On The Y Axis By yrot */
-
-    /* Select A Texture Based On filter */
-    glBindTexture( GL_TEXTURE_2D, texture[filter] );
-
-    /* Start Drawing Quads */
-    glBegin( GL_QUADS );
-      /* Front Face */
-      /* Normal Pointing Towards Viewer */
-      glNormal3f( 0.0f, 0.0f, 1.0f );
-      /* Point 1 (Front) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f( -1.0f, -1.0f,  1.0f );
-      /* Point 2 (Front) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f(  1.0f, -1.0f,  1.0f );
-      /* Point 3 (Front) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f(  1.0f,  1.0f,  1.0f );
-      /* Point 4 (Front) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f( -1.0f,  1.0f,  1.0f );
-
-      /* Back Face */
-      /* Normal Pointing Away From Viewer */
-      glNormal3f( 0.0f, 0.0f, -1.0f);
-      /* Point 1 (Back) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f( -1.0f, -1.0f, -1.0f );
-      /* Point 2 (Back) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f( -1.0f,  1.0f, -1.0f );
-      /* Point 3 (Back) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f(  1.0f,  1.0f, -1.0f );
-      /* Point 4 (Back) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f(  1.0f, -1.0f, -1.0f );
-
-      /* Top Face */
-      /* Normal Pointing Up */
-      glNormal3f( 0.0f, 1.0f, 0.0f );
-      /* Point 1 (Top) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f( -1.0f,  1.0f, -1.0f );
-      /* Point 2 (Top) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f( -1.0f,  1.0f,  1.0f );
-      /* Point 3 (Top) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f(  1.0f,  1.0f,  1.0f );
-      /* Point 4 (Top) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f(  1.0f,  1.0f, -1.0f );
-
-      /* Bottom Face */
-      /* Normal Pointing Down */
-      glNormal3f( 0.0f, -1.0f, 0.0f );
-      /* Point 1 (Bottom) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f( -1.0f, -1.0f, -1.0f );
-      /* Point 2 (Bottom) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f(  1.0f, -1.0f, -1.0f );
-      /* Point 3 (Bottom) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f(  1.0f, -1.0f,  1.0f );
-      /* Point 4 (Bottom) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f( -1.0f, -1.0f,  1.0f );
-
-      /* Right face */
-      /* Normal Pointing Right */
-      glNormal3f( 1.0f, 0.0f, 0.0f);
-      /* Point 1 (Right) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f( 1.0f, -1.0f, -1.0f );
-      /* Point 2 (Right) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f( 1.0f,  1.0f, -1.0f );
-      /* Point 3 (Right) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f( 1.0f,  1.0f,  1.0f );
-      /* Point 4 (Right) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f( 1.0f, -1.0f,  1.0f );
-
-      /* Left Face*/
-      /* Normal Pointing Left */
-      glNormal3f( -1.0f, 0.0f, 0.0f );
-      /* Point 1 (Left) */
-      glTexCoord2f( 1.0f, 0.0f ); glVertex3f( -1.0f, -1.0f, -1.0f );
-      /* Point 2 (Left) */
-      glTexCoord2f( 0.0f, 0.0f ); glVertex3f( -1.0f, -1.0f,  1.0f );
-      /* Point 3 (Left) */
-      glTexCoord2f( 0.0f, 1.0f ); glVertex3f( -1.0f,  1.0f,  1.0f );
-      /* Point 4 (Left) */
-      glTexCoord2f( 1.0f, 1.0f ); glVertex3f( -1.0f,  1.0f, -1.0f );
-    glEnd();
-
-    /* Draw it to the screen */
-    SDL_GL_SwapBuffers( );
-
-    /* Gather our frames per second */
-    Frames++;
-    {
-	GLint t = SDL_GetTicks();
-	if (t - T0 >= 5000) {
-	    GLfloat seconds = (t - T0) / 1000.0;
-	    GLfloat fps = Frames / seconds;
-	    printf("%d frames in %g seconds = %g FPS\n", Frames, seconds, fps);
-	    T0 = t;
-	    Frames = 0;
-	}
     }
+    DCStoreRange(texels, size);
+    GX_InvalidateTexAll();
 
-    xrot += xspeed; /* Add xspeed To xrot */
-    yrot += yspeed; /* Add yspeed To yrot */
-
-    return( TRUE );
+    GX_InitTexObj(&texture, texels, width, height,
+                  GX_TF_RGBA8, GX_CLAMP, GX_CLAMP, GX_FALSE);
+    GX_InitTexObjLOD(&texture, GX_NEAR, GX_NEAR, 0., 0., 0.,
+                     GX_FALSE, GX_FALSE, GX_ANISO_1);
+    GX_LoadTexObj(&texture, GX_TEXMAP0);
 }
 
-int main()
+static void draw_square()
 {
-    /* Flags to pass to SDL_SetVideoMode */
-    int videoFlags;
-    /* main loop variable */
-    int done = FALSE;
-    /* used to collect events */
-    SDL_Event event;
-    /* this holds some info about our display */
-    const SDL_VideoInfo *videoInfo;
-    /* whether or not the window is active */
-    int isActive = TRUE;
+    GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
+    GX_Position2s16(-2, -2);
+    GX_Position2s16(-2, 2);
+    GX_Position2s16(2, 2);
+    GX_Position2s16(2, -2);
+    GX_End();
+}
 
-    /* initialize SDL */
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-	    printf("Video initialization failed: %s\n",
-		     SDL_GetError( ) );
-	    Quit( 1 );
+static void setup_viewport()
+{
+    u32 w, h;
+
+    w = rmode->fbWidth;
+    h = rmode->efbHeight;
+
+    printf("width %d, height %d\n", w, h);
+    // matrix, t, b, l, r, n, f
+    guPerspective(proj, 45, (f32)w/h, 0.1F, 300.0F);
+    //guOrtho(proj, 1, -2, -1, 2, 0.1F, 300.0F);
+    GX_LoadProjectionMtx(proj, GX_PERSPECTIVE);
+
+    GX_SetViewport(0, 0, w, h, 0, 1);
+
+    f32 yscale = GX_GetYScaleFactor(h, rmode->xfbHeight);
+    GX_SetDispCopyYScale(yscale);
+    GX_SetScissor(0, 0, w, h);
+    GX_SetDispCopySrc(0, 0, w, h);
+    GX_SetDispCopyDst(w, rmode->xfbHeight);
+    GX_SetCopyFilter(rmode->aa, rmode->sample_pattern, GX_TRUE, rmode->vfilter);
+}
+
+//---------------------------------------------------------------------------------
+int main(int argc, char **argv) {
+//---------------------------------------------------------------------------------
+
+	// Initialise the video system
+	VIDEO_Init();
+
+	// This function initialises the attached controllers
+	WPAD_Init();
+
+	// Obtain the preferred video mode from the system
+	// This will correspond to the settings in the Wii menu
+	rmode = VIDEO_GetPreferredMode(NULL);
+
+	// Allocate memory for the display in the uncached region
+	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+
+	// Set up the video registers with the chosen mode
+	VIDEO_Configure(rmode);
+
+	// Tell the video hardware where our display memory is
+	VIDEO_SetNextFramebuffer(xfb);
+
+	// Make the display visible
+	VIDEO_SetBlack(false);
+
+	// Flush the video register changes to the hardware
+	VIDEO_Flush();
+
+	// Wait for Video setup to complete
+	VIDEO_WaitVSync();
+	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+
+    void *fifoBuffer = NULL;
+    fifoBuffer = MEM_K0_TO_K1(memalign(32,FIFO_SIZE));
+    memset(fifoBuffer, 0, FIFO_SIZE);
+    GX_Init(fifoBuffer, FIFO_SIZE);
+
+    setup_viewport();
+    load_texture();
+
+    GX_ClearVtxDesc();
+    GX_SetVtxDesc(GX_VA_POS, GX_DIRECT);
+    GX_SetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XY, GX_S16, 0);
+
+    GX_SetPixelFmt(GX_PF_RGB8_Z24, GX_ZC_LINEAR);
+    GXColor backgroundColor = {255, 0, 0, 255};
+    GX_SetCopyClear(backgroundColor, GX_MAX_Z24);
+
+    GX_SetNumChans(0);
+    GX_SetNumTexGens(1);
+    /* QUESTION: why does this matrix has 0.5 on the third column (which should
+     * be for the Z or Q coordinate) and not +1 on the last column (which
+     * should be for the translation)? */
+    Mtx pm = {
+        {-0.5,   0, 0.5, 0},
+        {0,    0.5, 0.5, 0},
+        {0,      0,   1, 0},
+    };
+    GX_LoadTexMtxImm(pm, GX_DTTMTX0, GX_MTX3x4);
+    GX_SetTexCoordGen2(GX_TEXCOORD0, GX_TG_MTX3x4, GX_TG_POS, GX_TEXMTX0, GX_FALSE, GX_DTTMTX0);
+    GX_SetTevOrder(GX_TEVSTAGE0, GX_TEXCOORD0, GX_TEXMAP0, GX_COLORNULL);
+    GX_SetTevOp(GX_TEVSTAGE0, GX_REPLACE);
+
+    GX_SetCullMode(GX_CULL_NONE);
+    GX_SetColorUpdate(GX_TRUE);
+
+    Mtx view;
+    guVector cam = {0.0F, 0.0F, 0.0F},
+             up = {0.0F, 1.0F, 0.0F},
+             look = {0.0F, 0.0F, -1.0F};
+    guLookAt(view, &cam, &up, &look);
+
+    float rtri = 0.0f;
+    guVector Xaxis = {1,0,0};
+    guVector Yaxis = {0,1,0};
+    guVector Zaxis = {0,0,1};
+	while(1) {
+        Mtx model, modelview, rot;
+        guMtxIdentity(model);
+        guMtxRotAxisDeg(model, &Yaxis, rtri);
+        guMtxRotAxisDeg(rot, &Xaxis, rtri);
+        guMtxConcat(rot,model,model);
+        guMtxRotAxisDeg(rot, &Zaxis, rtri);
+        guMtxConcat(rot,model,model);
+        guMtxTransApply(model, model, 0.0f,0.0f,-6.0f);
+        guMtxConcat(view,model,modelview);
+        // load the modelview matrix into matrix memory
+        GX_LoadPosMtxImm(modelview, GX_PNMTX0);
+
+        Mtx m, trans;
+        guMtxCopy(modelview, m);
+        /* QUESTION: instead of just taking the 00 and 11 elements from the
+         * projection matrix, shouldn't we multiply by it?
+         *
+         * guMtxConcat(proj, m, m);
+         */
+        guMtxScale(trans, proj[0][0], proj[1][1], 1);
+        guMtxConcat(trans, m, m);
+        GX_LoadTexMtxImm(m, GX_TEXMTX0, GX_MTX3x4);
+        draw_square();
+
+		// Call WPAD_ScanPads each loop, this reads the latest controller states
+		WPAD_ScanPads();
+
+		// WPAD_ButtonsDown tells us which buttons were pressed in this loop
+		// this is a "one shot" state which will not fire again until the button has been released
+		u32 pressed = WPAD_ButtonsDown(0);
+
+		// We return to the launcher application via exit
+		if ( pressed & WPAD_BUTTON_HOME ) exit(0);
+
+        GX_DrawDone();
+        GX_CopyDisp(xfb,GX_TRUE);
+
+		// Wait for the next frame
+		VIDEO_WaitVSync();
+        rtri+=0.5f;
 	}
 
-    /* Fetch the video info */
-    videoInfo = SDL_GetVideoInfo( );
-
-    if ( !videoInfo )
-	{
-	    printf( "Video query failed: %s\n",
-		     SDL_GetError( ) );
-	    Quit( 1 );
-	}
-
-    /* the flags to pass to SDL_SetVideoMode */
-    videoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
-    videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
-    videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
-    videoFlags |= SDL_RESIZABLE;       /* Enable window resizing */
-
-    /* This checks to see if surfaces can be stored in memory */
-    if ( videoInfo->hw_available )
-	videoFlags |= SDL_HWSURFACE;
-    else
-	videoFlags |= SDL_SWSURFACE;
-
-    /* This checks if hardware blits can be done */
-    if ( videoInfo->blit_hw )
-	videoFlags |= SDL_HWACCEL;
-
-    /* Sets up OpenGL double buffering */
-    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
-    /* get a SDL surface */
-    surface = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
-				videoFlags );
-
-    /* Verify there is a surface */
-    if ( !surface )
-	{
-	    printf(  "Video mode set failed: %s\n", SDL_GetError( ) );
-	    Quit( 1 );
-	}
-
-	#ifdef GAMECUBE_WII
-	// TODO: this should not be here, SDL will take care of this
-	ogx_initialize();
-	#endif
-
-    /* initialize OpenGL */
-    initGL( );
-
-    /* resize the initial window */
-    resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
-
-    /* wait for events */
-    while ( !done )
-	{
-	    /* handle the events in the queue */
-
-	    while ( SDL_PollEvent( &event ) )
-		{
-		    switch( event.type )
-			{
-			case SDL_ACTIVEEVENT:
-			    /* Something's happend with our focus
-			     * If we lost focus or we are iconified, we
-			     * shouldn't draw the screen
-			     */
-			    if ( event.active.gain == 0 )
-				isActive = FALSE;
-			    else
-				isActive = TRUE;
-			    break;			    
-			case SDL_VIDEORESIZE:
-			    /* handle resize event */
-			    surface = SDL_SetVideoMode( event.resize.w,
-							event.resize.h,
-							16, videoFlags );
-			    if ( !surface )
-				{
-				    printf(  "Could not get a surface after resize: %s\n", SDL_GetError( ) );
-				    Quit( 1 );
-				}
-			    resizeWindow( event.resize.w, event.resize.h );
-			    break;
-			case SDL_KEYDOWN:
-			    /* handle key presses */
-			    handleKeyPress( &event.key.keysym );
-			    break;
-			case SDL_QUIT:
-			    /* handle quit requests */
-			    done = 1;
-			    break;
-			default:
-			    break;
-			}
-		}
-
-	    /* draw the scene */
-//	    if ( isActive )
-		drawGLScene( );
-	}
-
-    /* clean ourselves up and exit */
-    Quit( 0 );
-
-    /* Should never get here */
-    return( 0 );
+	return 0;
 }
