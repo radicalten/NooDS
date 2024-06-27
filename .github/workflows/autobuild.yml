@@ -1,4 +1,4 @@
-name: Automatic Builds
+name: GRRlib
 on:
   push:
     branches:
