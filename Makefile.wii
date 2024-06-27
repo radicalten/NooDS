@@ -33,7 +33,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lopengx -lSDL -lfat -logc -lwiiuse -lwiikeyboard -lm -lbte -lGL -lGLU 
+LIBS	:= -lopengx -lSDL -lfat -logc -lwiiuse -lwiikeyboard -lm -lbte -lGLU 
 
 # LIBS	:= -lgrrlib -lpngu `$(PREFIX)pkg-config freetype2 libpng libjpeg --libs` -lfat -lwiiuse -lbte -logc -lm
 
