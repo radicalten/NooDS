@@ -23,9 +23,17 @@ jobs:
         cd .
         git clone https://github.com/devkitPro/opengx.git
         cd opengx
-        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
-        cd build
-        sudo -E PATH=$PATH make install
+        mkdir build && cd build
+        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" ..
+        make && sudo make install
+    - name: Install FreeGLUT
+      run: |
+        cd .
+        git clone https://github.com/devkitPro/opengx.git
+        cd freeglut
+        mkdir build && cd build
+        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
+        make && sudo make install
     - name: Compile
       run: |
         make -f Makefile.wii -j$(nproc)
