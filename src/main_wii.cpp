@@ -21,7 +21,7 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
-#include "crate.h"
+// #include "crate.h"
 
 /* screen width, height, and bit depth */
 #define SCREEN_WIDTH  640
