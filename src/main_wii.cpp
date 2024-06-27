@@ -125,13 +125,6 @@ int LoadGLTextures( )
 			       TextureImage[0]->h, GL_BGR,
 			       GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
         }
-		else
-
-		{
-			printf("Could not load the texture\n");
-		}
-
-
 
     /* Free up any memory we may have used */
     if ( TextureImage[0] )
