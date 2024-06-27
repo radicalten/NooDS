@@ -74,7 +74,7 @@ int LoadGLTextures( )
     /* Create storage space for the texture */
     SDL_Surface *TextureImage[1]; 
 
-*/ Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit 
+/* Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit 
     if ( ( TextureImage[0] = SDL_LoadBMP_RW(SDL_RWFromConstMem(crate_tex,size_crate_tex),1) ) )
         {
 
