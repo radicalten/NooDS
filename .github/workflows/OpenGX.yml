@@ -18,14 +18,6 @@ jobs:
         cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DCMAKE_BUILD_TYPE=Release
         cmake --build build
         cmake --install build
-    - name: Install OpenGX
-      run: |
-        cd .
-        git clone https://github.com/devkitPro/opengx.git
-        cd opengx
-        mkdir build && cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" ..
-        make && sudo make install
     - name: Compile
       run: |
         make -f Makefile.wiiopengx -j$(nproc)
