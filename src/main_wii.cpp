@@ -32,6 +32,7 @@
 #define TRUE  1
 #define FALSE 0
 
+#ifndef __crate_tex__	
 #define __crate_tex__
 
 static unsigned int size_crate_tex = 196662;
@@ -12329,6 +12330,7 @@ static unsigned char crate_tex[] __attribute__((aligned(16))) = {
 	0x45, 0x24, 0x21, 0x1d, 0x29, 0x35, 0x44, 0x13, 0x13, 0x14, 0x1b, 0x1b, 0x1c, 0x23, 0x2e, 0x43, 
 	0x19, 0x23, 0x2b, 0x12, 0x16, 0x22, 
 };
+#endif
 	
 /* This is our SDL surface */
 SDL_Surface *surface;
