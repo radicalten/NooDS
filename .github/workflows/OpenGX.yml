@@ -36,7 +36,7 @@ jobs:
         make && sudo make install
     - name: Compile
       run: |
-        make -f Makefile.wii -j$(nproc)
+        make -f Makefile.wiiopengx -j$(nproc)
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
