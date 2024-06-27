@@ -1,4 +1,4 @@
-name: OpenGX SDL2
+name: OpenGX SDL2 FreeGLUT
 on:
   push:
     branches:
