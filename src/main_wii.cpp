@@ -32,7 +32,6 @@
 #define TRUE  1
 #define FALSE 0
 
-#ifndef __crate_tex__
 #define __crate_tex__
 
 static unsigned int size_crate_tex = 196662;
