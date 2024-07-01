@@ -33,9 +33,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lSDL -lfat -logc -lwiiuse -lm -lbte
-
-# LIBS	:= -lgrrlib -lpngu `$(PREFIX)pkg-config freetype2 libpng libjpeg --libs` -lfat -lwiiuse -lbte -logc -lm
+LIBS	:= -lopengx -lfat -lwiiuse -lbte -logc -lm -lGLU -lSDL2
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
