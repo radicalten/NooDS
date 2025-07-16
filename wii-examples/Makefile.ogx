@@ -17,7 +17,7 @@ include $(DEVKITPRO)/libogc2/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source2
 DATA		:=	data  
 INCLUDES	:=      
 
