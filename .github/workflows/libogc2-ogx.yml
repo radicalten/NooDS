@@ -10,7 +10,31 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Install dependencies
+      
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+    - name: Install FreeGLUT Prerequisites 
+      run: |
+        brew install cmake libx11 libxi libxrandr libxxf86vm pkg-config mesa
+    - name: Install SDL2
+      run: |
+        mkdir build
+        cd build
+        git clone --branch SDL2 --depth 1 https://github.com/libsdl-org/SDL.git
+        cmake sdl
+        make
+        sudo make install
+    - name: Install FreeGLUT
+      run: |
+        cd .
+        git clone https://github.com/freeglut/freeglut.git
+        cd freeglut
+        mkdir build && cd build
+        cmake -DFREEGLUT_BUILD_DEMOS=OFF -DOPENGL_gl_LIBRARY=/opt/homebrew/lib/libGL.dylib ..
+        make && sudo make install
+      
+    - name: Install dependencies extremscorner
       run: |
         sudo dkp-pacman-key --recv-keys C8A2759C315CFBC3429CC2E422B803BA8AA3D7CE --keyserver keyserver.ubuntu.com
         sudo dkp-pacman-key --lsign-key C8A2759C315CFBC3429CC2E422B803BA8AA3D7CE
