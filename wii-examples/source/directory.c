@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 
 	if (!fatInitDefault()) {
 		printf("fatInitDefault failure: terminating\n");
-		goto error;
+		//goto error;
 	}
 
 	DIR *pdir;
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 
 	if (!pdir){
 		printf ("opendir() failure; terminating\n");
-		goto error;
+		//goto error;
 	}
 
 	do {
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
 	} while (pent != NULL || errno == EOVERFLOW);
 	closedir(pdir);
 
-error:
+//error:
 	while(1) {
 
 		// Call WPAD_ScanPads each loop, this reads the latest controller states
