@@ -11,12 +11,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Set up Homebrew
-      id: set-up-homebrew
-      uses: Homebrew/actions/setup-homebrew@master
-    - name: Install FreeGLUT Prerequisites 
-      run: |
-        brew install cmake libx11 libxi libxrandr libxxf86vm pkg-config mesa
     - name: Install SDL2
       run: |
         mkdir build
