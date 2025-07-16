@@ -3,7 +3,7 @@ name: Automatic Builds
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   build-windows:
