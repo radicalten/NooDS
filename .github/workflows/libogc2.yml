@@ -2,7 +2,7 @@ name: Libogc2
 on:
   push:
     branches:
-    - master
+    - master1
 jobs:
   build-wii:
     runs-on: ubuntu-latest
