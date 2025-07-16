@@ -17,16 +17,7 @@ jobs:
         sudo sed -i '/^\[dkp-libs\]$/,$d' /opt/devkitpro/pacman/etc/pacman.conf
         sudo echo -e '[extremscorner-devkitpro]\nServer = https://packages.extremscorner.org/devkitpro/linux/$arch' >> /opt/devkitpro/pacman/etc/pacman.conf
         sudo dkp-pacman -Sy
-        sudo dkp-pacman -R --cascade libogc2-git
-        sudo dkp-pacman -S --needed devkitPPC wii-tools ppc-libmad
-        git clone https://github.com/extremscorner/libogc2.git
-        cd libogc2
-        make
-        sudo -E make install
-        git clone https://github.com/extremscorner/libfat.git
-        cd libfat
-        make ogc-release
-        sudo -E make ogc-install   
+        sudo dkp-pacman -S --noconfirm --ask 4 libogc2 libogc2-cmake libogc2-libfat--git    
     - name: Compile
       run: |
         cd wii-examples
