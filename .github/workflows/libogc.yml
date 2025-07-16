@@ -19,4 +19,4 @@ jobs:
       with:
         name: gnuboy-wii
         path: |
-          ./*.dol
+          ./wii-examples/*.dol
