@@ -15,7 +15,7 @@ jobs:
       run: |
         cd .
         git clone ogc-sdl-2.28 https://github.com/devkitPro/SDL/tree/ogc-sdl-2.28.git
-        cd ocg-sdl-2.28
+        cd SDL
         cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
         cd build
         make
