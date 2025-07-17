@@ -1,0 +1,115 @@
+name: FCE Ultra GX Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: ["Wii", "GameCube"]
+    container: devkitpro/devkitppc:latest
+
+    steps:
+    - name: Install packages
+      run: |
+        sudo dkp-pacman-key --recv-keys C8A2759C315CFBC3429CC2E422B803BA8AA3D7CE --keyserver keyserver.ubuntu.com
+        sudo dkp-pacman-key --lsign-key C8A2759C315CFBC3429CC2E422B803BA8AA3D7CE
+        sudo sed -i '/^\[dkp-libs\]$/,$d' /opt/devkitpro/pacman/etc/pacman.conf
+        sudo echo -e '[extremscorner-devkitpro]\nServer = https://packages.extremscorner.org/devkitpro/linux/$arch' >> /opt/devkitpro/pacman/etc/pacman.conf
+        sudo dkp-pacman -Sy
+        sudo dkp-pacman -S --noconfirm --ask 4 gamecube-tools-git libogc2 libogc2-libdvm
+        
+    - name: Checkout fceugx repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Build Wii
+      if: ${{ matrix.image == 'Wii' }}
+      run: |
+        make -f Makefile.wii -j1
+
+    - name: Copy Wii artifacts
+      if: ${{ matrix.image == 'Wii' }}
+      run: |
+        mkdir -p dist/FCEUltraGX/apps/fceugx
+        mkdir -p dist/FCEUltraGX/fceugx/roms
+        mkdir dist/FCEUltraGX/fceugx/cheats
+        mkdir dist/FCEUltraGX/fceugx/saves
+        touch dist/FCEUltraGX/fceugx/roms/romsdir
+        touch dist/FCEUltraGX/fceugx/cheats/cheatsdir
+        touch dist/FCEUltraGX/fceugx/saves/savesdir
+        cp hbc/* dist/FCEUltraGX/apps/fceugx/
+        cp executables/fceugx-wii.dol dist/FCEUltraGX/apps/fceugx/boot.dol
+
+    - name: Upload Wii artifacts
+      uses: actions/upload-artifact@v4
+      if: ${{ matrix.image == 'Wii' }}
+      with:
+        name: FCEUltraGX
+        path: |
+          dist/FCEUltraGX/
+
+    - name: Build GameCube
+      if: ${{ matrix.image == 'GameCube' }}
+      run: |
+        make -f Makefile.gc -j1
+
+    - name: Copy GameCube artifact
+      if: ${{ matrix.image == 'GameCube' }}
+      run: |
+        mkdir -p dist/FCEUltraGX-GameCube
+        cp executables/fceugx-gc.dol dist/FCEUltraGX-GameCube/
+
+    - name: Upload GameCube artifact
+      uses: actions/upload-artifact@v4
+      if: ${{ matrix.image == 'GameCube' }}
+      with:
+        name: FCEUltraGX-GameCube
+        path: |
+          dist/FCEUltraGX-GameCube/
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+    - name: Checkout fceugx repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist
+
+    - name: Re-zip artifacts
+      run: |
+        cd dist
+        cd FCEUltraGX
+        rm -r fceugx/cheats/*
+        rm -r fceugx/roms/*
+        rm -r fceugx/saves/*
+        zip -r ../FCEUltraGX.zip *
+        cd ../FCEUltraGX-GameCube
+        zip -r ../FCEUltraGX-GameCube.zip *
+
+    - name: Update Git Tag
+      run: |
+        git tag -f Pre-release
+        git push -f origin Pre-release
+
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        prerelease: true
+        allowUpdates: true
+        removeArtifacts: true
+        replacesArtifacts: false
+        tag: Pre-release
+        artifacts: "dist/*.zip"
