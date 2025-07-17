@@ -136,8 +136,13 @@ static void draw_frame(void)
     square();
 }
 
-int main(int argc, char **argv)
-{
+
+
+
+
+//---------------------------------------------------------------------------------
+int main(int argc, char **argv){
+//---------------------------------------------------------------------------------   
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) {
         SDL_Log("Unable to initialize SDL video subsystem: %s\n", SDL_GetError());
         return EXIT_FAILURE;
