@@ -2,7 +2,7 @@ name: Libogc-ogx
 on:
   push:
     branches:
-    - master
+    - main
 jobs:
   build-wii:
     runs-on: ubuntu-latest
