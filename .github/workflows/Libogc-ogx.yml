@@ -1,8 +1,8 @@
-name: Libogc
+name: Libogc-ogx
 on:
   push:
     branches:
-    - main
+    - master
 jobs:
   build-wii:
     runs-on: ubuntu-latest
