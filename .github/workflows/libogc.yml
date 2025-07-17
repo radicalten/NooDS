@@ -18,7 +18,7 @@ jobs:
         cd freeglut
         mkdir build && cd build
         cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
-        make && sudo make install
+        sudo -E PATH=$PATH make && sudo make install
         
     - name: Compile
       run: |
