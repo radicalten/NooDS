@@ -22,6 +22,7 @@ jobs:
 
     - name: Install FreeGLUT
       run: |
+        get-cmake
         cd .
         git clone https://github.com/freeglut/freeglut.git
         cd freeglut
