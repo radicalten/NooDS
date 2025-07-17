@@ -19,7 +19,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source2
 DATA		:=	data  
-INCLUDES	:=      $(PORTLIBS) /opt/devkitpro/portlibs/wii/include/GL/
+INCLUDES	:=      /opt/devkitpro/portlibs/wii/include/GL/
 
 #---------------------------------------------------------------------------------
 # options for code generation
