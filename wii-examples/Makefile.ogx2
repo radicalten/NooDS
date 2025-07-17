@@ -39,7 +39,7 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lglut -lGL
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= /opt/devkitpro/portlibs/wii/include/GL/
+LIBDIRS	:= -I/opt/devkitpro/portlibs/wii/include -L/opt/devkitpro/portlibs/wii/lib/
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
