@@ -25,6 +25,7 @@ jobs:
       run: |
         cd .
         git clone https://github.com/devkitPro/opengx.git
+        cd opengx
         cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
         cd build
         make
