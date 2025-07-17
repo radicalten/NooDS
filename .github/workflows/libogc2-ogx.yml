@@ -22,7 +22,8 @@ jobs:
 
     - name: Install FreeGLUT
       run: |
-        get-cmake
+        sudo apt update
+        sudo apt install cmake
         cd .
         git clone https://github.com/freeglut/freeglut.git
         cd freeglut
