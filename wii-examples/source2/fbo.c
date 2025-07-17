@@ -34,7 +34,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
