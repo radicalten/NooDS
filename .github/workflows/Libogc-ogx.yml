@@ -15,7 +15,7 @@ jobs:
         DEVKITPPC=/opt/devkitpro/devkitPPC
         sudo dkp-pacman-key --recv BC26F752D25B92CE272E0F44F7FD5492264BB9D0 --keyserver keyserver.ubuntu.com
         sudo dkp-pacman-key --lsign BC26F752D25B92CE272E0F44F7FD5492264BB9D0
-        sudo pacman -U https://pkg.devkitpro.org/devkitpro-keyring.pkg.tar.zst
+        sudo dkp-pacman -U https://pkg.devkitpro.org/devkitpro-keyring.pkg.tar.zst
         sudo sed -i '/^\[dkp-libs\]$/,$d' /opt/devkitpro/pacman/etc/pacman.conf
         sudo echo -e '[devkitpro]\nServer = Server = https://pkg.devkitpro.org/packages/linux/$arch/ >> /opt/devkitpro/pacman/etc/pacman.conf
         sudo dkp-pacman -Sy
