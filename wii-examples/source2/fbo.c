@@ -205,5 +205,5 @@ int main(int argc, char **argv) {
         SDL_GL_SwapWindow(window);
     }
 
-    return EXIT_SUCCESS;
+    return 0;
 }
