@@ -11,7 +11,35 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install FreeGLUT
+      run: |
+        cd .
+        git clone https://github.com/freeglut/freeglut.git
+        cd freeglut
+        mkdir build && cd build
+        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
+        make
+        sudo -E PATH=$PATH make install
 
+    - name: Install OpenGX
+      run: |
+        cd .
+        git clone https://github.com/devkitPro/opengx.git
+        cd opengx
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
+        cd build
+        make
+        sudo -E PATH=$PATH make install
+
+    - name: Install SDL2
+      run: |
+        cd .
+        git clone git clone --branch ogc-sdl-2.28 --depth 1 https://github.com/devkitPro/SDL.git
+        cd SDL
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
+        cd build
+        make
+        sudo -E PATH=$PATH make install
         
     - name: Compile
       run: |
