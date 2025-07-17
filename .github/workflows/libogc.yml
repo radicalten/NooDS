@@ -2,7 +2,7 @@ name: Libogc
 on:
   push:
     branches:
-    - master
+    - main
 jobs:
   build-wii:
     runs-on: ubuntu-latest
@@ -10,6 +10,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Install SDL2
+      run: |
+        cd .
+        git clone --single-branch --branch ogc-sdl-2.28 https://github.com/devkitPro/SDL.git
+        cd SDL
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
+        cd build
+        make
+        sudo -E PATH=$PATH make install
 
     - name: Install OpenGX
       run: |
@@ -28,16 +38,6 @@ jobs:
         cd freeglut
         mkdir build && cd build
         cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
-        make
-        sudo -E PATH=$PATH make install
-
-    - name: Install SDL2
-      run: |
-        cd .
-        git clone --single-branch --branch ogc-sdl-2.28 https://github.com/devkitPro/SDL.git
-        cd SDL
-        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
-        cd build
         make
         sudo -E PATH=$PATH make install
 
