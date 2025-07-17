@@ -22,7 +22,7 @@ jobs:
     - name: Compile
       run: |
         cd wii-examples
-        make -f Makefile
+        make -f Makefile.ogx-ogc
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
