@@ -18,15 +18,17 @@ jobs:
         cd freeglut
         mkdir build && cd build
         cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
-        sudo -E PATH=$PATH make && sudo make install
+        make
+        sudo -E PATH=$PATH make install
 
     - name: Install OpenGX
       run: |
         cd .
         git clone https://github.com/devkitPro/opengx.git
+        cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
         cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake"
-        sudo -E PATH=$PATH make && sudo make install
+        make
+        sudo -E PATH=$PATH make install
         
     - name: Compile
       run: |
