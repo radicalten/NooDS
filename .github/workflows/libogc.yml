@@ -10,6 +10,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Install FreeGLUT
+      run: |
+        cd .
+        git clone https://github.com/freeglut/freeglut.git
+        cd freeglut
+        mkdir build && cd build
+        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
+        make && sudo make install
+        
     - name: Compile
       run: |
         cd wii-examples
