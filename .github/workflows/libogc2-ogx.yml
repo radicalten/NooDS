@@ -2,7 +2,7 @@ name: Libogc2-ogx
 on:
   push:
     branches:
-    - main
+    - master
 jobs:
   build-wii:
     runs-on: ubuntu-latest
@@ -20,15 +20,6 @@ jobs:
         sudo dkp-pacman -Sy
         sudo dkp-pacman -S --noconfirm --ask 4 libogc2 libogc2-cmake libogc2-libfat-git libogc2-opengx libogc2-sdl2 libogc2-glu ppc-glm
 
-    - name: Install FreeGLUT
-      run: |
-        cd .
-        git clone https://github.com/freeglut/freeglut.git
-        cd freeglut
-        mkdir build && cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/Wii.cmake" -DFREEGLUT_BUILD_DEMOS=OFF ..
-        make && sudo make install
-        
     - name: Compile
       run: |
         cd wii-examples
