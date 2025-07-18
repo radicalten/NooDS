@@ -7,7 +7,10 @@ ifeq ($(strip $(DEVKITPPC)),)
 $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>devkitPPC")
 endif
 
-include $(DEVKITPRO)/libogc2/wii_rules
+include $(DEVKITPPC)/wii_rules
+export	LIBOGC_INC	:=	$(DEVKITPRO)/libogc2/include
+export	LIBOGC_LIB	:=	$(DEVKITPRO)/libogc2/lib/wii
+# include $(DEVKITPRO)/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -19,7 +22,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source2
 DATA		:=	data  
-INCLUDES	:=      $(DEVKITPRO)
+INCLUDES	:=      $(PORTLIBS)
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -39,7 +42,7 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(DEVKITPRO)
+LIBDIRS	:= $(PORTLIBS)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
