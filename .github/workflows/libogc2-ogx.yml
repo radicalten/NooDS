@@ -20,12 +20,6 @@ jobs:
         sudo dkp-pacman -Sy
         sudo dkp-pacman -S --noconfirm --ask 4 libogc2 libogc2-libdvm libogc2-opengx libogc2-glu libogc2-sdl2
 
-    - name: add ppc gcc to PATH environment variable
-      uses: myci-actions/export-env-var@1
-      with:
-        name: PATH
-        value: $PATH:/opt/devkitpro/devkitPPC/bin
-
     - name: Compile
       run: |
         cd wii-examples
