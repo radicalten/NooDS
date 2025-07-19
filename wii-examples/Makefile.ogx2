@@ -9,6 +9,7 @@ endif
 
 # $(DEVKITPRO) = /opt/devkitpro
 # PORTLIBS := $(DEVKITPRO)/portlibs/ppc
+# include $(DEVKITPRO)/libogc2/wii_rules
 include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
