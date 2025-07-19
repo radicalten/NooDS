@@ -11,6 +11,8 @@ endif
 # DEVKITPPC=$DEVKITPRO/devkitPPC | /opt/devkitpro/devkitPPC
 # PORTLIBS := $(DEVKITPRO)/portlibs/ppc | /opt/devkitpro/devkitPPC/portlibs/ppc
 # include $(DEVKITPRO)/libogc2/wii_rules
+# /opt/devkitpro/libogc2/wii_rules for libogc2 by extrems
+# /opt/devkitpro/portlibs/wii for devkitPro pacman packages by extrems
 include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
@@ -43,7 +45,7 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGl
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= /opt/devkitpro/libogc2
+LIBDIRS	:= /opt/devkitpro/portlibs/wii
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
