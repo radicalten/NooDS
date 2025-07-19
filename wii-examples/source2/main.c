@@ -32,7 +32,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define _GNU_SOURCE
 
-#include <GL/glu.h>
+#include </opt/devkitpro/portlibs/wii/include/GL/glu.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <math.h>
