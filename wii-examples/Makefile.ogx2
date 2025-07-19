@@ -8,6 +8,7 @@ $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>dev
 endif
 
 # $(DEVKITPRO) = /opt/devkitpro
+# PORTLIBS := $(DEVKITPRO)/portlibs/ppc
 include opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
