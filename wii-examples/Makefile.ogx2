@@ -46,6 +46,7 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL
 # include and lib
 #---------------------------------------------------------------------------------
 LIBDIRS	:= /opt/devkitpro/portlibs/wii
+
 # libogc2-opengx /opt/devkitpro/portlibs/wii/include/GL/gl.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/include/GL/glu.h
 # simply dkp-pacman -Ql     Shows all dkp pacman file directories Query list
@@ -97,8 +98,9 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 #---------------------------------------------------------------------------------
 # build a list of library paths
 #---------------------------------------------------------------------------------
-export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
-					-L$(LIBOGC_LIB)
+# export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
+#					-L$(LIBOGC_LIB)
+export LIBPATHS := -L$(LIBDIRS)
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 .PHONY: $(BUILD) clean
