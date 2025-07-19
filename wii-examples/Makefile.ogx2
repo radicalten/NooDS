@@ -19,6 +19,7 @@ endif
 
 include /opt/devkitpro/libogc2/wii_rules
 
+
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
@@ -54,7 +55,7 @@ LIBDIRS	:= /opt/devkitpro/portlibs/wii
 # libogc2-opengx /opt/devkitpro/portlibs/wii/include/GL/gl.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/include/GL/glu.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/lib
-libogc2-opengx /opt/devkitpro/portlibs/wii/lib/pkgconfig
+# libogc2-opengx /opt/devkitpro/portlibs/wii/lib/pkgconfig
 # simply dkp-pacman -Ql     Shows all dkp pacman file directories Query list
 
 #---------------------------------------------------------------------------------
