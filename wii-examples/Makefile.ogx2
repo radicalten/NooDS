@@ -14,8 +14,8 @@ endif
 # /opt/devkitpro/libogc2/wii_rules for libogc2 by extrems
 # /opt/devkitpro/portlibs/wii for devkitPro pacman packages by extrems ??? Sadly this one did not work
 
-# $(LIBOGC_INC) = /opt/devkitpro/libogc/include
-# $(LIBOGC_LIB) = /opt/devkitpro/libogc/lib
+# $(LIBOGC_INC) = /opt/devkitpro/libogc/include | default
+# $(LIBOGC_LIB) = /opt/devkitpro/libogc/lib     | default
 
 include /opt/devkitpro/libogc2/wii_rules
 
