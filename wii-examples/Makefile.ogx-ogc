@@ -8,6 +8,7 @@ $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>dev
 endif
 
 include $(DEVKITPPC)/wii_rules
+#
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
