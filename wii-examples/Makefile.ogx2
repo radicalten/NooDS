@@ -13,6 +13,7 @@ endif
 # include $(DEVKITPRO)/libogc2/wii_rules
 # /opt/devkitpro/libogc2/wii_rules for libogc2 by extrems
 # /opt/devkitpro/portlibs/wii for devkitPro pacman packages by extrems ??? Sadly this one did not work
+
 include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
