@@ -46,7 +46,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL
+LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lopengx
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -54,10 +54,12 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL
 #---------------------------------------------------------------------------------
 LIBDIRS	:= /opt/devkitpro/portlibs/wii
 
-# libogc2-opengx /opt/devkitpro/portlibs/wii/include/GL/gl.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/include/GL/glu.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/lib
-# libogc2-opengx /opt/devkitpro/portlibs/wii/lib/pkgconfig
+# .a files are lib files, .h files are include header files
+# libogc2-opengx /opt/devkitpro/portlibs/wii/include/GL/gl.h
+# libogc2-opengx /opt/devkitpro/portlibs/wii/lib/libopengx.a
+
 # simply dkp-pacman -Ql     Shows all dkp pacman file directories Query list
 
 #---------------------------------------------------------------------------------
