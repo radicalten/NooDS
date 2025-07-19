@@ -18,6 +18,8 @@ endif
 # $(LIBOGC_LIB) = /opt/devkitpro/libogc/lib     | default
 
 include /opt/devkitpro/libogc2/wii_rules
+export	LIBOGC_INC	:=	$(DEVKITPRO)/libogc2/include
+export	LIBOGC_LIB	:=	$(DEVKITPRO)/libogc2/lib/wii
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
