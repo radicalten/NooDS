@@ -16,7 +16,7 @@ jobs:
         sudo dkp-pacman-key --lsign BC26F752D25B92CE272E0F44F7FD5492264BB9D0
         sudo dkp-pacman -U --noconfirm --ask 4 https://pkg.devkitpro.org/devkitpro-keyring.pkg.tar.zst
         sudo dkp-pacman -Sy
-        sudo dkp-pacman -S --noconfirm --ask 4 wii-opengx wii-sdl2 wii-freeglut
+        sudo dkp-pacman -S --noconfirm --ask 4 wii-opengx wii-glu wii-sdl2 wii-freeglut
     - name: Compile
       run: |
         cd wii-examples
