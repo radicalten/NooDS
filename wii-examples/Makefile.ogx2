@@ -9,7 +9,7 @@ endif
 
 # $(DEVKITPRO) = /opt/devkitpro
 # PORTLIBS := $(DEVKITPRO)/portlibs/ppc
-include opt/devkitpro/libogc2/wii_rules
+include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -41,7 +41,7 @@ LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGl
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= opt/devkitpro/libogc2
+LIBDIRS	:= /opt/devkitpro/libogc2
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
