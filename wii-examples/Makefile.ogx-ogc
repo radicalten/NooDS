@@ -8,7 +8,6 @@ $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>dev
 endif
 
 include $(DEVKITPPC)/wii_rules
-#
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -34,7 +33,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-I/opt/devkitpro/portlibs/wii/include -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL  
+LIBS	:=	-I/opt/devkitpro/portlibs/wii/include  -L/opt/devkitpro/portlibs/wii/include/GL -lwiiuse -lbte -lfat -logc -lm -lSDL2 -lGL  
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
