@@ -60,7 +60,7 @@ LIBDIRS	:= /opt/devkitpro/portlibs/wii
 # libogc2-opengx /opt/devkitpro/portlibs/wii/include/GL/gl.h
 # libogc2-opengx /opt/devkitpro/portlibs/wii/lib/libopengx.a
 
-# simply dkp-pacman -Ql     Shows all dkp pacman file directories Query list
+# dkp-pacman -Ql     Shows all dkp pacman file directories Query list
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
