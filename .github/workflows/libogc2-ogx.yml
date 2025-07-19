@@ -23,8 +23,6 @@ jobs:
     - name: PATH
       run: |
         sudo echo $PATH
-        sudo dpkg -L <package>
-        sudo pip show <package>
         
         
     - name: Compile
