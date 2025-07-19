@@ -100,8 +100,8 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 # build a list of library paths
 #---------------------------------------------------------------------------------
 export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
-					-L$(LIBOGC_LIB)
-export LIBPATHS := -L/opt/devkitpro/portlibs/wii/include/GL
+					-L$(LIBOGC_LIB)        \
+			-L/opt/devkitpro/portlibs/wii/include/GL
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 .PHONY: $(BUILD) clean
