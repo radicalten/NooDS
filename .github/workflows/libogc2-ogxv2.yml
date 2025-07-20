@@ -1,4 +1,4 @@
-name: Libogc2-ogx
+name: Libogc2-ogxv2
 on:
   push:
     branches:
