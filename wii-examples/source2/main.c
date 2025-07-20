@@ -39,7 +39,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_opengl_glext.h>
-#include <SDL2/SDL_main.h>
+//#include <SDL2/SDL_main.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
