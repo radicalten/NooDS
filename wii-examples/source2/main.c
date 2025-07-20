@@ -34,7 +34,7 @@ POSSIBILITY OF SUCH DAMAGE.
 // #define SDL_MAIN_HANDLED
 
 #include <GL/glu.h>
-//#include <GL/glext.h>
+#include <GL/glext.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_opengl_glext.h>
