@@ -31,7 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define EGL_EGLEXT_PROTOTYPES
 
 #define _GNU_SOURCE
-//#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
