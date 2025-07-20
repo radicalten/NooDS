@@ -31,6 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
 // #define EGL_EGLEXT_PROTOTYPES
 
 // #define _GNU_SOURCE
+#undef main
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
@@ -141,8 +142,7 @@ static void draw_frame(void)
 
 
 //---------------------------------------------------------------------------------
-SDL_main { 
-//int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 //---------------------------------------------------------------------------------   
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) {
         SDL_Log("Unable to initialize SDL video subsystem: %s\n", SDL_GetError());
