@@ -145,7 +145,7 @@ static void draw_frame(void)
 
 
 //---------------------------------------------------------------------------------
- int SDL_main(){
+ SDLMAIN_DECLSPEC {
 //---------------------------------------------------------------------------------   
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) {
         SDL_Log("Unable to initialize SDL video subsystem: %s\n", SDL_GetError());
