@@ -31,8 +31,6 @@ POSSIBILITY OF SUCH DAMAGE.
 // #define EGL_EGLEXT_PROTOTYPES
 
 // #define _GNU_SOURCE
-#undef main
-#undef SDL_main
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
@@ -41,6 +39,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#undef main
+#undef SDL_main
 
 /** The SDL window */
 static SDL_Window * window = NULL;
