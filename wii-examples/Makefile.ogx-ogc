@@ -28,12 +28,12 @@ INCLUDES	:=
 CFLAGS	= -g -O2 -Wall $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 
-LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
+LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map -I/opt/devkitpro/portlibs/wii/include  -L/opt/devkitpro/portlibs/wii/lib
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-I/opt/devkitpro/portlibs/wii/include/GL  -L/opt/devkitpro/portlibs/wii/lib -lwiiuse -lbte -lfat -logc -lm -lSDL2  
+LIBS	:=	-lwiiuse -lbte -lfat -logc -lm -lSDL2  
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
