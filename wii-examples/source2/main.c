@@ -40,7 +40,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
-#def MAIN_NAME main 
+#define MAIN_NAME main 
 // #undef main
 // #undef SDL_main
 
