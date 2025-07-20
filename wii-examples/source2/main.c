@@ -27,17 +27,18 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
 
-#define GL_GLEXT_PROTOTYPES
-#define EGL_EGLEXT_PROTOTYPES
+//#define GL_GLEXT_PROTOTYPES
+//#define EGL_EGLEXT_PROTOTYPES
 
-#define _GNU_SOURCE
+//#define _GNU_SOURCE
 // #define SDL_MAIN_HANDLED
 
 #include <GL/glu.h>
-#include <GL/glext.h>
+//#include <GL/glext.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+//#include <SDL2/SDL_opengl_glext.h>
+#include <SDL2/SDL_main.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
