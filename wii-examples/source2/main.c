@@ -35,10 +35,10 @@ POSSIBILITY OF SUCH DAMAGE.
 
 //#include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glext.h>
+//#include <GL/glext.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+//#include <SDL2/SDL_opengl_glext.h>
 //#include <SDL2/SDL_main.h>
 #include <math.h>
 #include <stdlib.h>
