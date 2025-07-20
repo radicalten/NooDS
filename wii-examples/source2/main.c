@@ -28,9 +28,9 @@ POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
 
 #define GL_GLEXT_PROTOTYPES
-// #define EGL_EGLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
 
-// #define _GNU_SOURCE
+#define _GNU_SOURCE
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
