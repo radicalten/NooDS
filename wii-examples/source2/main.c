@@ -34,13 +34,13 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <GL/glu.h>
 #include <SDL2/SDL.h>
-#undef main
 #include <SDL2/SDL_opengl.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
+// #undef main
 // #undef SDL_main
 
 /** The SDL window */
