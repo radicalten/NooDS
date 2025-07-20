@@ -33,7 +33,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define _GNU_SOURCE
 // #define SDL_MAIN_HANDLED
 
-#include <GL/gl.h>
+//#include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glext.h>
 #include <SDL2/SDL.h>
