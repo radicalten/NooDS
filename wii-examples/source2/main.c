@@ -28,7 +28,7 @@ POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
 
 #define GL_GLEXT_PROTOTYPES
-//#define EGL_EGLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
 
 //#define _GNU_SOURCE
 // #define SDL_MAIN_HANDLED
@@ -37,7 +37,7 @@ POSSIBILITY OF SUCH DAMAGE.
 //#include <GL/glext.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+//#include <SDL2/SDL_opengl_glext.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
