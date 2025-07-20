@@ -40,6 +40,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
+#def MAIN_NAME main 
 // #undef main
 // #undef SDL_main
 
@@ -144,7 +145,7 @@ static void draw_frame(void)
 
 
 //---------------------------------------------------------------------------------
-int (main)(int argc, char *argv[]) {
+int MAIN_NAME(int argc, char *argv[]) {
 //---------------------------------------------------------------------------------   
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) != 0) {
         SDL_Log("Unable to initialize SDL video subsystem: %s\n", SDL_GetError());
