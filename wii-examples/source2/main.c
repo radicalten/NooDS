@@ -41,7 +41,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <string.h>
 
 #undef main
-#undef SDL_main
+// #undef SDL_main
 
 /** The SDL window */
 static SDL_Window * window = NULL;
