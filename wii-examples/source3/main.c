@@ -38,6 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 //#include <GL/glext.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_stdinc.h>
 //#include <SDL2/SDL_opengl_glext.h>
 //#include <SDL2/SDL_main.h>
 #include <math.h>
