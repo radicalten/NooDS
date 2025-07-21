@@ -33,7 +33,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=  -lwiiuse -lbte -lfat -logc -lGLU -lglut -lopengx -lSDL2 -lm -lasnd
+LIBS	:=  -lSDL2 -lopengx -lGLU -lglut -logc -lwiiuse -lbte -lfat -lasnd -lm 
 
 # ensure -lm comes after all objects and SDL libraries, as the linker only pulls in needed symbols in left-to-right order.
 
