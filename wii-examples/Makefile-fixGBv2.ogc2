@@ -37,7 +37,8 @@ endif
 
 CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) -I$(DEVKITPRO)/libogc2/include
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
--L$(DEVKITPRO)/libogc2/lib/wii \
+-I/opt/devkitpro/portlibs/wii/include \
+-L/opt/devkitpro/portlibs/wii/lib \
 -lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
 
 # -I/opt/devkitpro/portlibs/wii/include \
