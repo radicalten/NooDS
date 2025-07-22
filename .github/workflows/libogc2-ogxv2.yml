@@ -19,7 +19,7 @@ jobs:
         sudo echo -e '[extremscorner-devkitpro]\nServer = https://packages.extremscorner.org/devkitpro/linux/$arch' >> /opt/devkitpro/pacman/etc/pacman.conf
         sudo dkp-pacman -Sy
         sudo dkp-pacman -S --noconfirm --ask 4 libogc2 libogc2-git gamecube-tools-git libogc2-dkp-toolchain-vars libogc2-cmake libogc2-libansnd-git libogc2-libdvm libogc2-opengx libogc2-glu libogc2-sdl2
-        dkp-pacman -Ql     
+        # dkp-pacman -Ql     
         
     - name: Compile
       run: |
