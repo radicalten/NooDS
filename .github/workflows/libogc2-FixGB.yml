@@ -30,7 +30,7 @@ jobs:
     - name: Compile
       run: |
         cd wii-examples
-        make -f Makefile-fixGB.ogc2
+        make -f Makefile-fixGBv2.ogc2
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
