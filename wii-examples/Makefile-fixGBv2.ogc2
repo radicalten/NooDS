@@ -1,12 +1,16 @@
 .SUFFIXES:
 .SECONDARY:
+include /opt/devkitpro/libogc2/wii_rules
+
+export DEVKITPRO 	:= /opt/devkitpro
+export DEVKITPPC	:= $(DEVKITPRO)/devkitPPC
+CC 			:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 
 TARGET := Source3-wii
 DEBUG   = 1
 AUDIO_FLOAT = 0
-CC = powerpc-eabi-gcc
+#CC = powerpc-eabi-gcc
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
-include /opt/devkitpro/libogc2/wii_rules
 
 SRCDIR = source3
 SOURCES = $(wildcard $(SRCDIR)/*.c)
