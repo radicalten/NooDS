@@ -1,4 +1,4 @@
-TARGET := fixGB
+TARGET := Source3-wii
 DEBUG   = 0
 AUDIO_FLOAT = 0
 
