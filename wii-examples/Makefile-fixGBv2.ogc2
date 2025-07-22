@@ -47,7 +47,8 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 # -L$(DEVKITPRO)/libogc2/lib/wii
 # -lSDL2 = libSDL2, -lSDL2main = libSDL2main, -lGLU = -libGLU, -lwiiuse = wii input handling, -lbte = bluetooth -lm = libmath
 # -logc = core wii/gcn library, -lglut = libFreeGLUT, -lwiikeyboard = wii keyboard, -lasnd = sound library, -logg = ogg vorbis container
-# -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib 
+# -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib, -lfat = libfat memory lib
+# -ldvm = libfat with disk volume management and exfat by extrems
 
 
 
