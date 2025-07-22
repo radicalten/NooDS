@@ -54,7 +54,7 @@ LIBS	:=  -lSDL2 -lglut -lGLU -lopengx -lwiiuse -lbte -lansnd -lfat -logc -lm
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) /opt/devkitpro/portlibs/wii/lib/pkgconfig 
+LIBDIRS	:= /opt/devkitpro/portlibs/wii
 
 # libogc2-glu /opt/devkitpro/portlibs/wii/include/GL/glu.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/lib
