@@ -35,8 +35,9 @@ FLAGS   += -O3
 LDFLAGS += 
 endif
 
-CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) $(shell pkg-config --cflags libogc)
-LDFLAGS += $(CFLAGS) $(MACHDEP) $(shell pkg-config --libs libogc) 
+CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) -I$(DEVKITPRO)/libogc/include
+LDFLAGS += $(CFLAGS) $(MACHDEP) \
+-L$(DEVKITPRO)/libogc/lib/wii
 
 #-lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
 # -I/opt/devkitpro/portlibs/wii/include \
