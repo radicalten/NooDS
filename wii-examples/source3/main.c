@@ -44,6 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <gctypes.h> // asndlib.h File Reference https://libogc.devkitpro.org/asndlib_8h.html#details
 
 // #undef main
 // #undef SDL_main
