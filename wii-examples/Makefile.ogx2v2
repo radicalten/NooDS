@@ -32,7 +32,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source3
 DATA		:=	  
-INCLUDE		:=      
+INCLUDES	:=      
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -115,7 +115,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 #---------------------------------------------------------------------------------
 # build a list of library paths
 #---------------------------------------------------------------------------------
-export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib/pkgconfig) \
+export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(/lib/pkgconfig) \
 					-L$(LIBOGC_LIB)        \
 	
 
