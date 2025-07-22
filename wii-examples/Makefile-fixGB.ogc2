@@ -1,4 +1,5 @@
 .SUFFIXES:
+.SECONDARY:
 
 TARGET := Source3-wii
 DEBUG   = 1
