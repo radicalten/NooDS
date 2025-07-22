@@ -11,10 +11,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Configure SDL2 for cross-compiling to ppc 
-      run: |
-          ./configure --host=powerpc-eabi --prefix=$prefix=/opt/devkitpro/portlibs/ppc --disable-shared --enable-static
-           
     - name: Install dependencies extremscorner
       run: |
         sudo dkp-pacman-key --recv-keys C8A2759C315CFBC3429CC2E422B803BA8AA3D7CE --keyserver keyserver.ubuntu.com
