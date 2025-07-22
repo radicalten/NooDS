@@ -7,7 +7,7 @@ include /opt/devkitpro/libogc2/wii_rules
 
 SRCDIR = source3
 SOURCES = $(wildcard $(SRCDIR)/*.c)
-OBJECTS = $(SOURCES:$(SRCDIR)/%.c=%.o)
+OBJECTS = $(SOURCES:.c=.o)
 
 # OBJECTS :=
 # OBJECTS +=main.o
