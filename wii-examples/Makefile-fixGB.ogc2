@@ -1,6 +1,7 @@
 TARGET := Source3-wii
 DEBUG   = 0
 AUDIO_FLOAT = 0
+CC = powerpc-eabi-gcc
 
 SOURCES := source3/main.c
 OBJECTS := $(SOURCES:.c=.o)
