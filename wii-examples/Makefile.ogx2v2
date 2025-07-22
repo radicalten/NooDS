@@ -32,7 +32,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source3
 DATA		:=	  
-INCLUDE		:=      /opt/devkitpro/portlibs/wii/include
+INCLUDE		:=      
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -117,7 +117,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 #---------------------------------------------------------------------------------
 export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
 					-L$(LIBOGC_LIB)        \
-			-L/opt/devkitpro/portlibs/wii/include/GL
+	
 
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 .PHONY: $(BUILD) clean
