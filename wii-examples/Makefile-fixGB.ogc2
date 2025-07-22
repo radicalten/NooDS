@@ -3,19 +3,12 @@ DEBUG   = 0
 AUDIO_FLOAT = 1
 
 OBJECTS :=
-OBJECTS +=alhelpers.o
-OBJECTS +=apu.o
-OBJECTS +=audio.o
-OBJECTS +=cpu.o
-OBJECTS +=input.o
 OBJECTS +=main.o
-OBJECTS +=mbc.o
-OBJECTS +=mem.o
-OBJECTS +=ppu.o
+
 
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
-DEFINES  += -DFREEGLUT_STATIC
+DEFINES  += 
 INCLUDES += -I.
 
 ifeq ($(AUDIO_FLOAT),1)
