@@ -23,7 +23,7 @@ OBJECTS = $(SOURCES:.c=.o)
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
 DEFINES  += 
-INCLUDES += -I.
+# INCLUDES += -I.
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
