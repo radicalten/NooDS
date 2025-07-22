@@ -11,10 +11,9 @@ include /opt/devkitpro/libogc2/wii_rules
 INC_DIRS := $(shell find /opt/devkitpro/portlibs/wii/include -type d)
 I_FLAGS := $(patsubst %, -I%, $(INC_DIRS))
 
-LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/pkgconfig/*.pc)
+LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/*.a)
 L_FLAGS := $(patsubst %, -L%, $(LIB_DIRS))
-# LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/*.a)
-
+# LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/pkgconfig/*.pc)
 
 SRCDIR = source3
 SOURCES = $(wildcard $(SRCDIR)/*.c)
@@ -22,7 +21,6 @@ OBJECTS = $(SOURCES:.c=.o)
 
 # OBJECTS :=
 # OBJECTS +=main.o
-
 
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
