@@ -1,9 +1,12 @@
 TARGET := fixGB
 DEBUG   = 0
-AUDIO_FLOAT = 1
+AUDIO_FLOAT = 0
 
-OBJECTS :=
-OBJECTS +=main.o
+SOURCES = source3
+OBJECTS = $(SOURCES:.c=.o)
+
+# OBJECTS :=
+# OBJECTS +=main.o
 
 
 FLAGS    += -Wall -Wextra -ffast-math
