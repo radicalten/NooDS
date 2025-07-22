@@ -39,7 +39,7 @@ CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES)
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L$(DEVKITPRO)/libogc2/lib/wii \
--lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -lasnd -logc -lm
+-lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -lansnd -logc -lm
 
 # -I/opt/devkitpro/portlibs/wii/include \
 # -L/opt/devkitpro/portlibs/wii/lib \
@@ -47,7 +47,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 # -L$(DEVKITPRO)/libogc2/lib/wii
 # -lSDL2 = libSDL2, -lSDL2main = libSDL2main, -lGLU = -libGLU, -lwiiuse = wii input handling, -lbte = bluetooth -lm = libmath
 # -logc = core wii/gcn library, -lglut = libFreeGLUT, -lwiikeyboard = wii keyboard, -lasnd = sound library, -logg = ogg vorbis container
-# -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX
+# -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib 
 
 
 
