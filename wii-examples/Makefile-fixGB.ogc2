@@ -37,7 +37,7 @@ LDFLAGS +=
 endif
 
 CFLAGS += $(FLAGS) $(DEFINES) $(I_FLAGS)
-LDFLAGS += $(CFLAGS) $(MACHDEP) -Wl,-Map,$(notdir $@).map) \
+LDFLAGS += $(CFLAGS) $(MACHDEP) -Wl,-Map,$(notdir $@).map \
 $(L_FLAGS) \
 -lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
 
