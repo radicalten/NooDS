@@ -32,7 +32,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source3
 DATA		:=	  
-INCLUDES	:=      
+INCLUDE		:=      /opt/devkitpro/portlibs/wii
 
 #---------------------------------------------------------------------------------
 # options for code generation
