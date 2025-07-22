@@ -1,0 +1,62 @@
+.SUFFIXES:
+.SECONDARY:
+
+TARGET := Source3-wii
+DEBUG   = 1
+AUDIO_FLOAT = 0
+CC = powerpc-eabi-gcc
+MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
+include /opt/devkitpro/libogc2/wii_rules
+
+INC_DIRS := $(shell find /opt/devkitpro/portlibs/wii/include -type d)
+I_FLAGS := $(patsubst %, -I%, $(INC_DIRS))
+
+LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/*.a)
+L_FLAGS := $(patsubst %, -L%, $(LIB_DIRS))
+# LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/pkgconfig/*.pc)
+
+SRCDIR = source3
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(SOURCES:.c=.o)
+
+# OBJECTS :=
+# OBJECTS +=main.o
+
+FLAGS    += -Wall -Wextra -ffast-math
+FLAGS    += -Werror=implicit-function-declaration
+DEFINES  += 
+# INCLUDES += -I.
+
+ifeq ($(AUDIO_FLOAT),1)
+FLAGS += -DAUDIO_FLOAT=1
+endif
+
+ifeq ($(DEBUG),1)
+FLAGS += -O0 -g
+else
+FLAGS   += -O3
+LDFLAGS += 
+endif
+
+CFLAGS += $(FLAGS) $(DEFINES) $(I_FLAGS)
+LDFLAGS += $(CFLAGS) $(MACHDEP) \
+$(L_FLAGS) \
+-lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
+
+# -I/opt/devkitpro/portlibs/wii/include \
+# -L/opt/devkitpro/portlibs/wii/lib \
+
+
+
+all: $(TARGET)
+$(TARGET): $(OBJECTS)
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+clean:
+	rm -f $(TARGET) $(OBJECTS)
+
+
+.PHONY: clean test
