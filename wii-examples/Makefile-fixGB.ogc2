@@ -3,7 +3,7 @@ DEBUG   = 0
 AUDIO_FLOAT = 0
 
 SOURCES := source3
-OBJECTS := $(SOURCES:.c=.o)
+OBJECTS := $(SOURCES:*.c=.o)
 
 # OBJECTS :=
 # OBJECTS +=main.o
