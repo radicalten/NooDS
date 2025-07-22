@@ -2,8 +2,8 @@ TARGET := Source3-wii
 DEBUG   = 0
 AUDIO_FLOAT = 0
 
-SOURCES := source3
-OBJECTS := $(SOURCES:*.c=.o)
+SOURCES := source3/main.c
+OBJECTS := $(SOURCES:.c=.o)
 
 # OBJECTS :=
 # OBJECTS +=main.o
