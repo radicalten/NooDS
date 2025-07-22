@@ -1,3 +1,5 @@
+.SUFFIXES:
+
 TARGET := Source3-wii
 DEBUG   = 1
 AUDIO_FLOAT = 0
