@@ -43,6 +43,8 @@ LIBS	:=  -lSDL2 -lglut -lGLU -lopengx -lwiiuse -lbte -lasnd -lfat -logc -lm
 #---------------------------------------------------------------------------------
 LIBDIRS	:= $(PORTLIBS)
 
+# wii-glu /opt/devkitpro/portlibs/wii/lib/pkgconfig/glu.pc
+
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
 # rules for different file extensions
