@@ -2,7 +2,7 @@ TARGET := Source3-wii
 DEBUG   = 0
 AUDIO_FLOAT = 0
 CC = powerpc-eabi-gcc
-
+MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 include /opt/devkitpro/libogc2/wii_rules
 
 SRCDIR = source3
@@ -31,7 +31,7 @@ endif
 
 CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES)
 
-LDFLAGS += $(CFLAGS) 
+LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -I/opt/devkitpro/portlibs/wii/include \
 -L/opt/devkitpro/portlibs/wii/lib \
 -lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
