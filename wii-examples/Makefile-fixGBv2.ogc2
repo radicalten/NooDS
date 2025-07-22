@@ -8,13 +8,6 @@ CC = powerpc-eabi-gcc
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 include /opt/devkitpro/libogc2/wii_rules
 
-INC_DIRS := $(shell find /opt/devkitpro/portlibs/wii/include -type d)
-I_FLAGS := $(patsubst %, -I%, $(INC_DIRS))
-
-LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/*.a)
-L_FLAGS := $(patsubst %, -L%, $(LIB_DIRS))
-# LIB_DIRS := $(wildcard /opt/devkitpro/portlibs/wii/lib/pkgconfig/*.pc)
-
 SRCDIR = source3
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:.c=.o)
@@ -25,7 +18,7 @@ OBJECTS = $(SOURCES:.c=.o)
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
 DEFINES  += 
-# INCLUDES += -I.
+INCLUDES += 
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
@@ -38,11 +31,10 @@ FLAGS   += -O3
 LDFLAGS += 
 endif
 
-CFLAGS += $(FLAGS) $(DEFINES) $(I_FLAGS)
-LDFLAGS += $(CFLAGS) $(MACHDEP) \
-$(L_FLAGS) \
--lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
+CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) $(shell pkg-config --cflags libogc)
+LDFLAGS += $(CFLAGS) $(MACHDEP) $(shell pkg-config --libs libogc) 
 
+#-lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
 # -I/opt/devkitpro/portlibs/wii/include \
 # -L/opt/devkitpro/portlibs/wii/lib \
 
