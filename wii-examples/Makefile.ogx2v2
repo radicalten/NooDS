@@ -56,6 +56,7 @@ LIBS	:=  -lSDL2 -lglut -lGLU -lopengx -lwiiuse -lbte -lansnd -lfat -logc -lm
 #---------------------------------------------------------------------------------
 LIBDIRS	:= /opt/devkitpro/portlibs/wii
 
+# $(PORTLIBS)
 # libogc2-glu /opt/devkitpro/portlibs/wii/include/GL/glu.h
 # libogc2-glu /opt/devkitpro/portlibs/wii/lib
 # libogc2-glu /opt/devkitpro/portlibs/wii/lib/pkgconfig/glu.pc
