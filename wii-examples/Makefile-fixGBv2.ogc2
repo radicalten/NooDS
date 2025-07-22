@@ -22,7 +22,7 @@ OBJECTS = $(SOURCES:.c=.o)
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
-INCLUDES +=
+INCLUDES += -I/opt/devkitpro/portlibs/wii/include -I$(DEVKITPRO)/libogc2/include
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
@@ -35,13 +35,15 @@ FLAGS   += -O3
 LDFLAGS +=
 endif
 
-CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) -I/opt/devkitpro/portlibs/wii/include
+CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) 
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/wii/lib \
 -lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lbte -lfat -logc -lm
 
 # -I/opt/devkitpro/portlibs/wii/include \
 # -L/opt/devkitpro/portlibs/wii/lib \
+# -I$(DEVKITPRO)/libogc2/include
+
 
 
 all: $(TARGET)
