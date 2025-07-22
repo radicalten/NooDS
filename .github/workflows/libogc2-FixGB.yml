@@ -29,10 +29,10 @@ jobs:
     - name: Compile
       run: |
         cd wii-examples
-        make -f Makefile-FixGB.ogc2
+        make -f Makefile-fixGB.ogc2
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: wii-directory-ocg2
+        name: wii-directory-ogc2
         path: |
           ./wii-examples/*.dol
