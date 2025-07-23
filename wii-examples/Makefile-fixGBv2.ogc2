@@ -39,7 +39,7 @@ CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES)
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L$(DEVKITPRO)/libogc2/lib/wii \
--lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -lansnd -logc -lm
+-lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -logc -lm
 
 # -I/opt/devkitpro/portlibs/wii/include \
 # -L/opt/devkitpro/portlibs/wii/lib \
@@ -49,6 +49,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 # -logc = core wii/gcn library, -lglut = libFreeGLUT, -lwiikeyboard = wii keyboard, -lasnd = sound library, -logg = ogg vorbis container
 # -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib, -lfat = libfat memory lib
 # -ldvm is actually -lfat when installed = libfat with disk volume management and exfat by extrems
+# -laesnd = libogc audio engine library used in pcsxr wii and seta-gx 
 
 
 
