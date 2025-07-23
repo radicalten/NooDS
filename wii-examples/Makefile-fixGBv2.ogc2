@@ -50,12 +50,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 # -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib, -lfat = libfat memory lib
 # -ldvm is actually -lfat when installed = libfat with disk volume management and exfat by extrems
 # -laesnd = libogc audio engine library used in pcsxr wii and seta-gx 
-
-
-
-
-
-
+# as of commit #58 makefile-fixgbv2.ogc2 with libogc2-FixGB.yml this compiles, but sadly I have not configured this file to make .dol yet 
 
 
 
