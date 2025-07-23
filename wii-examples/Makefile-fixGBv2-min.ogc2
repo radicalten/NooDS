@@ -42,22 +42,6 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -logc -lm
 
-# -I/opt/devkitpro/portlibs/wii/include \
-# -L/opt/devkitpro/portlibs/wii/lib \
-# -I$(DEVKITPRO)/libogc2/include
-# -L$(DEVKITPRO)/libogc2/lib/wii
-# -lSDL2 = libSDL2, -lSDL2main = libSDL2main, -lGLU = -libGLU, -lwiiuse = wii input handling, -lbte = bluetooth -lm = libmath
-# -logc = core wii/gcn library, -lglut = libFreeGLUT, -lwiikeyboard = wii keyboard, -lasnd = sound library, -logg = ogg vorbis container
-# -lvorbisidec = ogg vorbis decoding, -lopengx = libOpenGX, lansnd = libansnd libogc2 extrems snd lib, -lfat = libfat memory lib
-# -ldvm is actually -lfat when installed = libfat with disk volume management and exfat by extrems
-# -laesnd = libogc audio engine library used in pcsxr wii and seta-gx 
-# as of commit #58 makefile-fixgbv2.ogc2 with libogc2-FixGB.yml this compiles, but sadly I have not configured this file to make .dol yet 
-# as of commit #59 it works completely, added -Wl,-Map,$(notdir $@).map to LD flags, declared ELF2DOL := elf2dol which only works with DKP
-# Added .dol to all: $(TARGET) then .elf to the $(TARGET) on the line below it. 
-# Added the conversion of dol to elf 2 lines with $(TARGET).dol: $(TARGET).elf $(ELF2DOL) $< $@
-# %.o %.c line stayed the same, the clean line added .elf to first $(TARGET) added a second and third $(TARGET) with .dol and .map
-# Works perfectly on dolphin and even runs at 60 fps -- porting may be possible. next is to try to make the minimal file v3 of this. 
-
 ELF2DOL     := elf2dol
 
 all: $(TARGET).dol
