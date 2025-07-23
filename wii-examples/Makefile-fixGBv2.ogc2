@@ -40,7 +40,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -Wl,-Map,$(notdir $@).map \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L$(DEVKITPRO)/libogc2/lib/wii \
--lSDL2 -lSDL2main -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -logc -lm
+-lSDL2 -lSDL2main -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -logc -lm
 
 # -I/opt/devkitpro/portlibs/wii/include \
 # -L/opt/devkitpro/portlibs/wii/lib \
