@@ -39,6 +39,7 @@ LDFLAGS +=
 endif
 
 CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) 
+CXXFLAGS	=	$(CFLAGS)
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -Wl,-Map,$(notdir $@).map \
 -L$(DEVKITPRO)/libogc2/lib/wii \
