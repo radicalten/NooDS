@@ -784,9 +784,8 @@ void gears_frame(void *userdata)
     gears_draw();
 }
 
-int
-main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
+    
     int w, h;
     void *native_window = NULL;
 
