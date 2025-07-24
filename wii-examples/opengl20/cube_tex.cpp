@@ -39,8 +39,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "opengx_shaders.h"
 #endif
 
-#include <SDL.h>
-#include <SDL_opengl.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <stdlib.h>
 
