@@ -5,6 +5,7 @@ include /opt/devkitpro/libogc2/wii_rules
 export DEVKITPRO 	:= /opt/devkitpro
 export DEVKITPPC	:= $(DEVKITPRO)/devkitPPC
 CC 			:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
+CXX 			:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 
 TARGET := GL20
 DEBUG   = 1
