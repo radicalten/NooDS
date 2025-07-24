@@ -24,7 +24,7 @@ OBJECTS := $(OBJECTS:.cpp=.o)
 # OBJECTS +=main.o
 
 FLAGS    += -Wall -Wextra -ffast-math
-FLAGS    += -Werror=implicit-function-declaration
+# FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
 INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
