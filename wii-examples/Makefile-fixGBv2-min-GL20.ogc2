@@ -22,7 +22,7 @@ OBJECTS = $(SOURCES:.c=.o)
 FLAGS    += -Wall -Wextra -ffast-math
 FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
-INCLUDES += -I/opt/devkitpro/portlibs/wii/include -I$(DEVKITPRO)/libogc2/include -I$(DEVKITPRO)/ppc/include
+INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include  -I/opt/devkitpro/portlibs/ppc/include 
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
@@ -38,9 +38,9 @@ endif
 CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) 
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -Wl,-Map,$(notdir $@).map \
--L/opt/devkitpro/portlibs/wii/lib \
 -L$(DEVKITPRO)/libogc2/lib/wii \
--L$(DEVKITPRO)/ppc/lib/wii \
+-L/opt/devkitpro/portlibs/wii/lib \
+-L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2 -lSDL2main -lglm -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -lpng -logc -lm
 
 ELF2DOL     := elf2dol
