@@ -28,7 +28,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef TEXTURES_H
 #define TEXTURES_H
 
-#include <GL/gl.h>
+//#include <GL/gl.h>
 
 #ifdef __cplusplus
 extern "C" {
