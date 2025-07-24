@@ -6,7 +6,7 @@ export DEVKITPRO 	:= /opt/devkitpro
 export DEVKITPPC	:= $(DEVKITPRO)/devkitPPC
 CC 			:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 
-TARGET := Source3-wii
+TARGET := GL20
 DEBUG   = 1
 AUDIO_FLOAT = 0
 #CC = powerpc-eabi-gcc
