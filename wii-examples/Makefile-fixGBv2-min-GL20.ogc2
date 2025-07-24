@@ -12,7 +12,7 @@ AUDIO_FLOAT = 0
 #CC = powerpc-eabi-gcc
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
-SRCDIR = source3
+SRCDIR = opengl20 common
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:.c=.o)
 
