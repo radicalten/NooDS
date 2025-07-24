@@ -132,8 +132,8 @@ process_event(SDL_Event *event)
     }
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char *argv[]){
+
 #if defined(__wii__) || defined(__gamecube__)
     setup_opengx_shaders();
 #endif
