@@ -29,6 +29,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define TEXTURES_H
 
 //#include <GL/gl.h>
+#include <SDL2/SDL_opengl.h>
 
 #ifdef __cplusplus
 extern "C" {
