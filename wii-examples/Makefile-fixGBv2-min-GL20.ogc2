@@ -52,10 +52,19 @@ ELF2DOL     := elf2dol
 
 all: $(TARGET).dol
 $(TARGET).elf: $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDFLAGS)
+
+$(TARGET).dol: $(TARGET).elf
+	$(ELF2DOL) $< $@
+
+$(TARGET).elf: $(OBJECTS)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
 	$(ELF2DOL) $< $@
+
+%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
