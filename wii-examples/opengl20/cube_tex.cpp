@@ -33,7 +33,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define GL_GLEXT_PROTOTYPES
 
-#include <common/textures.h>
+#include "common/textures.h"
 
 #if defined(__wii__) || defined(__gamecube__)
 #include "opengx_shaders.h"
