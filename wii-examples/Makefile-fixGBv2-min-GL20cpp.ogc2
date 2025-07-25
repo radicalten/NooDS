@@ -17,10 +17,10 @@ SRCDIR = opengl20cpp common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-OFILES_BIN 	:= $(BINFILES:.png=.o)
-SOURCES = $(C_SOURCES) $(CPP_SOURCES) 
+SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(BINFILES)
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS := $(OBJECTS:.cpp=.o)
+OBJECTS := $(OBJECTS:.png=.o)
 
 
 # OBJECTS :=
@@ -66,7 +66,6 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-all: $(OFILES_BIN)
 %.o: %.png
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
 
