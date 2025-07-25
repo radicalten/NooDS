@@ -17,10 +17,11 @@ SRCDIR = opengl20cpp common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(BINFILES)
+OFILES_BIN 	:= $(BINFILES:.png=.o)
+SOURCES = $(C_SOURCES) $(CPP_SOURCES) 
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS := $(OBJECTS:.cpp=.o)
-OBJECTS := $(OBJECTS:.png=.o)
+
 
 # OBJECTS :=
 # OBJECTS +=main.o
@@ -52,9 +53,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 
 ELF2DOL     := elf2dol
 
-
-
-all: $(TARGET).dol
+all: $(TARGET).dol 
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -67,9 +66,9 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%.png.o %_png.h : %.png
-	@echo $(notdir $<)
-	$(bin2o)
+all: $(OFILES_BIN)
+%.o: %.png
+	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
