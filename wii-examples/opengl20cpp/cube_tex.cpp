@@ -42,6 +42,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <ogc/system.h>
+#include <ogc/video.h>
 #include <stdio.h>
 #include <stdlib.h>
 
