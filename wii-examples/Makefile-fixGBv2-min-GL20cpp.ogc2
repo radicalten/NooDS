@@ -16,10 +16,11 @@ MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math 
 SRCDIR = opengl20cpp common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
-BINFILES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(PNG_FILES)
+BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
+SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(BINFILES)
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS := $(OBJECTS:.cpp=.o)
+OBJECTS := $(OBJECTS:.png=.o)
 
 # OBJECTS :=
 # OBJECTS +=main.o
@@ -66,11 +67,11 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-clean:
-	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
-
 %.png.o %_png.h : %.png
 	@echo $(notdir $<)
 	$(bin2o)
+
+clean:
+	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
 
 .PHONY: clean test
