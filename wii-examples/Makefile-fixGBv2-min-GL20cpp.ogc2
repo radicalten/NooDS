@@ -48,7 +48,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
--lglm -lGLU -lopengx -lSDL2main -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -lpng -logc -lm -lSDL2
+-lm -lglm -lGLU -lopengx -lSDL2main -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -lpng -logc -lSDL2
 
 ELF2DOL := elf2dol
 BIN2O	:= bin2o
