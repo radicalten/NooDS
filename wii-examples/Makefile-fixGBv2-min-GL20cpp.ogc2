@@ -20,8 +20,7 @@ BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(BINFILES)
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS := $(OBJECTS:.cpp=.o)
-BIN_OBJECTS := $(OBJECTS:(addsuffix .o,$(BINFILES)))
-
+OBJECTS := $(OBJECTS:(addsuffix .o,$(BINFILES)))
 
 # OBJECTS :=
 # OBJECTS +=main.o
@@ -51,7 +50,8 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2 -lSDL2main -lglm -lGLU -lopengx -lwiiuse -lwiikeyboard -lbte -lfat -laesnd -lpng -logc -lm
 
-ELF2DOL     := elf2dol
+ELF2DOL := elf2dol
+BIN2O	:= bin2o
 
 all: $(TARGET).dol 
 $(TARGET).elf: $(OBJECTS)
@@ -66,9 +66,8 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-all: $(BIN_OBJECTS)
 %.o: %.png
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
+	$(BIN2O) $< $@
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
