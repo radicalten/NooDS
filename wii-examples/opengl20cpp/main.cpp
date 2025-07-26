@@ -229,7 +229,7 @@ int main(int argc, char *argv[]){
     glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
     // Load the texture
-    GLuint Texture = textures_load(grid512.png);
+    GLuint Texture = textures_load(grid512.png.o);
 
     // Get a handle for our "myTextureSampler" uniform
     GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
