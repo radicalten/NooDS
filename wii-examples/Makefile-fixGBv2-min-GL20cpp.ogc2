@@ -76,8 +76,7 @@ $(OBJECTS): $(HFILES)
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BUILD_DIR)/%.png.o $(BUILD_DIR)/%_png.h: $(BIN_DIR)/%.png
-	@mkdir -p $(@D)
+$(BIN_DIR)/%.png.o $(BIN_DIR)/%_png.h: $(BIN_DIR)/%.png
 	$(PREFIX)bin2o $< $@ $(basename $(notdir $(<)))_png
 
 #	%.o: %.png
