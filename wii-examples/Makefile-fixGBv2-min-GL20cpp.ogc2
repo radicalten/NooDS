@@ -25,12 +25,12 @@ BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
-#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 #BIN_OBJECTS := $(BINFILES:.png=.png.o)
 #BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BIN_DIR)/%_png.o,$(BINFILES))
-BIN_OBJECTS := $(BIN_NAMES:.png=.png.o)
+#BIN_OBJECTS := $(BIN_NAMES:.png=.png.o)
 SOURCE_OBJS = $(patsubst %.png,%.png.o,$(RESOURCES))
-#HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
+HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -70,7 +70,7 @@ $(TARGET).elf: $(OBJECTS)
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-#$(OBJECTS): $(HFILES)
+$(OBJECTS): $(HFILES)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -78,7 +78,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%.png.o: $%.png
+$(BIN_DIR)/%.png.o $(BIN_DIR)/%.png.h: $(BIN_DIR)/%.png
 	$(bin2o) $< $@
 #$(bin2o) $< $@ $(basename $(notdir $(<)))_png
 #@echo $(notdir $<)
@@ -88,6 +88,6 @@ $(TARGET).dol: $(TARGET).elf
 #	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
 
 clean:
-	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
+	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) $(HFILES)
 
 .PHONY: clean test
