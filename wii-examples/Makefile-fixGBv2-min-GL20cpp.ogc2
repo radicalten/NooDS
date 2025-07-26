@@ -76,7 +76,7 @@ $(OBJECTS): $(HFILES)
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-common/%.png.o common/%_png.h: common/%.png
+$(BUILD_DIR)/%.png.o $(BUILD_DIR)/%_png.h: $(BIN_DIR)/%.png
 	$(bin2o)
 
 #	%.o: %.png
