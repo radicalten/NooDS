@@ -67,7 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 all: $(BIN_OBJECTS)
-%.png.o: %.png
+%.o: %.png.o
 	$(bin2o) $< $@
 
 #	%.o: %.png
