@@ -20,8 +20,8 @@ BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 #BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
-#BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
-BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
+#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 #HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
@@ -31,7 +31,7 @@ OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 FLAGS    += -Wall -Wextra -ffast-math
 # FLAGS    += -Werror=implicit-function-declaration
-DEFINES  += 
+DEFINES  +=
 INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
 ifeq ($(AUDIO_FLOAT),1)
@@ -70,7 +70,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-common/%.png.o common/%_png.h: %.png
+common/%_png.o common/%_png.h: %.png
 	bin2o $< $@
 
 #	%.o: %.png
