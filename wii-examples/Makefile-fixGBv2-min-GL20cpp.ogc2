@@ -77,7 +77,7 @@ $(OBJECTS): $(HFILES)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(BIN_DIR)/%.png.o $(BIN_DIR)/%_png.h: $(BIN_DIR)/%.png
-	$(PREFIX)bin2o $< $@ $(basename $(notdir $(<)))_png
+	$(bin2o) $< $@ $(basename $(notdir $(<)))_png
 
 #	%.o: %.png
 #	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
