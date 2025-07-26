@@ -68,7 +68,8 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 common/%_png.o: common/%.png
-	$(bin2o) $< $@
+	@echo $(notdir $<)
+	$(bin2o)
 
 #	%.o: %.png
 #	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
