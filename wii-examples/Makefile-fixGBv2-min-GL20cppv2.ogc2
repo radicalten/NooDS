@@ -71,7 +71,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
+%.png.o: %.png
 	@echo $(basename  $(<))_png
 	$(bin2o)
 
