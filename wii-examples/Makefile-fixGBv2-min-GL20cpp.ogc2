@@ -15,11 +15,6 @@ AUDIO_FLOAT = 0
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 
-#grid512_png.o: grid512.png
-    #powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
-#OBJS := main.o grid512_png.o
-
-
 SRCDIR = opengl20cpp common
 #BUILD_DIR   	:= build
 BIN_DIR 	:= common
@@ -29,7 +24,7 @@ BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
-#BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
+#BIN_OBJECTS := $(patsubst %.png, %.png.o,$(BINFILES))
 #BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 BIN_OBJECTS := $(BINFILES:.png=_png.o)
 #BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BIN_DIR)/%_png.o,$(BINFILES))
@@ -80,9 +75,9 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%_png.o: $(BIN_DIR)/%.png
-	$(bin2o) $< $@
-#$(bin2o) $< $@ $(basename $(notdir $(<)))_png
+$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
+	$(bin2o) $< $@ $(basename $(notdir $(<)))_png	
+	#$(bin2o) $< $@
 #@echo $(notdir $<)
 	#$(bin2o)
 
