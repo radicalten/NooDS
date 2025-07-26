@@ -20,7 +20,7 @@ BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 SOURCES = $(C_SOURCES) $(CPP_SOURCES) $(BINFILES)
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS := $(OBJECTS:.cpp=.o)
-#OBJECTS := $(OBJECTS:(addsuffix .o,$(BINFILES)))
+BIN_OBJECTS := $(OBJECTS:(addsuffix .o,$(BINFILES)))
 
 
 # OBJECTS :=
@@ -66,6 +66,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
+all: $(BIN_OBJECTS)
 %.o: %.png
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
 
