@@ -21,13 +21,15 @@ BIN_DIR 	:= common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-#BIN_NAMES 	:= $(notdir $(BINFILES))
+BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
 #BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-BIN_OBJECTS := $(BINFILES:.png=.png.o)
+#BIN_OBJECTS := $(BINFILES:.png=.png.o)
 #BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BIN_DIR)/%_png.o,$(BINFILES))
+BIN_OBJECTS := $(BIN_NAMES:.png=.png.o)
+SOURCE_OBJS = $(patsubst %.png,%.png.o,$(RESOURCES))
 #HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
@@ -76,8 +78,9 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
-	$(bin2o) $< $@ $(basename $(notdir $(<)))_png
+%.png.o: $%.png
+	$(bin2o) $< $@
+#$(bin2o) $< $@ $(basename $(notdir $(<)))_png
 #@echo $(notdir $<)
 	#$(bin2o)
 
