@@ -20,7 +20,7 @@ BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
-BIN_OBJECTS := $(BIN_NAMES:%=%.o)
+BIN_OBJECTS := $(BIN_NAMES:.png=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
