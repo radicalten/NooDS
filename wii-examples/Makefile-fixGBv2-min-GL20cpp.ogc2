@@ -66,9 +66,8 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%.png.o: %.png
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
-	#$(bin2o) $< $@
+%.png.o %_png.h: %.png
+	$(bin2o) $< $@
 
 #	%.o: %.png
 #	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
