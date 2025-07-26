@@ -26,7 +26,7 @@ C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
 #BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-BIN_OBJECTS := $(BINFILES:.png=_.png.o)
+BIN_OBJECTS := $(BINFILES:.png=.png.o)
 #BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BIN_DIR)/%_png.o,$(BINFILES))
 #HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
@@ -76,7 +76,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%_.png.o: $(BIN_DIR)/%.png
+$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
 	$(PREFIX)$(bin2o) $< $@ $(basename $(notdir $(<)))_png
 #@echo $(notdir $<)
 	#$(bin2o)
