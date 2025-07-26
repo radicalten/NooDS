@@ -52,14 +52,13 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -laesnd -lwiikeyboard -lpng -lfat -lwiiuse -lbte -logc -lm
 
-ELF2DOL := elf2dol
 
 all: $(TARGET).dol 
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
-	$(ELF2DOL) $< $@
+	$(elf2dol) $< $@
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -67,9 +66,9 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%.png.o %_png.h : %.png
-	@echo $(notdir $<)
-	$(bin2o)
+all: $(BIN_OBJECTS)
+%.png.o: %.png
+	$(bin2o) $< $@
 
 #	%.o: %.png
 #	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
