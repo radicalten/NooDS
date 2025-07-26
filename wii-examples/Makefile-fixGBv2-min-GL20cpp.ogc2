@@ -17,11 +17,11 @@ SRCDIR = opengl20cpp common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-#BIN_NAMES 	:= $(notdir $(BINFILES))
+BIN_NAMES 	:= $(notdir $(BINFILES))
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
-BIN_OBJECTS := $(BINFILES:.png=_png.o)
+BIN_OBJECTS := $(BIN_NAMES:.png=_png.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -67,7 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%._png.o %_png.h: %.png
+%._png.o: %.png
 	$(bin2o) $< $@
 
 #	%.o: %.png
