@@ -67,6 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 
 %.png.o: %.png
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
+	$(bin2o)
 #$(bin2o) $(basename $(notdir $(<)))_png	$@
 	
 clean:
