@@ -19,12 +19,12 @@ jobs:
         sudo echo -e '[extremscorner-devkitpro]\nServer = https://packages.extremscorner.org/devkitpro/linux/$arch' >> /opt/devkitpro/pacman/etc/pacman.conf
         sudo dkp-pacman -Sy
         sudo dkp-pacman -S --noconfirm --ask 4 libogc2-git libogc2-libdvm libogc2-opengx libogc2-glu libogc2-sdl2 ppc-glm ppc-libpng
-        dkp-pacman -Ql  
+        # dkp-pacman -Ql  
         
     - name: Compile
       run: |
         cd wii-examples
-        make -f Makefile-fixGBv2-min-GL20cppv2.ogc2
+        make -f Makefile-fixGBv2-min-GL20cppv3.ogc2
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
