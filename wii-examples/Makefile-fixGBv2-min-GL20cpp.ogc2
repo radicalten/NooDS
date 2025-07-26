@@ -15,6 +15,11 @@ AUDIO_FLOAT = 0
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 
+grid512_png.o: grid512.png
+    powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
+OBJS := main.o grid512_tpl.o
+
+
 SRCDIR = opengl20cpp common
 #BUILD_DIR   	:= build
 BIN_DIR 	:= common
