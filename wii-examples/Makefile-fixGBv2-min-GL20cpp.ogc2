@@ -28,7 +28,7 @@ OBJECTS := $(OBJECTS:(addsuffix .o,$(BINFILES)))
 FLAGS    += -Wall -Wextra -ffast-math
 # FLAGS    += -Werror=implicit-function-declaration
 DEFINES  += 
-INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I/home/extrems/pacman-packages/libogc2-sdl2/src/SDL/include -I../common
+INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I/SDL/include -I../common
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
