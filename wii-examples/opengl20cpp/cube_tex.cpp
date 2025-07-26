@@ -35,9 +35,9 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "../common/textures.h"
 
-//#if defined(__wii__) || defined(__gamecube__)
+#if defined(__wii__) || defined(__gamecube__)
 #include "opengx_shaders.h"
-//#endif
+#endif
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
