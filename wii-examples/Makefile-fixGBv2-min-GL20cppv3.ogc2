@@ -49,7 +49,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
--lSDL2main -lSDL2 -lGLU -lglm -lopengx -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm -lpng
+-lpng -lSDL2main -lSDL2 -lGLU -lglm -lopengx -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm -lpng
 
 
 all: $(TARGET).dol 
