@@ -41,7 +41,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_main.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -133,7 +132,7 @@ process_event(SDL_Event *event)
     }
 }
 
-int SDL_main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 
 #if defined(__wii__) || defined(__gamecube__)
     setup_opengx_shaders();
