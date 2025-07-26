@@ -64,7 +64,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.o: %.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CXX) -c $< -o $@ $(CFLAGS)
 
 %.o: %.png
 	$(BIN2O) $< $@
