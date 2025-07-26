@@ -77,7 +77,7 @@ $(OBJECTS): $(HFILES)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(BUILD_DIR)/%.png.o $(BUILD_DIR)/%_png.h: $(BIN_DIR)/%.png
-	@mkdir -p $(@D) # Ensures the build/ directory exists
+	@mkdir -p $(@D)
 	$(PREFIX)bin2o $< $@ $(basename $(notdir $(<)))_png
 
 #	%.o: %.png
