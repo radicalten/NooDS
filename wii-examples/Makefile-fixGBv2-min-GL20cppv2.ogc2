@@ -15,21 +15,17 @@ AUDIO_FLOAT = 0
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 
-SRCDIR = opengl20cpp common
-#BUILD_DIR   	:= build
-BIN_DIR 	:= common
+SRCDIR	:= opengl20cpp common
+BIN_DIR := common
+
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-BIN_NAMES 	:= $(notdir $(BINFILES))
+#BIN_NAMES := $(notdir $(BINFILES))
+
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
-#BIN_OBJECTS := $(patsubst %.png, %.png.o,$(BINFILES))
-#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 BIN_OBJECTS := $(BINFILES:.png=.png.o)
-#BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BIN_DIR)/%_png.o,$(BINFILES))
-#BIN_OBJECTS := $(BIN_NAMES:.png=.png.o)
-#HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -76,15 +72,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
-	@echo $(notdir $<)
-	$(bin2o)
-#$(bin2o) $< $@
-#$(bin2o) $< $@ $(basename $(notdir $(<)))_png	
-#@echo $(notdir $<)
-	#$(bin2o)
-
-#	%.o: %.png
-#	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@
+	$(bin2o) $< $@ $(basename $(notdir $(<)))
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
