@@ -72,7 +72,6 @@ $(OBJECTS): $(HFILES)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 common/%.png.o common/%_png.h: common/%.png
-	@echo $(notdir $<)
 	$(bin2o)
 
 #	%.o: %.png
