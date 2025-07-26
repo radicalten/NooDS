@@ -22,7 +22,7 @@ C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
 BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-#HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
+HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -62,7 +62,7 @@ $(TARGET).elf: $(OBJECTS)
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-#$(OBJECTS): $(HFILES)
+$(OBJECTS): $(HFILES)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -70,7 +70,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%/%.png.o: %.png
+common/%.png.o common/%_png.h: %.png
 	@echo $(notdir $<)
 	$(bin2o)
 
