@@ -26,9 +26,6 @@ CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
-# OBJECTS :=
-# OBJECTS +=main.o
-
 FLAGS    += -Wall -Wextra -ffast-math
 # FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
@@ -69,9 +66,8 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 %.png.o: %.png
-	@echo $(basename $(notdir $(<)))_png	
-	$(bin2o)
-
+	$(bin2o) $(basename $(notdir $(<)))_png	
+	
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
