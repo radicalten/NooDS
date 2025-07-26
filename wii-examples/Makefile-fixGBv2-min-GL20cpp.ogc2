@@ -67,7 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%_png.o: %.png
+common/%_png.o: common/%.png
 	$(bin2o) $< $@
 
 #	%.o: %.png
