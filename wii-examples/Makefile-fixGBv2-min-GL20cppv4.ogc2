@@ -53,9 +53,6 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 
 
 all: $(TARGET).dol 
-%.png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
-
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -67,7 +64,10 @@ $(TARGET).dol: $(TARGET).elf
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
-	
+
+%.png.o: %.png
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
+
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
