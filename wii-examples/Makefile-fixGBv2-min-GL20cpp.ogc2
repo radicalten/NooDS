@@ -67,7 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-common/%.png.o: common/%.png
+../common/%.png.o: ../common/%.png
 	@echo $(notdir $<)
 	$(bin2o)
 
