@@ -16,7 +16,7 @@ MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math 
 
 
 SRCDIR = opengl20cpp common
-BUILD_DIR   	:= build
+#BUILD_DIR   	:= build
 BIN_DIR 	:= common
 C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
@@ -26,8 +26,8 @@ C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
 #BIN_OBJECTS := $(patsubst %.png, %_png.o,$(BINFILES))
 #BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-#BIN_OBJECTS := $(BINFILES:.png=.png.o)
-BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BUILD_DIR)/%_png.o,$(BINFILES))
+BIN_OBJECTS := $(BINFILES:.png=.png.o)
+#BIN_OBJECTS := $(patsubst $(BIN_DIR)/%.png,$(BUILD_DIR)/%_png.o,$(BINFILES))
 #HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
