@@ -19,10 +19,15 @@ C_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 
-SOURCES		:=	$(C_SOURCES) $(CPP_SOURCES)
-BUILD		:=	build
-DATA		:=	$(BINFILES)
-INCLUDES	:=
+SOURCES		:= $(C_SOURCES) $(CPP_SOURCES)
+BUILD		:= build
+DATA		:= $(BINFILES)
+INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
+
+ifneq ($(BUILD),$(notdir $(CURDIR)))
+export OUTPUT	:=	$(CURDIR)/$(TARGET)
+export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 
 BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 C_OBJECTS := $(C_SOURCES:.c=.o)
@@ -32,7 +37,6 @@ OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 FLAGS    += -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
-INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
 ifeq ($(AUDIO_FLOAT),1)
 FLAGS += -DAUDIO_FLOAT=1
