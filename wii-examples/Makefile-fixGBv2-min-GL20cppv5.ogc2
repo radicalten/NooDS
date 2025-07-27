@@ -18,8 +18,8 @@ BIN_DIR := common
 C_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-#BIN_OBJECTS := 	$(patsubst ($BIN_DIR)/%.png,$(dir $(TARGET))%.o,$(BIN_FILES))
+#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS := 	$(patsubst ($BIN_DIR)/%.png,$(dir $(TARGET))%.o,$(BIN_FILES))
 C_OBJECTS := $(C_SOURCES:.c=.o)
 CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
@@ -50,7 +50,7 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol 
-$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
+$(dir $(TARGET))%.png.o: $(BIN_DIR)/%.png
 	$(bin2o) $< $@
 
 $(TARGET).elf: $(OBJECTS)
