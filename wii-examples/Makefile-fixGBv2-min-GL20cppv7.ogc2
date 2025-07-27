@@ -43,7 +43,7 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-all: $(TARGET).dol $(OBJECTS) $(BUILD)
+all: $(BUILD) $(TARGET).dol $(OBJECTS) 
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -60,7 +60,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(bin2o)
 
 clean:
-	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
+	rm -f $(BUILD) $(TARGET).elf $(TARGET).dol 
 
 .PHONY: $(BUILD) clean
 
