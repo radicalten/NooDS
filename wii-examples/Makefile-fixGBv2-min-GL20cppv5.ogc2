@@ -69,3 +69,4 @@ clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
 .PHONY: clean test
+
