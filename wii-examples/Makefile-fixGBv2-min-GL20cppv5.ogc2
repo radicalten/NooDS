@@ -64,7 +64,7 @@ $(TARGET).dol: $(TARGET).elf
 
 %.png.o: %.png
 	@echo $(notdir $<)
-	$(bin2o)
+	$(bin2o) $< $@
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
