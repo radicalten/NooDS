@@ -7,13 +7,11 @@ export DEVKITPPC	:= $(DEVKITPRO)/devkitPPC
 CC 			:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 CXX 			:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 
-
 TARGET := GL20
 DEBUG   := 1
 AUDIO_FLOAT := 0
 #CC = powerpc-eabi-gcc
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
-
 
 SRCDIR	:= opengl20cpp common
 BIN_DIR := common
@@ -24,7 +22,6 @@ BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
 C_OBJECTS := $(C_SOURCES:.c=.o)
 CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
-
 
 FLAGS    += -Wall -Wextra -ffast-math
 # FLAGS    += -Werror=implicit-function-declaration
@@ -50,7 +47,6 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
-
 
 all: $(TARGET).dol 
 $(TARGET).elf: $(OBJECTS)
