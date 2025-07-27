@@ -62,7 +62,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CXX) -c $< -o $@ $(CFLAGS)
 
 %.png.o: %.png
-	$(bin2o) $< $@
+	$(bin2o)
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
