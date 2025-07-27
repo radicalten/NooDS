@@ -61,7 +61,7 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
+%.png.o: %.png
 	$(bin2o) $< $@
 
 clean:
