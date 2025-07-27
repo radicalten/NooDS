@@ -18,7 +18,8 @@ BIN_DIR := common
 C_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS := $(patsubst ($BIN_DIR)/%.png,build/%.o,$(BIN_FILES))
 C_OBJECTS := $(C_SOURCES:.c=.o)
 CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
@@ -61,8 +62,8 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-%.png.o: %.png
-	$(bin2o) $< -o $@
+build/%.png.o: (BIN_DIR)/%.png
+	$(bin2o) $< $@
 	
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
