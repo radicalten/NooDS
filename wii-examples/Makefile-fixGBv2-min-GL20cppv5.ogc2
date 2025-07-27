@@ -15,11 +15,11 @@ MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math 
 TARGET 		:= $(notdir $(CURDIR))
 SRCDIR		:= opengl20cpp common
 
-C_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
-CPP_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
-BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
+#C_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
+#CPP_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
+#BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 
-SOURCES		:= $(C_SOURCES) $(CPP_SOURCES)
+SOURCES		:= $(SRCDIR)
 BUILD		:= build
 DATA		:= $(BINFILES)
 INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
@@ -28,12 +28,30 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) $(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
+CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
+BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
+ifeq ($(strip $(CPPFILES)),)
+	export LD	:=	$(CC)
+else
+	export LD	:=	$(CXX)
 endif
 
-BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
-C_OBJECTS := $(C_SOURCES:.c=.o)
-CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
-OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
+export OFILES	:=	$(addsuffix .o,$(BINFILES)) $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
+export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) $(foreach dir,$(LIBDIRS),-I$(dir)/include) -I$(CURDIR)/$(BUILD) -I$(LIBOGC_INC)
+export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) -L$(LIBOGC_LIB)
+export OUTPUT	:=	$(CURDIR)/$(TARGET)
+
+$(BUILD):
+	@[ -d $@ ] || mkdir -p $@
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv5.ogc2
+
+#BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+#C_OBJECTS := $(C_SOURCES:.c=.o)
+#CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
+#OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 FLAGS    += -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    += -Werror=implicit-function-declaration
@@ -78,5 +96,5 @@ $(OUTPUT).dol: $(OUTPUT).elf
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
-.PHONY: clean test
+.PHONY: $(BUILD) clean
 
