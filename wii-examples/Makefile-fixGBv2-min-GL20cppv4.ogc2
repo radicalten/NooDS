@@ -21,13 +21,9 @@ C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
 BIN_OBJECTS := $(BINFILES:.png=.png.o)
-
-.png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
-	$(bin2o)
-
 C_OBJECTS = $(C_SOURCES:.c=.o)
 CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
+BIN_OBJECTS := $(BINFILES:.png=.png.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -70,6 +66,8 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
+.png.o: %.png
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
