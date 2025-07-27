@@ -20,6 +20,7 @@ jobs:
         sudo dkp-pacman -Sy
         sudo dkp-pacman -S --noconfirm --ask 4 libogc2-git libogc2-libdvm libogc2-opengx libogc2-glu libogc2-sdl2 ppc-glm ppc-libpng
         # dkp-pacman -Ql  
+        # libogc2-dkp-toolchain-vars freeimage-svn gamecube-tools-git
         
     - name: Compile
       run: |
