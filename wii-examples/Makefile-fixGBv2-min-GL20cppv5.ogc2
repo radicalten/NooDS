@@ -23,7 +23,7 @@ C_OBJECTS := $(C_SOURCES:.c=.o)
 CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
-FLAGS    += -Wall -Wextra -ffast-math
+FLAGS    += -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    += -Werror=implicit-function-declaration
 DEFINES  +=
 INCLUDES += -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
