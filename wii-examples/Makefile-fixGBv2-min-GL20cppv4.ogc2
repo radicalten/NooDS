@@ -66,8 +66,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 %.png.o: %.png
-	@echo $(basename $(notdir $(<)))_png	
-	$(bin2o)
+	$(bin2o) $< $@
 	
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
