@@ -15,7 +15,7 @@ else
 FLAGS   	+= -O3
 endif
 
-TARGET 		:= $(notdir $(CURDIR))
+TARGET 		:= gl20
 SRCDIR		:= opengl20cpp common
 C_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 CPP_SOURCES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
@@ -24,7 +24,6 @@ SOURCES		:= $(C_SOURCES) $(CPP_SOURCES)
 BUILD		:= build
 DATA		:= $(BINFILES)
 INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
-OUTPUT		:= $(CURDIR)/$(TARGET)
 
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
@@ -44,11 +43,11 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-all: $(OUTPUT).dol 
-$(OUTPUT).elf: $(OBJECTS)
+all: $(TARGET).dol 
+$(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
-$(OUTPUT).dol: $(OUTPUT).elf
+$(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
 %.o: %.cpp
@@ -61,6 +60,6 @@ $(OUTPUT).dol: $(OUTPUT).elf
 	$(bin2o)
 
 clean:
-	rm -f $(OUTPUT).elf $(OUTPUT).dol $(OUTPUT).map $(OBJECTS) 
+	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
 .PHONY: clean test
