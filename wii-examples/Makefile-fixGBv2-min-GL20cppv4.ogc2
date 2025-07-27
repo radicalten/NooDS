@@ -66,9 +66,11 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 %.png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
-	$(bin2o)
-#$(bin2o) $(basename $(notdir $(<)))_png	$@
+	$(bin2o) $(basename $(notdir $(<)))_png	$@
+
+	#powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
+	#$(bin2o)
+
 	
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
