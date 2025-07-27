@@ -67,7 +67,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 .png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc $< $@	
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
