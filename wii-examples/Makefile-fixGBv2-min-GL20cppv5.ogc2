@@ -50,6 +50,9 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol 
+$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
+	$(bin2o) $< $@
+
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -62,9 +65,6 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-$(BIN_DIR)/%.png.o: $(BIN_DIR)/%.png
-	$(bin2o) $< $@
-	
 clean:
 	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) 
 
