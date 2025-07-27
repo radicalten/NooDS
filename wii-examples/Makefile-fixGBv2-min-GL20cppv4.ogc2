@@ -9,20 +9,20 @@ CXX 			:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 
 
 TARGET := GL20
-DEBUG   = 1
-AUDIO_FLOAT = 0
+DEBUG   := 1
+AUDIO_FLOAT := 0
 #CC = powerpc-eabi-gcc
 MACHDEP = -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 
 SRCDIR	:= opengl20cpp common
 BIN_DIR := common
-C_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
-CPP_SOURCES = $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
+C_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
+CPP_SOURCES := $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.png))
-BIN_OBJECTS := $(BINFILES:.png=.png.o)
-C_OBJECTS = $(C_SOURCES:.c=.o)
-CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
+BIN_OBJECTS := $(addsuffix .o,$(BINFILES))
+C_OBJECTS := $(C_SOURCES:.c=.o)
+CPP_OBJECTS := $(CPP_SOURCES:.cpp=.o)
 OBJECTS := $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 
 
@@ -43,7 +43,7 @@ LDFLAGS +=
 endif
 
 CFLAGS += $(FLAGS) $(DEFINES) $(INCLUDES) 
-CXXFLAGS	=	$(CFLAGS)
+CXXFLAGS	:=	$(CFLAGS)
 LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -Wl,-Map,$(notdir $@).map \
 -L$(DEVKITPRO)/libogc2/lib/wii \
