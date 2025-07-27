@@ -50,11 +50,10 @@ LDFLAGS += $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol 
-$(dir $(TARGET))%.png.o: $(BIN_DIR)/%.png
+$(dir $(TARGET))/%.png.o: $(BIN_DIR)/%.png
 	$(bin2o) $< $@
 
 $(TARGET).elf: $(OBJECTS)
-	mkdir -p $(dir $@)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
