@@ -41,11 +41,11 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 
-$(TARGET).elf: $(OBJECTS)
-	$(CXX) $^ -o $@ $(LDFLAGS)
-
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
+
+$(TARGET).elf: $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
