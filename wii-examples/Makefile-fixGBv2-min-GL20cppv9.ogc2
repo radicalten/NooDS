@@ -38,13 +38,16 @@ CFLAGS 		+= $(FLAGS) $(DEFINES) $(INCLUDES)
 CXXFLAGS	:= $(CFLAGS)
 LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -Wl,-Map,$(notdir $@).map \
--L$(PORTLIBS) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-all: $(BUILD) $(TARGET).dol $(OBJECTS) @[ -d $@ ] || mkdir -p $@
+all: $(BUILD) $(TARGET).dol $(OBJECTS) 
+
+@[ -d $@ ] || mkdir -p $@
+@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv9.ogc2
+
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
