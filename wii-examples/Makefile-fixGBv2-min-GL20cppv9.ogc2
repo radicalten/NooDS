@@ -57,7 +57,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(bin2o)
 
 clean:
-	rm -f $(BUILD) $(TARGET).elf $(TARGET).dol 
+	rm -f $(TARGET).elf $(TARGET).dol 
 
-.PHONY: clean
+.PHONY: clean test
 
