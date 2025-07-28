@@ -57,7 +57,7 @@ $(TARGET).elf: $(OBJECTS)
 	$(bin2o)
 
 clean:
-	@rm -fr $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
+	@rm -fr $(TARGET).elf $(TARGET).dol
 
 .PHONY: clean test
 
