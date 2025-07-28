@@ -25,7 +25,7 @@ INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/includ
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
-OBJECTS 	:= $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
+OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
@@ -57,7 +57,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(bin2o)
 
 clean:
-	rm -f $(TARGET).elf $(TARGET).dol 
+	rm -f $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
 
 .PHONY: clean test
 
