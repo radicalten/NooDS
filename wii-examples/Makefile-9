@@ -19,7 +19,7 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	opengl20cpp common
 DATA		:=	common 
-INCLUDES	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
+INCLUDES	:= $(DEVKITPRO)/libogc2/include /opt/devkitpro/portlibs/wii/include /opt/devkitpro/portlibs/ppc/include ../common
 
 #---------------------------------------------------------------------------------
 # options for code generation
