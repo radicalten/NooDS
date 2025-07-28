@@ -33,15 +33,15 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+LIB := -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= -L$(DEVKITPRO)/libogc2/lib/wii \
--L/opt/devkitpro/portlibs/wii/lib \
--L/opt/devkitpro/portlibs/ppc/lib \
+LIBDIRS	:= $(DEVKITPRO)/libogc2/lib/wii \
+/opt/devkitpro/portlibs/wii/lib \
+/opt/devkitpro/portlibs/ppc/lib \
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
