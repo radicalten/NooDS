@@ -25,7 +25,7 @@ jobs:
     - name: Compile
       run: |
         cd wii-examples
-        make -f Makefile-fixGBv2-min-GL20cppv8.ogc2
+        make -f Makefile(9)
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
