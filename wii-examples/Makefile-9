@@ -7,7 +7,7 @@ ifeq ($(strip $(DEVKITPPC)),)
 $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>devkitPPC")
 endif
 
-include $(DEVKITPPC)/wii_rules
+include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -17,9 +17,9 @@ include $(DEVKITPPC)/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
-DATA		:=	data  
-INCLUDES	:=
+SOURCES		:=	opengl20cpp common
+DATA		:=	common 
+INCLUDES	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -33,13 +33,15 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	 -lwiiuse -lbte -lfat -logc -lm
+LIBS	:=	 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:=
+LIBDIRS	:= -L$(DEVKITPRO)/libogc2/lib/wii \
+-L/opt/devkitpro/portlibs/wii/lib \
+-L/opt/devkitpro/portlibs/ppc/lib \
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
