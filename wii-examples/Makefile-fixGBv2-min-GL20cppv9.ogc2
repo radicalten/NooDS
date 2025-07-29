@@ -15,7 +15,7 @@ else
 FLAGS   	+= -O3
 endif
 
-TARGET 		:= gl20
+TARGET 		:= $(notdir $(CURDIR))
 SRCDIR		:= opengl20cpp common
 C_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
 CPP_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
@@ -55,7 +55,7 @@ $(TARGET).elf: $(OBJECTS)
 	$(CXX) -c $< -o $@ $(CFLAGS)
 
 %.png.o: %.png
-	$(bin2o)
+	$(bin2o) $< $@
 
 -include $(DEPENDS)
 
