@@ -26,6 +26,7 @@ BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
+DEPENDS		:= $(OBJECTS:.o=.d)
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
@@ -55,6 +56,8 @@ $(TARGET).elf: $(OBJECTS)
 
 %.png.o: %.png
 	$(bin2o)
+
+-include $(DEPENDS)
 
 clean:
 	@rm -fr $(TARGET).elf $(TARGET).dol
