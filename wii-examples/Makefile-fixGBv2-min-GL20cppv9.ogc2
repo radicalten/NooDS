@@ -15,7 +15,7 @@ else
 FLAGS   	+= -O3
 endif
 
-TARGET 		:= $(notdir $(CURDIR))
+TARGET 		:= gl20
 SRCDIR		:= opengl20cpp common
 C_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
 CPP_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
