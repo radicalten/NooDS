@@ -42,11 +42,11 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 
 
 all: $(TARGET).dol
-$(TARGET).dol: $(TARGET).elf
-	$(elf2dol) $< $@
-
 $(TARGET).elf: $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS)
 	$(CXX) $(LDFLAGS) $^ -o $@ 
+
+$(TARGET).dol: $(TARGET).elf
+	$(elf2dol) $< $@
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ 
