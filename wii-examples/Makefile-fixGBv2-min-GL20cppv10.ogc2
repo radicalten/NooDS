@@ -23,7 +23,7 @@ CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
-INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
+export INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
@@ -46,7 +46,7 @@ DEFINES  	+=
 
 CFLAGS 		+= $(FLAGS) $(DEFINES) $(INCLUDES) 
 CXXFLAGS	:= $(CFLAGS)
-LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
+export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
