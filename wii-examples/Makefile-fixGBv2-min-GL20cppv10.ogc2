@@ -7,7 +7,6 @@ export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 #CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
-export LD	:= $(CXX)
 
 DEBUG   	:= 1
 ifeq ($(DEBUG),1)
@@ -29,6 +28,10 @@ BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
+
+export LD	:= $(CXX)
+export OUTPUT	:= $(CURDIR)/$(TARGET)
+
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
