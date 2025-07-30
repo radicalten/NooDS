@@ -17,8 +17,8 @@ endif
 
 TARGET 		:= $(notdir $(CURDIR))
 SRCDIR		:= opengl20cpp common
-C_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
-CPP_SOURCES 	:= $(foreach dir, $(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
+C_SOURCES 	:= $(foreach dir, $(SRCDIR),$(wildcard $(dir)/*.c))
+CPP_SOURCES 	:= $(foreach dir, $(SRCDIR),$(wildcard $(dir)/*.cpp))
 BINFILES 	:= $(foreach dir, $(SRCDIR),$(wildcard $(dir)/*.png))
 INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
