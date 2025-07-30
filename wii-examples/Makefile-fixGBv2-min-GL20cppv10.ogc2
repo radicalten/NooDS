@@ -32,6 +32,10 @@ export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export LD	:= $(CXX)
 
+# powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
+# BIN_OBJECTS := grid512_png.o
+# Add BIN_OBJECTS to your list of objects in the linking target line.
+
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
 DEFINES  	+=
