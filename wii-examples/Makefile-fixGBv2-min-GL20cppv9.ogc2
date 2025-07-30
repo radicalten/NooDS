@@ -41,13 +41,11 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-$(info TARGET=$(TARGET))
 
-all: $(TARGET).dol $(OBJECTS)
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS)
+$(TARGET).elf: $(C_OBJECTS) $(CPP_OBJECTS) $(BIN_OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
