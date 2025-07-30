@@ -16,7 +16,7 @@ FLAGS   	+= -O3
 endif
 
 TARGET 		:= $(notdir $(CURDIR))
-BUILD 		:= $(BUILD)
+BUILD 		:= build
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
@@ -31,8 +31,8 @@ OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
 
 export VPATH	:=	$(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
-export LD	:= $(CXX)
-export OUTPUT	:= $(CURDIR)/$(TARGET)
+#export LD	:= $(CXX)
+#export OUTPUT	:= $(CURDIR)/$(TARGET)
 
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
