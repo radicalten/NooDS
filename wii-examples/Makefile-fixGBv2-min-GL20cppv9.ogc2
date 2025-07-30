@@ -60,7 +60,7 @@ $(TARGET).elf: $(OBJECTS)
 -include $(DEPENDS)
 
 clean:
-	@rm -fr $(TARGET).elf $(TARGET).dol
+	@rm -fr $(TARGET).elf $(TARGET).dol $(OBJECTS)
 
 .PHONY: clean test
 
