@@ -15,7 +15,7 @@ else
 FLAGS   	+= -O3
 endif
 
-TARGET 		:= $(notdir $(CURDIR))
+export TARGET 	:= $(notdir $(CURDIR))
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
@@ -23,7 +23,7 @@ CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
-export INCLUDES 	:= -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
+export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
 
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
