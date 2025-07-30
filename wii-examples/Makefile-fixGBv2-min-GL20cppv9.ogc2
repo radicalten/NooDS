@@ -52,10 +52,10 @@ $(TARGET).elf: $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 %.png.o: %.png
-	$(bin2o) $< $@
+	$(bin2o)
 
 
 clean:
