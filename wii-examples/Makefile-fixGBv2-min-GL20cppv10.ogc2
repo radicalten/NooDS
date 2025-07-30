@@ -62,7 +62,8 @@ $(TARGET).elf: $(OBJECTS)
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-%.png.o: %.png
+%.png.o %_png.h: %.png
+	@echo $(notdir $<)
 	$(bin2o)
 
 clean:
