@@ -47,6 +47,7 @@ DEFINES  	+=
 CFLAGS 		+= $(FLAGS) $(DEFINES) $(INCLUDES) 
 CXXFLAGS	:= $(CFLAGS)
 export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
+-L$(DEVKITPRO)/libogc/lib/wii \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
