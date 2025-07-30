@@ -53,12 +53,12 @@ $(TARGET).dol: $(TARGET).elf
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-%.png.o %_png.h : %.png
+%.png.o %_png.h: %.png
 	@echo $(notdir $<)
 	$(bin2o)
 
 clean:
 	@rm -fr $(OBJECTS) $(TARGET).elf $(TARGET).dol
 
-.PHONY: test clean
+.PHONY: $(BUILD) clean
 
