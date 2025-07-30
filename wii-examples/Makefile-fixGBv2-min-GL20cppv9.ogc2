@@ -46,13 +46,13 @@ $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
 $(TARGET).elf: $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS)
-	$(CXX) $^ -o $@ $(LDFLAGS)
+	$(CXX) $(LDFLAGS) $^ -o $@ 
 
 %.o: %.cpp
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 %.o: %.c
-	$(CXX) -c $< -o $@ $(CFLAGS)
+	$(CXX) $(CFLAGS) -c $< -o $@ 
 
 %.png.o: %.png
 	$(bin2o) $< $@
