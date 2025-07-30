@@ -16,7 +16,6 @@ FLAGS   	+= -O3
 endif
 
 TARGET 		:= $(notdir $(CURDIR))
-#BUILD 		:= build
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
@@ -46,12 +45,12 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-#all: $(TARGET).dol
-$(TARGET).elf: $(OBJECTS)
-	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
+
+$(TARGET).elf: $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
