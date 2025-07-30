@@ -16,6 +16,7 @@ FLAGS   	+= -O3
 endif
 
 TARGET 		:= $(notdir $(CURDIR))
+BUILD 		:= build
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
@@ -28,8 +29,10 @@ C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
 
+ifneq ($(BUILD),$(notdir $(CURDIR)))
 export VPATH	:=	$(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+endif
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
