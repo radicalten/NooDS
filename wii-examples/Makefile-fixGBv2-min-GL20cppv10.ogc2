@@ -16,9 +16,7 @@ FLAGS   	+= -O3
 endif
 
 TARGET 		:= $(notdir $(CURDIR))
-BUILD 		:= build
 SRCDIR		:= opengl20cpp common
-DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
 CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 BINFILES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.png)))
@@ -28,13 +26,6 @@ BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
-
-ifneq ($(BUILD),$(notdir $(CURDIR)))
-export VPATH	:=	$(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
-					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
-export OUTPUT	:=	$(CURDIR)/$(TARGET)
-export LD	:=	$(CXX)
-endif
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
@@ -50,7 +41,6 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 
-all: $(TARGET).dol
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -70,5 +60,5 @@ $(TARGET).dol: $(TARGET).elf
 clean:
 	@rm -fr $(OBJECTS) $(TARGET).elf $(TARGET).dol
 
-.PHONY: $(BUILD) clean
+.PHONY: test clean
 
