@@ -8,6 +8,7 @@ $(error "Please set DEVKITPPC in your environment. export DEVKITPPC=<path to>dev
 endif
 
 export DEVKITPRO:= /opt/devkitpro
+export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 
 include /opt/devkitpro/libogc2/wii_rules
 
@@ -41,8 +42,7 @@ LIB := -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -l
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= \
-$(DEVKITPRO)/libogc2/lib/wii \
+LIBDIRS	:= $(DEVKITPRO)/libogc2/lib/wii \
 /opt/devkitpro/portlibs/wii/lib \
 /opt/devkitpro/portlibs/ppc/lib \
 
