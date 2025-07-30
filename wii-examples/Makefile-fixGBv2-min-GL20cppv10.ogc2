@@ -17,6 +17,7 @@ endif
 
 TARGET 		:= $(notdir $(CURDIR))
 SRCDIR		:= opengl20cpp common
+DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
 CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 BINFILES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.png)))
