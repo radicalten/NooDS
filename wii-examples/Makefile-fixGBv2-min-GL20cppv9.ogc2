@@ -67,5 +67,5 @@ common/%.png.o: common/%.png
 clean:
 	@rm -fr $(OBJECTS) $(TARGET).elf $(TARGET).dol
 
-.PHONY: clean test
+.PHONY: $(BUILD) clean
 
