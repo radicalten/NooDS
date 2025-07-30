@@ -42,23 +42,23 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 
 
 $(TARGET).elf: $(OBJECTS)
-	$(CXX) $(LDFLAGS) $^ -o $@ 
+	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ 
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -c $< -o $@ 
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.png.o: %.png
 	$(bin2o)
 
 
 clean:
-	@rm -fr $(TARGET).elf $(TARGET).dol
+	@rm -fr $(OBJECTS) $(TARGET).elf $(TARGET).dol
 
 .PHONY: clean test
 
