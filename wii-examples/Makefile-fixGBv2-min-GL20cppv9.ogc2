@@ -1,5 +1,5 @@
 .SUFFIXES:
-.SECONDARY:
+
 include /opt/devkitpro/libogc2/wii_rules
 
 export DEVKITPRO:= /opt/devkitpro
