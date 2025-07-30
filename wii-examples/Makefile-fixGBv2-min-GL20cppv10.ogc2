@@ -16,6 +16,7 @@ FLAGS   	+= -O3
 endif
 
 TARGET 		:= $(notdir $(CURDIR))
+BUILD 		:= $(BUILD)
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
 C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
