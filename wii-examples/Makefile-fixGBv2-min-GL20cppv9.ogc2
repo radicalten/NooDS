@@ -32,6 +32,8 @@ OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS)
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 export VPATH	:=	$(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export OUTPUT	:=	$(CURDIR)/$(TARGET)
+export LD	:=	$(CXX)
 endif
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
