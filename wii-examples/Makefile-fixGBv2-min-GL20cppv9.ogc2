@@ -41,8 +41,13 @@ LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 
-all: $(TARGET).dol
-$(TARGET).elf: $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS)
+$(TARGET).elf: $(CPP_OBJECTS)
+	$(CXX) $(LDFLAGS) $^ -o $@ 
+
+$(TARGET).elf: $(C_OBJECTS)
+	$(CXX) $(LDFLAGS) $^ -o $@ 
+
+$(TARGET).elf: $(BIN_OBJECTS)
 	$(CXX) $(LDFLAGS) $^ -o $@ 
 
 $(TARGET).dol: $(TARGET).elf
