@@ -39,7 +39,7 @@ LIB := -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -l
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= -L$(DEVKITPRO)/libogc2/lib/wii \
+LIBDIRS	:= -L/opt/devkitpro/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib 
 
