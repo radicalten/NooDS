@@ -30,8 +30,8 @@ BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
 
 # Sources
-SRC := textures.c
-HDR := textures.h
+SRC := common/textures.c
+HDR := common/textures.h
 	
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
