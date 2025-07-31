@@ -85,8 +85,8 @@ $(TARGET).elf: $(OBJECTS) textures.a
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 # Static library target
-textures.a: $(BINFILES) $(SRC) $(HDR)
-	$(AR) rcs $@ $(BINFILES) $(SRC)
+textures.a: common/$(BINFILES) $(SRC) $(HDR)
+	$(AR) rcs $@ common/$(BINFILES) $(SRC)
 
 -include $(DEPENDS)
 
