@@ -49,9 +49,7 @@ export LD	:= $(CXX)
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
 
-# To print the directory path:
-print_path:
-    @echo "Makefile directory: $(mkfile_dir)"
+    
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
@@ -91,6 +89,7 @@ $(TARGET).elf: $(OBJECTS) textures.a
 textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs $@ $^
 	$(RANLIB) $@
+	@echo "Makefile directory: $(mkfile_dir)"
 
 -include $(DEPENDS)
 
