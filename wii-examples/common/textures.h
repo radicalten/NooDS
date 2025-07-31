@@ -35,15 +35,11 @@ POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-// #define DECLARE_EMBEDDED_FILE(basename) \
-    // extern const unsigned char _binary_ ## basename ## _start[], _binary_ ## basename ## _end[]
+ #define DECLARE_EMBEDDED_FILE(basename) \
+     extern char _binary_ ## basename ## _start[], _binary_ ## basename ## _end[]
 
-// DECLARE_EMBEDDED_FILE(grid512_png);
-// DECLARE_EMBEDDED_FILE(mix256_png);
-
-extern const unsigned char _binary_grid512_png_start[];
-extern const unsigned char _binary_grid512_png_end[];
-extern const unsigned char _binary_grid512_png_size[];
+ DECLARE_EMBEDDED_FILE(grid512_png);
+ DECLARE_EMBEDDED_FILE(mix256_png);
 
 #define textures_load(basename) \
     textures_load_range(_binary_ ## basename ## _start, \
