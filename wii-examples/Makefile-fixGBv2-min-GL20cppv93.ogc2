@@ -90,10 +90,6 @@ textures.a: $(foreach dir,$(DATA),$(wildcard $(dir)/*.png)) $(SRC) $(HDR)
 	$(AR) rcs $@ $^
 	$(RANLIB) $@
 
-textures.a: texture1.o texture2.o texture3.o
-	$(AR) rcs $@ $^
-	$(RANLIB) $@
-
 -include $(DEPENDS)
 
 clean:
