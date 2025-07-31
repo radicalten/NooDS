@@ -27,7 +27,11 @@ SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
 
-BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
+powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
+powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc mix256.png mix256_png.o
+BIN_OBJECTS := grid512_png.o mix256_png.o
+
+#BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
@@ -43,9 +47,7 @@ export DEPSDIR	:= $(CURDIR)/$(BUILD)
 DEPENDS		:= $(OBJECTS:.o=.d)
 export LD	:= $(CXX)
 
-# powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
-# BIN_OBJECTS := grid512_png.o
-# Add BIN_OBJECTS to your list of objects in the linking target line.
+
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
 # FLAGS    	+= -Werror=implicit-function-declaration
@@ -78,7 +80,7 @@ $(TARGET).elf: $(OBJECTS)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.png.o: %.png
-	$(CXX) -c -o $@ $<
+	$(bin2o)
 
 -include $(DEPENDS)
 
