@@ -50,6 +50,7 @@ DEFINES  	+=
 CFLAGS 		+= $(FLAGS) $(DEFINES) $(INCLUDES) 
 CXXFLAGS	:= $(CFLAGS)
 export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
+-Wl,-Map,$(notdir $@).map \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
