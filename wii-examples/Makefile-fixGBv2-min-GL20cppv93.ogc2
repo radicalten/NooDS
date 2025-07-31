@@ -88,7 +88,7 @@ $(TARGET).elf: $(OBJECTS) textures.a
 # Static library target
 textures.a: $(foreach dir,$(DATA),$(wildcard $(dir)/*.png)) $(SRC) $(HDR)
 	$(AR) rcs $@ $^
-	$(RANLIB) $@
+	$(RANLIB) textures.a
 
 -include $(DEPENDS)
 
