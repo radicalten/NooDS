@@ -77,8 +77,8 @@ $(TARGET).elf: $(OBJECTS)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc mix256.png mix256_png.o
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc common/grid512.png common/grid512_png.o
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc common/mix256.png common/mix256_png.o
 
 -include $(DEPENDS)
 
