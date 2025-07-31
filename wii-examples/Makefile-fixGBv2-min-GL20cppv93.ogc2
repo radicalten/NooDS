@@ -86,9 +86,9 @@ $(TARGET).elf: $(OBJECTS) textures.a
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 # Static library target
-textures.a: $(foreach dir,$(DATA),$(wildcard $(dir)/*.png)) $(SRC) $(HDR)
+textures.a: $(BIN_OBJECTS)
 	$(AR) rcs $@ $^
-	$(RANLIB) textures.a
+	$(RANLIB) $@
 
 -include $(DEPENDS)
 
