@@ -55,6 +55,10 @@ static bool done = false;
 static bool clip_enabled = false;
 static bool stencil_enabled = false;
 
+extern const unsigned char _binary_grid512_png_start[];
+extern const unsigned char _binary_grid512_png_end[];
+extern const unsigned char _binary_grid512_png_size[];
+
 static const char *vertex_shader =
 "#version 120\n"
 "\n"
