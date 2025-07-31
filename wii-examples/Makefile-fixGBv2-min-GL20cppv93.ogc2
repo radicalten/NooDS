@@ -7,6 +7,8 @@ export DEVKITPRO:= /opt/devkitpro
 export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 #CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
+#AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
+#BIN20 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 DEBUG   	:= 1
@@ -33,7 +35,7 @@ C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
 S_OBJECTS	:= $(SFILES:.S=.o)
-export OBJECTS 	:= $(CPP_OBJECTS) $(C_OBJECTS) 
+export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 endif 
@@ -67,8 +69,8 @@ $(BUILD):
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS) $(BIN_OBJECTS)
-	$(CXX) -o $@  $^ $(LDFLAGS)
+$(TARGET).elf: $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
