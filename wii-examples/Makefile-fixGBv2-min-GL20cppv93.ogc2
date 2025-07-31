@@ -8,7 +8,7 @@ export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 #CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
-RANLIB 		:= powerpc-eabi-ranlib
+RANLIB 		:= $(DEVKITPPC)/bin/powerpc-eabi-ranlib
 #BIN2O 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
