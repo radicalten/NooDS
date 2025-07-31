@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
  #define DECLARE_EMBEDDED_FILE(basename) \
-     extern char _binary_ ## basename ## _start[], _binary_ ## basename ## _end[]
+     extern const char _binary_ ## basename ## _start[], _binary_ ## basename ## _end[]
 
  DECLARE_EMBEDDED_FILE(grid512_png);
  DECLARE_EMBEDDED_FILE(mix256_png);
