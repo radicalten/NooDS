@@ -80,7 +80,7 @@ $(TARGET).elf: $(OBJECTS)
 
 %.png.o: %.png
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
-	$(CXX) -z noexecstack --relocatable --format binary --output $@ $<
+	$(CXX) -z noexecstack -mrelocatable -Wformat binary --output $@ $<
 
 -include $(DEPENDS)
 
