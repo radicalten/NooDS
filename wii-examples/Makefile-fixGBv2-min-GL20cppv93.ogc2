@@ -7,7 +7,7 @@ export DEVKITPRO:= /opt/devkitpro
 export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 #CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
-#AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
+AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
 #BIN2O 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
@@ -28,7 +28,10 @@ sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
-	
+
+# Sources
+SRC := textures.c
+HDR := textures.h
 	
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
@@ -80,7 +83,10 @@ $(TARGET).elf: $(OBJECTS)
 
 %.png.o: %.png
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
-	$(CXX) -z noexecstack -mrelocatable -Wformat binary --output $@ $<
+
+# Static library target
+textures.a: $(BINFILES) $(SRC) $(HDR)
+	$(AR) rcs $@ $(BINFILES) $(SRC)
 
 -include $(DEPENDS)
 
