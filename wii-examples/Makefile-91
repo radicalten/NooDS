@@ -41,8 +41,8 @@ LIB := -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -l
 #---------------------------------------------------------------------------------
 LIBDIRS	:= -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
--L/opt/devkitpro/portlibs/ppc/lib \
--L$(LIBOGC_LIB)
+-L/opt/devkitpro/portlibs/ppc/lib 
+
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
