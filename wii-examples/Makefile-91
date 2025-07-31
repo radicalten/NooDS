@@ -4,9 +4,6 @@
 .SUFFIXES:
 #---------------------------------------------------------------------------------
 
-export DEVKITPRO:= /opt/devkitpro
-export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
-
 include /opt/devkitpro/libogc2/wii_rules
 
 #---------------------------------------------------------------------------------
