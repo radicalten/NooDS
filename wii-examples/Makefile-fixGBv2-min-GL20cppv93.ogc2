@@ -33,7 +33,7 @@ C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
 S_OBJECTS	:= $(SFILES:.S=.o)
-export OBJECTS 	:= $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS) $(S_OBJECTS)
+export OBJECTS 	:= $(CPP_OBJECTS) $(C_OBJECTS) 
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 endif 
@@ -67,7 +67,7 @@ $(BUILD):
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS)
+$(TARGET).elf: $(OBJECTS) $(BIN_OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
