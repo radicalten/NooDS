@@ -68,7 +68,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
 $(TARGET).elf: $(OBJECTS) $(BIN_OBJECTS)
-	$(CXX) $^ -o $@ $(LDFLAGS)
+	$(CXX) -o $@  $^ $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
