@@ -59,6 +59,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
+all: $(TARGET).dol
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv92.ogc2
