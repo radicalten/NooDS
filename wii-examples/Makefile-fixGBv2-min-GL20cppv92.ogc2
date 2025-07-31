@@ -33,6 +33,9 @@ S_OBJECTS 	:= $(sFILES:.s=.o)
 S_OBJECTS	:= $(SFILES:.S=.o)
 export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
 
+ifneq ($(BUILD),$(notdir $(CURDIR)))
+endif 
+
 export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export DEPSDIR	:= $(CURDIR)/$(BUILD)
