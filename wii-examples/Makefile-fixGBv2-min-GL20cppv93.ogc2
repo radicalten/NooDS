@@ -33,7 +33,7 @@ C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
 S_OBJECTS	:= $(SFILES:.S=.o)
-export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
+export OBJECTS 	:= $(CPP_OBJECTS) $(C_OBJECTS) $(BIN_OBJECTS) $(S_OBJECTS)
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 endif 
