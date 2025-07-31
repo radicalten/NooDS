@@ -26,11 +26,9 @@ sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
-
-powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
-powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc mix256.png mix256_png.o
+	
+	
 BIN_OBJECTS := grid512_png.o mix256_png.o
-
 #BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
@@ -78,6 +76,9 @@ $(TARGET).elf: $(OBJECTS)
 
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
+	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc mix256.png mix256_png.o
 
 %.png.o: %.png
 	$(bin2o)
