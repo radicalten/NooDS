@@ -30,10 +30,6 @@ SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
 
-# Sources
-SRC := common/textures.c
-HDR := common/textures.h
-	
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
@@ -86,7 +82,7 @@ $(TARGET).elf: $(OBJECTS) textures.a
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 # Static library target
-textures.a: $(BIN_OBJECTS)
+textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs $@ $^
 	$(RANLIB) $@
 
