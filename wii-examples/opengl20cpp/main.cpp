@@ -34,8 +34,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #define GL_GLEXT_PROTOTYPES
 
 #include "../common/textures.h"
-#include "../common/grid512_png.h"
-#include "../common/mix256_png.h"
+#include "../data/grid512_png.h"
+#include "../data/mix256_png.h"
 
 #if defined(__wii__) || defined(__gamecube__)
 #include "opengx_shaders.h"
