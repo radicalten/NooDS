@@ -28,8 +28,7 @@ BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
 	
 	
-BIN_OBJECTS := grid512_png.o mix256_png.o
-#BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
