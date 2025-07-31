@@ -72,7 +72,7 @@ $(BUILD):
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS)
+$(TARGET).elf: $(OBJECTS) textures.a
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
@@ -91,7 +91,7 @@ textures.a: $(BINFILES) $(SRC) $(HDR)
 -include $(DEPENDS)
 
 clean:
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol $(OBJECTS) textures.a
 
 .PHONY: $(BUILD) clean
 
