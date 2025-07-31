@@ -1,0 +1,75 @@
+.SUFFIXES:
+
+include /opt/devkitpro/libogc2/wii_rules
+
+export DEVKITPRO:= /opt/devkitpro
+export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
+#CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
+#CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
+#MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
+
+DEBUG   	:= 1
+ifeq ($(DEBUG),1)
+FLAGS 		+= -O0 -g
+else
+FLAGS   	+= -O3
+endif
+
+export TARGET 	:= $(notdir $(CURDIR))
+SRCDIR		:= opengl20cpp common
+DATA 		:= common
+C_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.c)))
+CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
+sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
+BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
+export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common
+
+BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
+C_OBJECTS 	:= $(C_SOURCES:.c=.o)
+CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
+S_OBJECTS 	:= $(sFILES:.s=.o) 
+S_OBJECTS	:= $(SFILES:.S=.o)
+export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
+
+export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
+				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export LD	:= $(CXX)
+
+# powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
+# BIN_OBJECTS := grid512_png.o
+# Add BIN_OBJECTS to your list of objects in the linking target line.
+
+FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
+# FLAGS    	+= -Werror=implicit-function-declaration
+DEFINES  	+=
+
+CFLAGS 		+= $(FLAGS) $(DEFINES) $(INCLUDES) 
+CXXFLAGS	:= $(CFLAGS)
+export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
+-L$(DEVKITPRO)/libogc2/lib/wii \
+-L/opt/devkitpro/portlibs/wii/lib \
+-L/opt/devkitpro/portlibs/ppc/lib \
+-lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+
+
+$(TARGET).dol: $(TARGET).elf
+	$(elf2dol) $< $@
+
+$(TARGET).elf: $(OBJECTS)
+	$(CXX) $^ -o $@ $(LDFLAGS)
+
+%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+%.o: %.c
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+%.png.o: %.png
+	$(bin2o)
+
+clean:
+	@rm -fr $(OBJECTS) $(TARGET).elf $(TARGET).dol
+
+.PHONY: $(BUILD) clean
+
