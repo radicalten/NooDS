@@ -35,6 +35,8 @@ export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
 
 export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export DEPSDIR	:= $(CURDIR)/$(BUILD)
+DEPENDS		:= $(OBJECTS:.o=.d)
 export LD	:= $(CXX)
 
 # powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc grid512.png grid512_png.o
@@ -71,6 +73,8 @@ $(TARGET).elf: $(OBJECTS)
 
 %.png.o: %.png
 	$(bin2o)
+
+-include $(DEPENDS)
 
 clean:
 	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol
