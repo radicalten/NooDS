@@ -64,7 +64,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -L/opt/devkitpro/devkitPPC/lib \
 -L. \
--ltextures -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+-llibtextures -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol
 $(BUILD):
@@ -87,7 +87,7 @@ $(TARGET).elf: $(OBJECTS) textures.a
 	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 # Static library target
-textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
+libtextures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs $@ $^ 
 	$(RANLIB) $@
 	@echo "Makefile directory: $(mkfile_dir)"
