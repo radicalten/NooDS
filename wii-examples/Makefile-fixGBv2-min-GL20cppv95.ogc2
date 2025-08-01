@@ -32,6 +32,7 @@ BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
 export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
 
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
+BIN_OBJECTS2 	:= $(basename $(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
 CPP_OBJECTS 	:= $(CPP_SOURCES:.cpp=.o)
 S_OBJECTS 	:= $(sFILES:.s=.o) 
@@ -86,10 +87,8 @@ $(TARGET).elf: $(OBJECTS) textures.a
 
 
 %.png.o: %.png
-	cp $< ./$(notdir $<)
-	cp /__w/NooDS/NooDS/wii-examples/common/mix256.png ./mix256.png
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc ./grid512.png ./grid512.png.o
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc ./mix256.png ./mix256.png.o
+	@echo $(BIN_OBJECTS2)
+	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 # Static library target
