@@ -70,11 +70,11 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 
 all: $(TARGET).dol
 
-$(TARGET).dol: $(TARGET).elf
-	$(elf2dol) $< $@
-
 $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
+
+$(TARGET).dol: $(TARGET).elf
+	$(elf2dol) $< $@
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
