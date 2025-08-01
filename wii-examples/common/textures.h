@@ -36,14 +36,14 @@ extern "C" {
 #endif
 
  #define DECLARE_EMBEDDED_FILE(basename) \
-     extern const char _binary_ ## basename ## _start[], _binary_ ## basename ## _end[]
+     extern const char _binary__ ## basename ## _start[], _binary__ ## basename ## _end[]
 
  DECLARE_EMBEDDED_FILE(grid512_png);
  DECLARE_EMBEDDED_FILE(mix256_png);
 
 #define textures_load(basename) \
-    textures_load_range(_binary_ ## basename ## _start, \
-                        _binary_ ## basename ## _end)
+    textures_load_range(_binary__ ## basename ## _start, \
+                        _binary__ ## basename ## _end)
 
 GLuint textures_load_range(const char *start, const char *end);
 
