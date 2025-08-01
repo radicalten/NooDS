@@ -105,7 +105,7 @@ textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 -include $(DEPENDS)
 
 clean:
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol $(OBJECTS) textures.a
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) textures.a
 
 .PHONY: $(BUILD) clean
 
