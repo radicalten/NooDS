@@ -61,9 +61,6 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L$(DEVKITPRO)/libogc2/lib/wii \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
--L/opt/devkitpro/devkitPPC/lib \
--L. \
--L$(TMPDIR) \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol
@@ -85,17 +82,6 @@ $(TARGET).elf: $(OBJECTS)
 	mkdir -p $(TMPDIR) 
 	ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
-	#$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
-
-# Static library target
-textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
-	$(AR) rcs $@ $^ 
-	$(RANLIB) $@
-	@echo "Makefile directory: $(mkfile_dir)"
-	@echo "Object file paths: $(OBJECTS)"
-	@echo "Build path: $(BUILD)"
-	@echo "BINFILES: $(BINFILES)" 
-	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 clean:
 	@rm -fr $(TARGET).elf $(TARGET).dol
