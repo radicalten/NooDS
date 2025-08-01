@@ -87,10 +87,11 @@ $(TARGET).elf: $(OBJECTS) textures.a
 
 # Static library target
 textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
-	$(AR) rcs $@ $^
+	$(AR) rcs $@ $^ 
 	$(RANLIB) $@
 	@echo "Makefile directory: $(mkfile_dir)"
 	@echo "Object file paths: $(OBJECTS)"
+	@echo $(BUILD)
 
 -include $(DEPENDS)
 
