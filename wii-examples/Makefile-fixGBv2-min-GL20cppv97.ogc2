@@ -43,8 +43,6 @@ endif
 
 export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
-export DEPSDIR	:= $(CURDIR)/$(BUILD)
-DEPENDS		:= $(OBJECTS:.o=.d)
 export LD	:= $(CXX)
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -99,10 +97,8 @@ textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	@echo "BINFILES: $(BINFILES)" 
 	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
--include $(DEPENDS)
-
 clean:
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) textures.a
+	@rm -fr $(TARGET).elf $(TARGET).dol
 
-.PHONY: $(BUILD) clean
+.PHONY: test clean
 
