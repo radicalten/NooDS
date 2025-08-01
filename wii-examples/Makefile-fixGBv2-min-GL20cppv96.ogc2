@@ -20,7 +20,7 @@ else
 FLAGS   	+= -O3
 endif
 
-export TARGET 	:= gl20
+export TARGET 	:= $(notdir $(CURDIR))
 BUILD 		:= build
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
@@ -69,9 +69,6 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -l:textures.a -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol
-$(BUILD):
-	@[ -d $@ ] || mkdir -p $@
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv96.ogc2
 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
