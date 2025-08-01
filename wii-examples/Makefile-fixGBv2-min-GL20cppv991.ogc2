@@ -62,6 +62,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/devkitPPC/lib \
 -L. \
 -L$(TMPDIR) \
+-L../buildtools \
 -l:textures.a -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol 
