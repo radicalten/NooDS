@@ -10,6 +10,7 @@ export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
 RANLIB 		:= $(DEVKITPPC)/bin/powerpc-eabi-ranlib
 #BIN2O 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
+#DUMP 		:= $(DEVKITPPC)/bin/powerpc-eabi-objdump
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
 
 DEBUG   	:= 1
@@ -84,7 +85,7 @@ $(TARGET).elf: $(OBJECTS) textures.a
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.png.o: %.png
-	powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
+	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
 
 # Static library target
 textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
