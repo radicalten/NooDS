@@ -62,7 +62,7 @@ $(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(TARGET).dol: $(TARGET).elf
-	$(elf2dol) $< $@
+	$(ELF2DOL) $< $@
 
 %.o: %.cpp
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
