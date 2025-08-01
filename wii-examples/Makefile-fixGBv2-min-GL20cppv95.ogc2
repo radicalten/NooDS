@@ -50,7 +50,7 @@ export LD	:= $(CXX)
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
-
+TMPDIR := tmp_objcopy
     
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
@@ -87,7 +87,8 @@ $(TARGET).elf: $(OBJECTS) textures.a
 
 
 %.png.o: %.png
-	mkdir -p $(TMPDIR) ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
+	mkdir -p $(TMPDIR) 
+	ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
 	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
