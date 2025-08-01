@@ -74,7 +74,7 @@ $(BUILD):
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS) textures.a $(BINFILES)
+$(TARGET).elf: $(OBJECTS) textures.a
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
