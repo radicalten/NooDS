@@ -87,7 +87,8 @@ $(TARGET).elf: $(OBJECTS) textures.a
 
 %.png.o: %.png
 	cp $< $(notdir $<)
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc
+	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc ./grid512.png ./grid512.png.o
+	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc ./mix256.png ./mix256.png.o
 	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 # Static library target
