@@ -89,6 +89,12 @@ $(TARGET).elf: $(OBJECTS) textures.a
 %.png.o: %.png
 	@echo $(BIN_OBJECTS2)
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $< $@
+	--redefine-sym 
+	_binary____w_NooDS_NooDS_wii_examples_common_grid512_png_start=_binary_grid512_png_start 
+	--redefine-sym 
+	_binary____w_NooDS_NooDS_wii_examples_common_grid512_png_end=_binary_grid512_png_end 
+	--redefine-sym 
+	_binary____w_NooDS_NooDS_wii_examples_common_grid512_png_end=_binary_grid512_png_size 
 	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 # Static library target
