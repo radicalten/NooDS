@@ -93,6 +93,7 @@ textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	@echo "Makefile directory: $(mkfile_dir)"
 	@echo "Object file paths: $(OBJECTS)"
 	@echo "Build path: $(BUILD)"
+	@echo "BINFILES: $(BINFILES)" 
 
 -include $(DEPENDS)
 
