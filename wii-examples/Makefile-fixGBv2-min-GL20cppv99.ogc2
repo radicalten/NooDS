@@ -6,8 +6,8 @@ export DEVKITPRO:= /opt/devkitpro
 export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
 CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
-#AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
-#RANLIB 	:= $(DEVKITPPC)/bin/powerpc-eabi-ranlib
+AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
+RANLIB 		:= $(DEVKITPPC)/bin/powerpc-eabi-ranlib
 #BIN2O 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 #DUMP 		:= $(DEVKITPPC)/bin/powerpc-eabi-objdump
 #MACHDEP 	:= -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float -fsigned-char -ffast-math -funroll-loops -fauto-inc-dec -finline-functions
@@ -43,6 +43,9 @@ export LD	:= $(CXX)
 TMPDIR 		:= _
 ELF2DOL     	:= elf2dol
 BIN2O 		:= bin2o
+
+#mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+#mkfile_dir := $(dir $(mkfile_path))
     
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
@@ -83,6 +86,9 @@ $(TARGET).elf: $(OBJECTS) textures.a
 textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs $@ $^ 
 	$(RANLIB) $@
+	#@echo "Makefile directory: $(mkfile_dir)"
+	#@echo "Object file paths: $(OBJECTS)"
+	#$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 clean:
 	@rm -fr $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) textures.a
