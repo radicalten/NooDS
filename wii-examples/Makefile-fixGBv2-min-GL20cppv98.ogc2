@@ -42,6 +42,7 @@ export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 export LD	:= $(CXX)
 TMPDIR 		:= _
 ELF2DOL     	:= elf2dol
+BIN2O 		:= bin2o
     
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
@@ -59,9 +60,11 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 
 all: $(TARGET).dol 
 $(TARGET).dol: $(TARGET).elf
+
 	$(ELF2DOL) $< $@
 
 $(TARGET).elf: $(OBJECTS)
+	$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
@@ -71,9 +74,10 @@ $(TARGET).elf: $(OBJECTS)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 %.png.o: %.png
-	mkdir -p $(TMPDIR) 
-	ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
-	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
+	$(BIN2O)
+	#mkdir -p $(TMPDIR) 
+	#ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
+	#$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
 
 clean:
 	@rm -fr $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
