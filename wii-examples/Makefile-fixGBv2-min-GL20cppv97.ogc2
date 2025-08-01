@@ -29,7 +29,7 @@ CPP_SOURCES 	:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:= $(foreach dir,$(SRCDIR),$(notdir $(wildcard $(dir)/*.S)))
 BINFILES 	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
-export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common -I$(CURDIR)/$(BUILD)
+export INCLUDES := -I$(DEVKITPRO)/libogc2/include -I/opt/devkitpro/portlibs/wii/include -I/opt/devkitpro/portlibs/ppc/include -I../common 
 
 BIN_OBJECTS 	:= $(addsuffix .o,$(BINFILES))
 C_OBJECTS 	:= $(C_SOURCES:.c=.o)
@@ -54,7 +54,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-all: $(TARGET).dol
+all: $(TARGET).dol $(TARGET).elf $(OBJECTS)
 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
@@ -68,14 +68,13 @@ $(TARGET).elf: $(OBJECTS)
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-
 %.png.o: %.png
 	mkdir -p $(TMPDIR) 
 	ln -sf $(abspath $<) $(TMPDIR)/$(notdir $<)
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
 
 clean:
-	@rm -fr $(TARGET).elf $(TARGET).dol
+	@rm -fr $(TARGET).elf $(TARGET).dol $(OBJECTS)
 
 .PHONY: test clean
 
