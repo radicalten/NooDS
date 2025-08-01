@@ -74,7 +74,7 @@ $(BUILD):
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS) textures.a _binary_grid512_png_end
+$(TARGET).elf: $(OBJECTS) textures.a $(BINFILES)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
