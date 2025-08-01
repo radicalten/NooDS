@@ -5,7 +5,7 @@ include /opt/devkitpro/libogc2/wii_rules
 export DEVKITPRO:= /opt/devkitpro
 export DEVKITPPC:= $(DEVKITPRO)/devkitPPC
 #CC 		:= $(DEVKITPPC)/bin/powerpc-eabi-gcc
-#CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
+CXX 		:= $(DEVKITPPC)/bin/powerpc-eabi-g++
 #AR 		:= $(DEVKITPPC)/bin/powerpc-eabi-ar
 #RANLIB 	:= $(DEVKITPPC)/bin/powerpc-eabi-ranlib
 #BIN2O 		:= $(DEVKITPPC)/bin/powerpc-eabi-objcopy
@@ -40,7 +40,8 @@ export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
 export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 export LD	:= $(CXX)
-TMPDIR := _
+TMPDIR 		:= _
+ELF2DOL     	:= elf2dol
     
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
