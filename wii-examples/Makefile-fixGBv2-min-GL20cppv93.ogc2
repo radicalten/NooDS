@@ -63,7 +63,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/wii/lib \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -L/opt/devkitpro/devkitPPC/lib \
--L/build \
+-L. \
 -ltextures -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
 all: $(TARGET).dol
