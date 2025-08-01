@@ -20,7 +20,7 @@ else
 FLAGS   	+= -O3
 endif
 
-export TARGET 	:= $(notdir $(CURDIR))
+export TARGET 	:= gl20
 BUILD 		:= build
 SRCDIR		:= opengl20cpp common
 DATA 		:= common
