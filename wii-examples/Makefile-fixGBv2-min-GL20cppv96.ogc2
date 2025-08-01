@@ -73,7 +73,7 @@ all: $(TARGET).dol
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
-$(TARGET).elf: $(OBJECTS) textures.a
+$(TARGET).elf: $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cpp
