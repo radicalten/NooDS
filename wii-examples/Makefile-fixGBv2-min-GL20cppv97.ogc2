@@ -55,8 +55,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 -L/opt/devkitpro/portlibs/ppc/lib \
 -lSDL2main -lSDL2 -lGLU -lglm -lopengx -lpng -lz -laesnd -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 
-all: $(TARGET).dol $(TARGET).elf $(OBJECTS)
-
+all: $(TARGET).dol 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
 
