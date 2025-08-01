@@ -71,7 +71,7 @@ export LDFLAGS 	+= $(CFLAGS) $(MACHDEP) \
 all: $(TARGET).dol
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv92.ogc2
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile-fixGBv2-min-GL20cppv96.ogc2
 
 $(TARGET).dol: $(TARGET).elf
 	$(elf2dol) $< $@
