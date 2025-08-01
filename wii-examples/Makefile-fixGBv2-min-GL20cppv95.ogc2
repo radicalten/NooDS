@@ -50,7 +50,7 @@ export LD	:= $(CXX)
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
-TMPDIR := 
+TMPDIR := _
     
 
 FLAGS    	+= -Wall -Wextra -ffast-math -fpermissive
