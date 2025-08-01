@@ -86,9 +86,9 @@ $(TARGET).elf: $(OBJECTS) textures.a
 textures.a: $(BIN_OBJECTS) $(C_OBJECTS)
 	$(AR) rcs $@ $^ 
 	$(RANLIB) $@
-	#@echo "Makefile directory: $(mkfile_dir)"
-	#@echo "Object file paths: $(OBJECTS)"
-	#$(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
+	# @echo "Makefile directory: $(mkfile_dir)"
+	# @echo "Object file paths: $(OBJECTS)"
+	# $(DEVKITPPC)/bin/powerpc-eabi-objdump -t $(OBJECTS)
 
 clean:
 	@rm -fr $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS) textures.a
