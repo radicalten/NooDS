@@ -39,6 +39,7 @@ export OBJECTS 	:= $(BIN_OBJECTS) $(CPP_OBJECTS) $(C_OBJECTS) $(S_OBJECTS)
 
 export VPATH	:= $(foreach dir,$(SRCDIR),$(CURDIR)/$(dir)) \
 				$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export LD	:= $(CXX)
 TMPDIR := _
     
 
@@ -74,7 +75,7 @@ $(TARGET).dol: $(TARGET).elf
 	$(DEVKITPPC)/bin/powerpc-eabi-objcopy -I binary -O elf32-powerpc -B powerpc $(TMPDIR)/$(notdir $<) $@
 
 clean:
-	@rm -fr $(TARGET).elf $(TARGET).dol $(OBJECTS)
+	@rm -fr $(TARGET).elf $(TARGET).dol $(TARGET).map $(OBJECTS)
 
 .PHONY: test clean
 
